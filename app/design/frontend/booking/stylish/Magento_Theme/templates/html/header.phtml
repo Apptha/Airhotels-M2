@@ -1,0 +1,435 @@
+<?php
+/**
+ * Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php
+
+/**
+ * Get current customer data
+ *
+ * @var object $hostData
+ */
+?>
+<?php
+$currencyCount = $this->getLayout()->createBlock('Magento\Directory\Block\Currency')->getCurrencyCount();
+$storeCount = count($this->getLayout()->createBlock('Magento\Store\Block\Switcher')-> getStores());
+$headerMessage = array();
+$messageStatus = $this->getUnreadMessageCount(); 
+$headerMessage = $messageStatus['message'];
+$searchTextField = $this->getRequest ()->getParam ( 'q' );
+$searchFromDate = $this->getRequest ()->getParam ( 'from' );
+$searchToDate = $this->getRequest ()->getParam ( 'to' );
+$searchNumberOfGuest = $this->getRequest ()->getParam ( 'guests' );
+$currentUrl = $this->getUrl ( '*/*/*', [
+          '_current' => true,
+          '_use_rewrite' => true
+] );
+$searchPageUrl = $block->getBaseUrl () . 'booking/listing/search/';
+$currentUrl = substr ( $currentUrl, 0, strpos ( $currentUrl, 'search' ) );
+$currentUrl = $currentUrl.'search/';
+
+if ($currentUrl == $searchPageUrl) {
+     ?>
+<div class="advanced-search" id="advance-filter">
+       <div class="panels-anywhere">
+               <input href="#advance-search-form"  id="advance-searchTextField-popup"
+                   class="searchmainpage  "
+                    placeholder="<?php echo __('Where do you want to go?'); ?>"
+                    value="<?php if(isset($searchTextField)  ){ echo $searchTextField; }else{ echo __('Where do you want to go?'); } ?>"
+                    autocomplete="off" />
+          </div>
+
+     </div>   
+ <div class="advanced-search" id="advance-search-form">
+     <form data-mage-init='{"validation": {}}' id="home_page_search"
+          action="<?php echo $block->getBaseUrl().'booking/listing/search/'; ?>"
+          method="get" enctype="multipart/form-data" name="home_page_search">
+          <div class="panels-anywhere">
+               <input data-validate='{"required":true}' id="searchTextField"
+                    name="q" type="text" class="searchmainpage  "
+                    placeholder="<?php echo __('Where do you want to go?'); ?>"
+                    value="<?php if(isset($searchTextField)  ){ echo $searchTextField; }else{ echo __('Where do you want to go?'); } ?>"
+                    autocomplete="off" />
+          </div>
+          <div class="panels-anytime">
+               <div class="datarangeinput">
+                    <span class="daterangespan"></span>
+                    <div class='date_input'>
+                         <div class="date_checkin">
+                              <input readonly name="from" id="<?php echo !isset($searchToDate)? "checkin_before":(($searchFromDate != "Check In") ?"checkin_after":"checkin_before");?>" class="checkin_date"
+                                   value="<?php if(isset($searchFromDate)  ){ echo $searchFromDate; }else{ echo __('Check In'); } ?>" onkeydown="return false" />
+                         </div>
+                         <div class="date_checkout">
+                              <input readonly name="to" id="<?php echo !isset($searchToDate) ?"checkout_before":(($searchToDate != "Check Out")?"checkout_after":"checkout_before");?>"  class="checkout_date"
+                                   value="<?php if(isset($searchToDate)  ){ echo $searchToDate; }else{ echo __('Check Out'); } ?>" onkeydown="return false" />
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <div class="panels-guest">
+               <div class="guests">
+                    <div class="input-select">
+                         <select data-validate='{"required":true}' id="guests"
+                              name="guests">
+                                  <?php for($i=1;$i<=12;$i++): ?>
+                                      <option value="<?php echo $i; ?>"><?php
+          if ($i == 1) {
+               echo $i . ' ';
+               echo __ ( 'Guest' );
+          } else {
+               if ($i == 12) {
+                    echo $i . '+' . ' ';
+                    echo __ ( 'Guests' );
+               } else {
+                    echo $i . ' ';
+                    echo __ ( 'Guests' );
+               }
+          }
+          ?></option>
+                                 <?php endfor; ?>
+                                                  </select>
+                    </div>
+               </div>
+          </div>
+          <div class="submit-btn">
+            <input type="submit" value="Search" name="Search"/>
+
+          </div>
+          <div id="map_canvas_top"></div>
+     </form>
+</div>
+<script type="text/javascript">
+require([
+"jquery",
+"jquery/ui",
+"moment",
+"daterangepicker"
+], function($){
+  $('#advance-searchTextField-popup').fancybox({
+   'afterClose': function() {
+                              $(document.body).removeClass('menu-style');
+                            }
+ });
+  $("#advance-searchTextField-popup").click(function(){
+       $(document.body).addClass('menu-style');
+   });
+});
+</script>
+
+<?php } ?>
+<?php
+
+$customerData = $this->getCustomerData ();
+if ($customerData->isLoggedIn ()) {  ?>
+<div class="right-navigation">
+     <ul class="sigin-navigation-list">
+          <li class="mobile-logo"><a href="<?php echo $this->getUrl() ?>"><img src='<?php echo $this->getViewFileUrl('images/home-logo.png'); ?>' alt="Airhotels" /></a></li>
+          <li class="ah-currency">
+            <div class="lang-price-select">
+            <?php if($storeCount > 1) { ?>
+              <div class="lang">
+                <?php echo $this->getLayout()->createBlock('Magento\Store\Block\Switcher')->setTemplate('switch/languages.phtml')->toHtml(); ?>
+              </div>
+               <?php }?> 
+               <?php if ($currencyCount >1 ) {?>
+              <div class="price">
+                <?php echo $this->getLayout()->createBlock('Magento\Directory\Block\Currency')->setTemplate('currency.phtml')->toHtml(); ?>
+              </div>
+              <?php } ?>
+              </div>
+          </li>
+          <li>
+                <div class="top-dropdown-menu">
+                    <span class="desktop-visible" tabindex="1"  onclick="return false"><svg class="ic-message"><use class="ic-homemsg" xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#notification-bell'); ?>'></svg>
+                    <span class="ah-count"><?php echo ''. $messageStatus['messagecount'] ; ?></span>
+                    </span>
+                    <div tabindex="1" onclick="return false"></div>
+                
+                    <?php  $headercount = ($messageStatus['messagecount'] > 3)? $headercount = 3: $headercount = $messageStatus['messagecount']; 
+                      if($messageStatus['messagecount'] != 0) {
+                      ?>
+                    <ul><?php for($i= 0; $i < $headercount; $i++ ){
+                      $customer = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getCustomer($headerMessage[$i]["sender_id"]);
+                      $inboxMsgornot = ($headerMessage[$i]['flag'] == 1) ? $headerMessage[$i]['id'] : $headerMessage[$i]['message_id'] ;
+                     ?>
+                      <li>
+                          <div class="ah-header-message" onclick=" openMessage(1,'<?php echo $inboxMsgornot; ?>', 1 )" >
+                               <h4> <?php echo $customer->getFirstname(); ?> </h4>
+                               <p> <?php echo (strlen($headerMessage[$i]['message'])>30)? substr($headerMessage[$i]['message'],0,30) .".." : $headerMessage[$i]['message'];   ?> </p>                          
+                          </div>
+                      </li> 
+                      <?php  
+                      } 
+                        if( $messageStatus['messagecount'] > 3) { ?>
+
+                          <li>
+                              <div class="ah-header-message">
+                                  <a href="<?php echo $this->getUrl('airhotels/message/inbox') ?>"><?php echo __('Read More')  ?>  </a>    
+                              </div>
+                          </li>
+                        <?php }  ?>
+                  </ul>
+                  <?php } ?>
+                  </div>
+              
+                  <div class="desktop-hidden mobile-visible">
+                        <span><?php echo __('Message') ?></span>
+                        <svg class="ic-message"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#notification-bell'); ?>'></svg>
+                        <span class="ah-count"><?php echo ''.$messageStatus['messagecount']; ?></span>
+                     </div>
+            </li>
+                  <li class="desktop-hidden">
+                    <a href="<?php echo $this->getListingUrl() ?>">
+                        <?php echo __('List An Experience') ?>
+                        <svg class="ic-addlisting"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#list'); ?>'></svg>
+                    </a>
+                  </li>
+                  <li class="desktop-hidden">
+                      <a href="<?php echo $this->getAccountDashboard(); ?>">
+                          <?php echo __('My Account'); ?>
+                          <svg class="ic-login"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#login'); ?>'></svg>
+                      </a>
+                  </li>
+                  <li class="desktop-hidden">
+                      <a href="<?php echo $this->getUrl('customer/account/logout');; ?>">
+                          <?php echo __('Sign Out')  ?>
+                          <svg class="ic-register"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#pencil'); ?>'></svg>
+                      </a>
+                  </li>
+          <li>
+              <div class="top-dropdown-menu">
+                <span tabindex="0" onclick="return true"><svg class="ic-account"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#userimg'); ?>'></svg></span>
+                <div tabindex="0" onclick="return true"></div>
+                <ul>
+                  <li>
+                    <a href="<?php echo $this->getListingUrl() ?>">
+                        <?php echo __('List An Experience') ?>
+                        <svg class="ic-addlisting"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#list'); ?>'></svg>
+                    </a>
+                  </li>
+                  <li>
+                      <a href="<?php echo $this->getAccountDashboard(); ?>">
+                          <?php echo __('My Account'); ?>
+                          <svg class="ic-login"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#login'); ?>'></svg>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="<?php echo $this->getUrl('customer/account/logout');; ?>">
+                          <?php echo __('Sign Out')  ?>
+                          <svg class="ic-register"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#pencil'); ?>'></svg>
+                      </a>
+                  </li>
+                </ul>
+
+                
+
+              </div>
+          </li>
+          <li class="mobile-links"> <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/cmsblock.phtml")->toHtml(); ?></li>
+     </ul>
+</div>
+<?php }else{ ?>
+<div class="right-navigation">
+     <ul class="right-navigation-list" id="myTopnav">
+          <li class="mobile-logo"><a href="<?php echo $this->getUrl() ?>"><img src='<?php echo $this->getViewFileUrl('images/home-logo.png'); ?>' alt="Airhotels" /></a></li>
+          <li class="ah-currency">
+            <div class="lang-price-select">
+            <?php if($storeCount > 1) { ?>
+              <div class="lang">
+                <?php echo $this->getLayout()->createBlock('Magento\Store\Block\Switcher')->setTemplate('switch/languages.phtml')->toHtml(); ?>
+              </div>
+               <?php }?> 
+               <?php if ($currencyCount >1 ) {?>
+              <div class="price">
+                <?php echo $this->getLayout()->createBlock('Magento\Directory\Block\Currency')->setTemplate('currency.phtml')->toHtml(); ?>
+              </div>
+               <?php }?> 
+              </div>
+          </li>
+          <li class="message-beforelogin">
+            <a href="<?php echo $this->getCustomerLogin() ?>">
+                <span><?php echo __('Messages') ?></span>
+
+                     <svg class="ic-message"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#notification-bell'); ?>'></svg>  
+                    </a>
+            </li>
+          <li>
+              <a href="<?php echo $this->getCustomerLogin() ?>">
+                  <?php echo __('Add a Listing ') ?>
+                  <svg class="ic-addlisting"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#list'); ?>'></svg>
+              </a>
+          </li>
+          <li>
+              <a href="<?php echo $this->getCustomerLogin() ?>">
+                  <?php echo __('Sign In') ?>
+                  <svg class="ic-login"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#login'); ?>'></svg>
+              </a>
+          </li>
+          <li>
+              <a href="<?php echo $this->getCustomerSignUp() ?>">
+                  <?php echo __('Sign Up') ?>
+                  <svg class="ic-register"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#pencil'); ?>'></svg>
+              </a>
+          </li>            
+          <li class="mobile-links"> <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/cmsblock.phtml")->toHtml(); ?></li>
+
+
+     </ul>
+</div>
+
+<?php
+}
+?>
+<div class="button">
+        <div id="burger">
+          <div class="click">
+            <span class="<?php echo ($this->getRequest()->getRouteName()=='cms')?'':'inner-menu';?>"></span>
+          </div>
+        </div>
+</div> 
+<script type="text/javascript">
+require([
+"jquery",
+"jquery/ui",
+"moment",
+"daterangepicker"
+], function($){
+
+    $('.date_input').show();
+    $('.datarangeinput').daterangepicker({
+      autoUpdateInput: false,
+      autoApply: true,
+      locale: {
+        format: 'DD MMM YYYY'
+      },
+    });
+  $('.datarangeinput').on('show.daterangepicker', function(ev, picker) {
+  //do something, like clearing an input
+    $('.date_input').show();
+    $('.daterangespan').show();
+    
+  });
+  $('.datarangeinput').on('apply.daterangepicker', function(ev, picker) {
+     //submitting form after applying date
+  document.getElementById("home_page_search").submit();
+});
+$('#guests').on('change', function() {
+     //submitting form after changing guest option
+     document.getElementById("home_page_search").submit();
+  });
+});
+</script>
+<?php if ($currentUrl == $searchPageUrl) {
+     ?>
+<script type="text/javascript">
+    function initialize() {
+        var mapOptions = {
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById('map_canvas_top'),mapOptions);
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.SearchBox(input);
+         google.maps.event.addListener(autocomplete, 'places_changed', function() {
+              document.getElementById("home_page_search").submit();
+         });
+        autocomplete.bindTo('bounds', map);
+        // Autocomplete.
+        function setupClickListener(id, types) {
+            var radioButton = document.getElementById(id);
+            google.maps.event.addDomListener(radioButton, 'click', function() {
+                autocomplete.setTypes(types);
+            });
+        }
+    }
+    
+    google.maps.event.addDomListener(window, 'load', initialize);    
+</script>
+<?php } ?>
+
+<script type="text/javascript">
+require([
+"jquery",
+"jquery/ui",
+], function($){
+ var $listMenu = $('.right-navigation ul li');
+      $('.click').click(function(){
+          $('#burger').toggleClass('active');
+          $('.page-wrapper').toggleClass('menu_open');
+          if ($('#burger').hasClass('active')) {
+            $(document.body).addClass('menu-style');
+             $listMenu.show();
+              setTimeout(function(){  
+                $listMenu.css('opacity','1');
+                $listMenu.css('transform','translateX(0px)');
+              }, 200);
+          } else {
+              $listMenu.css('opacity','0');
+              $listMenu.css('transform','translateX(-40px)');
+              $(document.body).removeClass('menu-style');
+              setTimeout(function(){  
+                $listMenu.hide();
+              }, 500);
+          }
+          return false;
+      });
+      });
+</script>
+<script type="text/javascript">
+   require([
+  "jquery",
+  "jquery/ui"
+  ], function($){
+   var widthWindow =$(document).width();
+   //alert(widthWindow);
+    
+      $('.ic-maplocation').click(function(){
+       if($(this).attr('class')=='ic-maplocation map-view'){
+          $('.ic-maplocation').addClass('map-close');
+          $('.ic-maplocation').removeClass('map-view');
+       }
+       else {
+        $('.ic-maplocation').addClass('map-view');
+          $('.ic-maplocation').removeClass('map-close');
+       }
+        $(".map-container").toggle();
+      });
+
+    });
+</script>
+
+<script type="text/javascript">
+        // open the host select message
+        function openMessage(flag,messageId,readStatus){
+             var url = "<?php echo $this->getUrl('airhotels/message/inbox')?>";
+             var form = jQuery('<form action="' + url + '" method="post">'+'<input type="hidden" name="headermsg" value="'+messageId+'"> '+'</form>');
+             jQuery('body').append(form);
+             form.submit();
+        }
+</script>

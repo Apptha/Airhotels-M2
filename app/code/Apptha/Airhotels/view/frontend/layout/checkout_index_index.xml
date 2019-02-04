@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+         <remove src="css/stylish.css"/>
+         <css src="css/styles-mo.css" />
+         <css src="css/styles-lo.css" />
+         <css src="css/checkout.css" />
+    </head>
+<body>
+	<attribute name="class" value="checkout-details" />
+<move element="logo" destination="header-wrapper"/>
+<referenceBlock name="checkout.root">
+<arguments>
+<argument name="jsLayout" xsi:type="array">
+<item name="components" xsi:type="array">
+<item name="checkout" xsi:type="array">
+<item name="children" xsi:type="array">
+<item name="sidebar" xsi:type="array">
+<item name="children" xsi:type="array">
+<item name="summary" xsi:type="array">
+<item name="children" xsi:type="array">
+<item name="totals" xsi:type="array">
+<item name="children" xsi:type="array">
+<item name="fee" xsi:type="array">
+<item name="component"  xsi:type="string">Apptha_Airhotels/js/view/checkout/cart/totals/fee</item>
+<item name="sortOrder" xsi:type="string">20</item>
+<item name="config" xsi:type="array">
+<item name="template" xsi:type="string">Apptha_Airhotels/checkout/cart/totals/fee</item>
+<item name="title" xsi:type="string" translate="true">Processing Fee</item>
+</item>
+</item>
+</item>
+</item>
+<item name="cart_items" xsi:type="array">
+<item name="children" xsi:type="array">
+<item name="details" xsi:type="array">
+<item name="children" xsi:type="array">
+<item name="subtotal" xsi:type="array">
+<item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</item>
+</argument>
+</arguments>
+</referenceBlock>
+</body>
+</page>

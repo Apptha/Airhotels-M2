@@ -1,0 +1,89 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php
+/**
+ * @var $block \Magento\Theme\Block\Html\Notices
+ */
+?>
+<?php if ($block->displayNoscriptNotice()): ?>
+    <noscript>
+        <div class="message global noscript">
+            <div class="content">
+                <p>
+                    <strong><?php /* @escapeNotVerified */ echo __('JavaScript seems to be disabled in your browser.'); ?></strong>
+                    <span><?php /* @escapeNotVerified */ echo __('For the best experience on our site, be sure to turn on Javascript in your browser.'); ?></span>
+                </p>
+            </div>
+        </div>
+    </noscript>
+<?php endif; ?>
+<?php if ($block->displayNoLocalStorageNotice()): ?>
+    <div class="notice global site local_storage" style="display: none;">
+        <div class="content">
+            <p>
+                <strong><?php /* @escapeNotVerified */ echo __('Local Storage seems to be disabled in your browser.'); ?></strong><br />
+                <?php /* @escapeNotVerified */ echo __('For the best experience on our site, be sure to turn on Local Storage in your browser.'); ?>
+            </p>
+        </div>
+    </div>
+    <script>
+require(['jquery'], function(jQuery){
+
+        // <![CDATA[
+        (function($) {
+            var test = 'test';
+            try {
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+            } catch(e) {
+                $(".notice.global.site.local_storage").show();
+            }
+        })(jQuery);
+        // ]]>
+
+});
+</script>
+<?php endif; ?>
+<?php if ($block->displayDemoNotice()): ?>
+    <div class="message global demo" id="messageglobaldemo" style="display:block">
+        <div class="content">
+            <p><?php /* @escapeNotVerified */ echo __('This is a demo store. Any orders placed through this store will not be honored or fulfilled.') ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->displayDemoNotice()): ?>
+    <div class="message global demo" id="message-global-demo" style="display:block">
+        <div class="content">
+            <p><?= /* @escapeNotVerified */ __('This is demo store. No orders will be fulfilled.') ?></p>
+        </div>
+    </div>
+<?php endif; ?>

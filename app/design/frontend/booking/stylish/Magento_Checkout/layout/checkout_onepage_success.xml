@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Success Page</title>
+    </head>
+    <body>
+         <attribute name="class" value="checkout-details" />
+    <referenceContainer name="header.container">
+            <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="header content clearfix">
+                <block class="Apptha\Airhotels\Block\Html\Header\Logo" name="logo">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">189</argument>
+                        <argument name="logo_img_height" xsi:type="number">64</argument>
+                    </arguments>
+                </block>
+                <block class="Apptha\Airhotels\Block\Html\Header" name="page.main.topheader" template="Magento_Theme::html/header.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="page.main.title">
+            <block class="Magento\Checkout\Block\Onepage\Success" name="checkout.success.print.button" template="button.phtml"/>
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Thank you for your purchase!</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\Checkout\Block\Onepage\Success" name="checkout.success" template="success.phtml" cacheable="false"/>
+            <block class="Magento\Checkout\Block\Registration" name="checkout.registration" template="registration.phtml" cacheable="false"/>
+        </referenceContainer>
+        <container name="order.success.additional.info" label="Order Success Additional Info"/>
+    </body>
+</page>

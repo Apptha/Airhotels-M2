@@ -1,0 +1,246 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+?>
+<?php
+/**
+ * Getting current listing id from customer session
+ */
+$storeId = $this->getStoreId();
+$currentBookingId = $this->getRequest ()->getParam ( 'id' );
+$urlPath = $gallery = $imageCount = $thumbnailImageUrl = "";
+/**
+ * check whether listing id exist in session and retrieve the existing data
+ */
+if ($currentBookingId!=Null) {
+    $product = $this->helper('Apptha\Airhotels\Helper\General')->getProductData($currentBookingId);
+    $urlPath = $product->getUrlPath ();
+    $thumbnailImageUrl = $product->getImage ();
+    $gallery =$product->getMediaGalleryImages ();
+    $imageCount = $product->getMediaGalleryImages ()->count ();
+}
+$currencyCode = $block->getCurrentBaseCurrency ();
+$currencySymbol = $block->getCurrentCurrencySymbol ();
+$currentUrl = $block->storeManager->getStore ()->getCurrentUrl ();
+$request = $this->getRequest ( 'step' );
+$controllerAction = $request->getActionName ();
+$action = $this->getRequest ()->getParam ( 'step' );
+$customerSession = $this->helper('Apptha\Airhotels\Helper\Data')->getCustomerData();
+$productSessionId = $customerSession->getCurrentExperienceId ();
+?>
+<?php /**
+ * Tabs in top for managing the listing form pages
+ */ ?>
+<div id="rooms">
+        <div id="room" class="clearfix">
+                <div id="content_view">
+                        <div id="left_columns">
+                                <div id="main_contents" class="box listanexperience_tabsection">
+                                        <ul id="main_content_sub_nav" class="rooms_sub_nav clearfix">
+                                                <li onclick="return select_tab(&#39;basic&#39;);"
+                                                        class="<?php if($action=="basic" || $action==""){echo "selected";} ?>"><a
+                                                        href="javascript:void(0)"><i
+                                                                class="airhotel-sprite file icon_size"></i><span
+                                                                class="form_menu_title"><?php echo __('Basic') ?></span><i
+                                                                class=""></i></a></li>
+                                                <li onclick="return select_tab(&#39;photos&#39;); "
+                                                        class="<?php if($action=="photos"){echo "selected";} ?>"><a
+                                                        href="javascript:void(0)"><i
+                                                                class="airhotel-sprite user icon_size"></i><span
+                                                                class="form_menu_title"><?php echo __('Photos') ?></span></a></li>
+
+                                        </ul>
+
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<div class="wrapper_c">
+
+        <!--  List an experience tab starts -->
+        <div id="example-embed">
+             <?php
+             /**
+              * check the url param and loading the necessary template file for create/edit a listing
+              */
+if ($action == 'basic' || $action == '') {
+                echo $this->getChildHtml ( 'booking_basic_form' );
+            } elseif ($action == 'photos') {
+                echo $this->getChildHtml ( 'booking_photos_form' );
+            }
+
+            ?>
+                </div>
+</div>
+<script type="text/javascript">
+          jQuery("#propertyadd").focus(function() {autoCompleteFlag = false; });
+          jQuery("#selected_tab").val("");
+    var changeContentValue='no';
+    jQuery(function() {
+            var variablePhpToJs='<?php echo $action;?>';
+            if(variablePhpToJs=="basic" || variablePhpToJs=="") {
+                    jQuery('#basic_form [rel="popover"]').popover({
+                            trigger: 'focus',
+                            html: true
+                    });
+                    jQuery('#basic_form [rel="popover"]').focusout(function() {
+                                jQuery('#basic_form [rel="popover"]').attr('style','display:block !important');
+                    });
+                }
+    });
+    function select_tab(selectedTab) {
+                jQuery("#selected_tab").val(selectedTab);
+                var variablePhpToJs='<?php echo $currentBookingId;?>';
+                var variablePhpToJsAction= selectedTab;
+                var thumbImageUrlPhpToJs='<?php echo $thumbnailImageUrl;?>';
+                if(variablePhpToJsAction=="photos"){
+                        if((jQuery("[name='album_path']:checked").length != 0) && (thumbImageUrlPhpToJs=="")){
+                                changeContentValue='yes';
+                        }
+                }
+                if(changeContentValue=='no' && variablePhpToJs!="") {
+                        if(variablePhpToJsAction=="photos" && selectedTab!='basic'){
+                                if(jQuery("[name='album_path']:checked").length ==0 && jQuery(".more-views input:checkbox:checked").length == 0){
+                                 jQuery("#image_upload_error").show();
+                                   return false;
+                               }
+                }
+                        if(variablePhpToJsAction=="basic"){
+
+                                window.location='<?php echo $block->getUrl('airhotels/listing/form/step/');?>'+selectedTab+'<?php echo '/id/'.$currentBookingId ;?>';
+                                return true;
+
+                        }else if(variablePhpToJs != ""){
+                                window.location='<?php echo $block->getUrl('airhotels/listing/form/step/');?>'+selectedTab+'<?php echo '/id/'.$currentBookingId ;?>';
+                            return true;
+                        }
+                }else {
+                        changeContentValue='no';
+                if(variablePhpToJs=="" && variablePhpToJsAction =="" ){
+                    variablePhpToJsAction="basic";
+            jQuery("#"+variablePhpToJsAction+"_submit").trigger('click');
+                        return false;
+                } else if(variablePhpToJsAction =="basic") {
+                window.location='<?php echo $block->getUrl('airhotels/listing/form/');?>step/'+selectedTab+'<?php echo '/id/'.$productSessionId;?>';
+                    return true;
+                } 
+                else {
+                                BootstrapDialog.confirm({
+                    title: 'UNSAVED CHANGES',
+                    message: 'Would like discard all changes, Would you like to save them ?',
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: false,
+                    draggable: false,
+                    btnCancelLabel: 'DISCARD',
+                    btnOKLabel: 'SAVE',
+                    btnOKClass: 'btn-primary',
+                            callback: function(result) {
+                                if(result) {
+                                        jQuery("#"+variablePhpToJsAction+"_submit").trigger('click');
+                                                        return false;
+                                }else {
+                                        window.location='<?php echo $block->getBaseUrl();?>airhotels/listing/form/step/'+$productSessionId+'/';
+                                        return false;
+                                    }
+                                 }
+                           });
+                        }
+                }
+                if(variablePhpToJsAction=="basic" || variablePhpToJsAction==""){
+                        variablePhpToJsAction="basic";
+                        var experienceName=jQuery("#name").val();
+                        var experienceLocation=jQuery("#propertyadd").val();
+                        var experienceDescription=jQuery("#description").val();
+                        var experienceType=jQuery("#property_type").val();
+                        var experienceLanguage = "";
+                        jQuery('input[name^="language"]:checked').each(function() {
+                                experienceLanguage += jQuery(this).val();
+                        });
+                        checkValue();
+                }
+        }
+    function contentChanges()
+    {
+            changeContentValue='yes';
+        }
+        var geocoder;
+        var autoCompleteFlag;
+        var map,city,state,country;
+        var experienceId= '<?php echo $currentBookingId;?>';
+        var bool = true;
+        function initialize() {
+                var address = document.getElementById("propertyadd").value;
+                geocoder = new google.maps.Geocoder();
+                if(bool===true && experienceId) {
+                        bool=false;
+                var currentLatitude = jQuery("#latitude").val();
+                var currentLongitude = jQuery("#longitude").val();
+                mapLogic (currentLatitude,currentLongitude,address);
+                }
+                else {
+                        geocoder.geocode( { 'address': address}, function(results, status) {
+                                  if (status == google.maps.GeocoderStatus.OK) {
+                                    var currentLatitude = results[0].geometry.location.lat();
+                                    var currentLongitude = results[0].geometry.location.lng();
+                                        mapLogic (currentLatitude,currentLongitude,address);
+                                  }
+                        });
+                }
+        }
+        function initializeAutocomplete() {
+            var input = document.getElementById('propertyadd');
+            var autocomplete = new google.maps.places.SearchBox(input);
+            google.maps.event.addDomListener(autocomplete,'places_changed', function() {
+                    autoCompleteFlag = true;
+                    initialize();
+            });
+            function setupClickListener(id, types) {
+                var radioButton = document.getElementById(id);
+                google.maps.event.addDomListener(radioButton, 'click', function() {
+                    autocomplete.setTypes(types);
+                });
+            }
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<script type="text/javascript">
+    require([
+    'jquery', // jquery Library
+    'jquery/ui', // Jquery UI Library
+    'jquery/validate', // Jquery Validation Library
+    'mage/translate' // Magento text translate (Validation message translte as per language)
+    ], function($){ 
+        $.validator.addMethod(
+        'checkinteger', function (value) { 
+          return value.match(/^(\s*|\d+)$/);
+        }, $.mage.__('Please enter a valid number'));
+     
+    });
+</script>

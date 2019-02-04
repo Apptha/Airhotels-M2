@@ -1,0 +1,37 @@
+<!--@subject Verification Email  @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"var store.getFrontendName()":"Store Name"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0px">
+            <!-- [ header starts here] -->
+            <table bgcolor="FFFFFF" cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #e0e0e0;padding:0px 10px 10px;">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" border="0" style="margin: 20px 0px;" /></a></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size:17px;color: #333;line-height: 16px;font-weight: bold; padding:20px 0px 10px 0px;">
+                                {{trans 'Hi'}} {{var ownername}},
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size: 13px;line-height: 16px;padding: 10px 0 10px 0;color: #666;font-family: Arial,sans-serif;vertical-align: top;font-weight:normal;">
+                                {{trans 'Your'}} {{var verification_id}} {{trans 'has been'}} {{var action}}.
+                        </td>
+                    </tr>
+                   <tr>
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="margin:0;text-align: center;font-size: 14px;padding: 0px;line-height: 40px;">{{trans 'Thank you again,'}} <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                   </tr>
+            </table>
+        </td>
+    </tr>
+</table>

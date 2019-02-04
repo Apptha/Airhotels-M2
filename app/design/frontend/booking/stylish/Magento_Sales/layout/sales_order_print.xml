@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_print_renderers" />
+    <update handle="sales_order_item_price"/>
+    <update handle="print" />
+    <body>
+        <attribute name="class" value="account"/>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\Sales\Block\Order\PrintShipment" name="order.status" template="order/order_status.phtml" />
+            <block class="Magento\Sales\Block\Order\PrintShipment" name="order.date" template="order/order_date.phtml" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Order\PrintShipment" name="sales.order.print" template="order/view.phtml">
+                <block class="Magento\Sales\Block\Order\PrintShipment" name="order_items" template="order/items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.order.print.renderers" as="renderer.list" />
+                    <block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="order/totals.phtml">
+                        <arguments>
+                            <argument name="label_properties" xsi:type="string">colspan="4" class="mark"</argument>
+                            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                        </arguments>
+                        <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="order/tax.phtml">
+                            <action method="setIsPlaneMode">
+                                <argument name="value" xsi:type="string">1</argument>
+                            </action>
+                        </block>
+                    </block>
+                </block>
+            </block>
+            <referenceBlock name="sales.order.print.info" remove="true"/>
+        </referenceContainer>
+        <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
+    </body>
+</page>

@@ -1,0 +1,55 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php $hostManageOrderStatus=$this->helper ( 'Apptha\Airhotels\Helper\Order' )->getHostOrderManage();
+    ?>
+<div class="actions">
+    <?php  $_order = $block->getOrder() ?>
+    <a class="action print"
+       href="<?php /* @escapeNotVerified */ echo $block->getPrintUrl($_order) ?>"
+       onclick="this.target='_blank';">
+        <?php /* @escapeNotVerified */ echo __('Print Booking') ?>
+    </a>
+    <?php
+    $isHostManage=$this->helper ( 'Apptha\Airhotels\Helper\Order' )->getIsHostManageOrder($_order->getId());
+    $cancelRequestStatus = $this->helper('Apptha\Airhotels\Helper\Order')->getCancelRequestStatus($_order->getId());
+    $status = $_order->getStatus();
+    $params = ['order_id'=>$_order->getId()];
+    ?>
+     <?php if($hostManageOrderStatus && $isHostManage && $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getCancelRequest()==1 && $cancelRequestStatus ==1){ ?>
+     <a class="action-cancel" href="<?php echo $block->getUrl('airhotels/mytrip/cancel/',$params); ?>" onclick="return confirm('<?php echo __('Are you sure want to approve cancellation request').'?'; ?>')"><?php echo __('Approve Cancel Request'); ?></a>  <?php } ?>
+    <?php if($hostManageOrderStatus && $isHostManage && $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getCancelRequest()==1 && $cancelRequestStatus ==1){ ?>
+    <a class="action-cancel" href="<?php echo $block->getUrl('airhotels/mytrip/reject/',$params); ?>" onclick="return confirm('<?php echo __('Are you sure want to reject cancellation request').'?'; ?>')"><?php echo __('Reject Cancel Request'); ?></a>  <?php } ?>
+    <?php echo $block->getChildHtml(); ?>
+    <?php if($hostManageOrderStatus && $isHostManage && $_order->getStatus()=='pending'){?>
+     <a  href="<?php echo $block->getUrl('airhotels/mytrip/invoice',$params); ?>" class="actions-invoice" onclick="return confirm('<?php echo __('Are you sure want to make invoice').'?'; ?>')"><?php echo __('Invoice'); ?></a>
+    <?php }?>
+    <?php echo $block->getChildHtml(); ?>
+</div>

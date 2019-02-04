@@ -1,0 +1,72 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */?>
+<?php
+
+$collections =$this->orders();
+$orderCount =$collections->count();
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getConvertedDate($listingDateFormat);
+?>
+<div class="my-account" style="padding: 0">
+                                             <h2 class="account-heading"><?php echo __('Current Trips');?></h2></div>
+<table cellspacing="0" cellpadding="0" id="property_trip_table"  border="0">
+  <?php if($orderCount > 0) { ?>
+           <thead>
+               <tr>
+                   <th width="6%"><?php echo __('S.No.'); ?></th>
+                   <th width="30%"><?php echo __('Experience Name'); ?></th>
+                   <th width="15%"><?php echo __('Start On'); ?></th>
+                   <th width="15%"><?php echo __('End On'); ?></th>
+                   <th width="20%"><?php echo __('Receipt'); ?></th>
+</tr>
+</thead>
+<tbody>
+<?php $i= 1;?>
+<?php foreach($collections as $orders):?>
+<tr>
+    <td><?php echo $i ?></td>
+    <td><?php echo $orders->getListingName()?></td>
+    <td><?php echo date($convertedDateFormat, strtotime($orders->getFromdate()));?></td>
+    <td><?php echo date($convertedDateFormat, strtotime($orders->getTodate()));?></td>
+    <?php $params = ['order_id' => $orders->getOrderItemId(), 'customer' => '1',];?>
+    <td><a class="view-booking" href="<?php echo $block->getUrl('sales/order/view/',$params); ?>"><?php echo __('View Booking'); ?></a></td>
+</tr>
+  <?php
+  $i++;
+  endforeach;?>
+
+<?php } else {?>
+  <div class="norecords">
+    <p class="no_transaction_records"><?php echo __('You have no current trips'); ?></p>
+    </div>
+<?php } ?>
+</tbody>
+</table>
+<?php echo $block->getPagerHtml();?>

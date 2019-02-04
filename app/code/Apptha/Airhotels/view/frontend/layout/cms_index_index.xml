@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" layout="2columns-left">
+    <head>
+     <script src="Apptha_Airhotels::js/jquery.min.js" />
+     <script src="Apptha_Airhotels::js/owl.carousel.min.js" />
+     <css src="Apptha_Airhotels::css/owl.carousel.min.css"/>
+     <script src="Apptha_Airhotels::js/slider/jquery.fancybox.js" />
+     <script src="Apptha_Airhotels::js/slider/jquery.fancybox-thumbs.js" />
+     <css src="Apptha_Airhotels::css/slider/jquery.fancybox.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+           <block class="Apptha\Airhotels\Block\Listings\Home" name="airhotels.home" template="Apptha_Airhotels::airhotels/listings/home.phtml" />
+        </referenceContainer>
+    </body>
+</page>

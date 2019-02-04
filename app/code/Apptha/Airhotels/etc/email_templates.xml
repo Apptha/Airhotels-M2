@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+! -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Email/etc/email_templates.xsd">
+  <template id="airhotels_product_approval_template" label="Product Approval" file="product_approved.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_product_disapproval_template" label="Product Disapproval" file="product_disapproved.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_product_new_booking_template" label="New Listing Experience" file="newproperty.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_product_host_booking_approval_template" label="Host Listing Approval Request" file="propertyapproval.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_product_admin_booking_delete_option" label="Product Delete" file="admin_booking_delete_option.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_order_notification_template" label="Host New Order Notification" file="sales_notification.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_order_item_request_template" label="Guest Order Cancel Request" file="order_cancel_request.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_order_item_cancel_return_template" label="Host Order Cancel" file="customer_order_cancel.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_custom_email_propertydelete_template" label="Host Experience Delete" file="property_delete.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_customer_review_email_adminapproval_template" label="Customer Review Approval" file="customer_review_approval.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_host_verify_email_template" label="Verify Host" file="host_verification.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_customer_review_for_approval" label="Customer Review Submit" file="review_approval.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_customer_order_cancel_reject" label="Host Order Cancel Reject" file="order_cancel_reject.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_host_order_creditmemo" label="Host Creditmemo" file="creditmemo_new_host.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_host_order_invoice_create_after" label="Host Order Invoice Create" file="invoice_new_host.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_host_payment_request" label="Host Payment Request" file="host_payment_request.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_admin_paid_money_host" label="Paid To Host" file="admin_paid_host.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_host_payment_acknowledge" label="Host Payment Acknowledgement" file="host_acknowledgement.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_order_status" label="Order Status" file="orderstatus.html" type="html" module="Apptha_Airhotels" area="adminhtml" />
+  <template id="airhotels_contact_host" label="Contact Host" file="contact_host.html" type="html" module="Apptha_Airhotels" area="frontend" />
+  <template id="airhotels_contact_host_reply" label="Contact Host Reply" file="contact_host_reply.html" type="html" module="Apptha_Airhotels" area="frontend" />
+</config>

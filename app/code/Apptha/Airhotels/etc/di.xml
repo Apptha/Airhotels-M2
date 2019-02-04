@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Cms\Controller\Index\Index" type="Apptha\Airhotels\Controller\Index\Index" />
+    <preference for="Magento\Sales\Controller\AbstractController\OrderViewAuthorization" type="Apptha\Airhotels\Controller\Order\ViewAuthorization" />
+    <preference for="\Magento\Checkout\Controller\Cart\Add" type="Apptha\Airhotels\Controller\Cart\Add" />
+    <preference for="Magento\Checkout\Controller\Cart\Index" type="Apptha\Airhotels\Controller\Cart\Index" />
+    <preference for="Magento\Sales\Model\Order\Invoice\Total\Cost" type="Apptha\Airhotels\Model\Order\Invoice\Total\Cost" />
+    <preference for="\Magento\Customer\Controller\Address\Delete" type="Apptha\Airhotels\Controller\Address\Delete" />
+</config>

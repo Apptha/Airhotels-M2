@@ -1,0 +1,93 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+$requestValue = $this->getRequest ();
+$controllerAction = $requestValue->getControllerName ();
+$profileArray = array (
+          "profile" 
+);
+$mylistingArray = array (
+          "listing",
+);
+$dashboardArray = array (
+          "account",
+          "manage",
+          "address"
+);
+$tripsArray = array (
+          "mytrip" 
+);
+$messageArray = array (
+          "message"
+);
+?>
+
+<div class="block block-account">
+     <div class="block-title arrowbubble"></div>
+     <div class="block-content topmenu">
+          <h5 id="nav_handle_1" style="margin: 0;"></h5>
+          <ul
+               class="navigation clearfix navigation fs-navigation-element fs-navigation-toggle-nav fs-navigation__2"
+               data-navigation-handle="#nav_handle_1">
+<?php
+/**
+ * For Hosts
+ */
+?>
+        <?php if (in_array($controllerAction,$dashboardArray)) { ?>
+        <li class="current"><?php echo __('Dashboard') ?></li>
+        <?php } else {?>
+        <li><a href="<?php echo $this->getDashboardUrl(); ?>"> <?php echo __('Dashboard') ?> </a></li>
+        <?php } ?>
+        <?php if (in_array($controllerAction,$mylistingArray)) { ?>
+        <li class="current"><strong><?php echo __('My Listings'); ?></strong></li>
+        <?php } else { ?>
+        <li><a href="<?php echo $this->getListingUrl(); ?>"><?php echo __('My Listings'); ?></a></li>
+        <?php } ?>
+        <?php if (in_array($controllerAction,$profileArray)) { ?>
+        <li class="current"><strong><?php echo __('Profile') ?></strong></li>
+        <?php } else {?>
+        <li><a href="<?php echo $this->getEditProfileUrl(); ?>"> <?php echo __('Profile') ?> </a></li>
+        <?php } ?>      
+        <?php if (in_array($controllerAction,$tripsArray)) { ?>
+        <li class="current"><strong><?php echo __('My Trips') ?></strong></li>
+        <?php } else {?>
+        <li><a href="<?php echo $this->getTripUrl(); ?>"> <?php echo __('My Trips') ?> </a></li>
+        <?php } ?>
+        <?php if (in_array($controllerAction,$messageArray)) { ?>
+        <li class="current"><strong><?php echo __('Message') ?></strong></li>
+        <?php } else {?>
+        <li><a href="<?php echo $this->getMessageUrl(); ?>"> <?php echo __('Message') ?> </a></li>
+        <?php } ?>
+</ul>
+     </div>
+</div>
+<div class="blue_bg">
+     <div class="blue_strip_overlay"></div>
+</div>

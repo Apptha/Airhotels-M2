@@ -1,0 +1,71 @@
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': isItemsBlockExpanded()}}">
+    <div class="title" data-role="title">
+        <strong role="heading">
+            <!-- ko if: maxCartItemsToDisplay < getCartLineItemsCount() -->
+                <!-- ko text: maxCartItemsToDisplay --><!-- /ko -->
+                <!-- ko i18n: 'of' --><!-- /ko -->
+            <!-- /ko -->
+            <span data-bind="text: getItemsQty()"></span>
+            <!-- ko if: getCartLineItemsCount() == 1 -->
+                <!-- ko i18n: 'Night(s) Stay' --><!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: getCartLineItemsCount() > 1 -->
+                <!-- ko i18n: 'Night(s) Stay' --><!-- /ko -->
+            <!-- /ko -->
+        </strong>
+    </div>
+    <div class="content minicart-items" data-role="content">
+        <div class="minicart-items-wrapper overflowed">
+            <ol class="minicart-items">
+                <!-- ko foreach: items() -->
+                <li class="product-item">
+                    <div class="product">
+                        <!-- ko foreach: $parent.elems() -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ol>
+        </div>
+    </div>
+    <!-- ko if: maxCartItemsToDisplay < getCartLineItemsCount() -->
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <a class="action viewcart" data-bind="attr: {href: cartUrl}">
+                <span data-bind="i18n: 'View and Edit Cart'"></span>
+            </a>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

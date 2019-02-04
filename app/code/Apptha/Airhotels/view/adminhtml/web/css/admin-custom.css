@@ -1,0 +1,57 @@
+.airhotelsadmin-products-index .data-grid .data-grid-filters select{width:auto;padding-right: 30px;}
+.admin__scope-old .inbox_action_buttons {display: block;}
+
+.admin__scope-old .profile_inbox_table{position: relative;}
+.admin__scope-old .profile_inbox_table .inboxTable{border:0;border-collapse:collapse;width:100%;margin-top:0}
+.admin__scope-old .profile_inbox_table .inboxTable tbody tr:first-child{background:#fff;border-bottom:1px solid #e5f0f1}
+.admin__scope-old .profile_inbox_table .inboxTable tbody tr:first-child td{color:#333;text-transform:uppercase;font-size:1.2rem;font-weight:600;}
+.admin__scope-old .profile_inbox_table .inboxTable tbody tr td{padding:10px;font-size:1.2rem;color:#333;font-weight: 600;}
+.admin__scope-old .profile_inbox_table .inboxTable tbody tr:nth-child(even){background:#fff;border-bottom:1px solid #e5f0f1}
+.admin__scope-old .profile_inbox_table .inboxTable tbody tr:nth-child(even) td{font-size:1.2rem}
+.admin__scope-old #inboxSpace{position: relative;}
+.admin__scope-old #inboxSpace .inboxTable .read{background:#edeff1;font-weight:400;color:#666}
+.admin__scope-old #inboxSpace .inboxTable .unread{background:#fff;font-weight:400;color:#222}
+.admin__scope-old #inboxSpace .inboxTable .read .ah-from,#inboxSpace .inboxTable .read .ah-message,#inboxSpace .inboxTable .read .ah-date{color:#333;font-family:'Circular_Air-Light'}
+.admin__scope-old #inboxSpace .inboxTable .read td{font-weight: normal;color:#666;}
+.admin__scope-old .profile_inbox_table .inboxTable .ah-from{color:#222}
+.admin__scope-old .profile_inbox_table .inboxTable .ah-date{color:#008389}
+.admin__scope-old #inboxSpace .inbox_delete_checkall{float:none;margin-right:10px;padding:8px 10px}
+.admin__scope-old #inboxSpace .inbox_action_buttons{padding-bottom:20px;display: flex;}
+
+.admin__scope-old .ah-inbox-panel{width:100%;border-bottom:1px solid #eee;display:flex;padding:10px 0 5px;margin:0;position:relative}
+.admin__scope-old .ah-chat-message{background: #eee;padding:30px;display: inline-block;width:100%;box-sizing: border-box;}
+.admin__scope-old .ah-userimage-panel{display:inline-block;position:relative;margin-right:20px;height:70px}
+.admin__scope-old .ah-userimage{float:left;width:70px;height:70px;border-radius:100px;overflow:hidden}
+.admin__scope-old .ah-userimage img{max-width:100px;height:auto}
+.admin__scope-old .online-customer{border-radius:100px;width:8px;height:8px;background:#4caf50;position:absolute;bottom:7px;margin-left:5px;}
+.admin__scope-old .offline-customer{border-radius:100px;width:8px;height:8px;background:#ff5e00;position:absolute;bottom:7px;margin-left: 5px;}
+.admin__scope-old .ah-product-detail{display:inline-block;margin:5px 0 10px;width:80%}
+.admin__scope-old .ah-username{color:#899696;text-transform:uppercase;font-size:1.2rem;padding-bottom:0px;position: relative;margin: 0px;}
+.admin__scope-old .ah-productname{font-size:1.6rem;color:#333;padding-bottom:0px;display:inline-block;line-height:22px}
+.admin__scope-old .ah-productname a{color:#333;text-decoration:none}
+.admin__scope-old .ah-productname a:hover{color:#008389}
+.admin__scope-old .ah-checkin-out .ah-inbox-checkin{float:left;margin:0 15px 0 0}
+.admin__scope-old .ah-checkin-out .ah-inbox-checkin span,.admin__scope-old .ah-checkin-out .ah-inbox-checkout span{display:block;padding-bottom:5px;text-transform:uppercase;color:#008389;font-size:1rem}
+.admin__scope-old .ah-product-date{position:absolute;top:20px;right:0;font-size:1.1rem;color:#999}
+.admin__scope-old .ah-chat-message .ah-message{width:60%;float:right;display:flex;justify-content:flex-end;font-size: 1.2rem;}
+.admin__scope-old .ah-chat-message .ah-reply-message{font-size:.8rem;width:60%;display:flex}
+.admin__scope-old .ah-chat-message .ah-reply-message .sender_message_customer{background:#fff;padding:13px 20px;color:#fff;border-radius:10px 10px 0 10px;font-size:.8rem;color:#888;line-height:20px;width:auto;box-shadow:10px 15px 30px rgba(0,0,0,0.05);}
+.admin__scope-old .ah-chat-message .ah-message .sender_message_host{background:#47a1ff;color:#fff;padding:13px 20px;border-radius:10px 10px 10px 0;margin-bottom:0;margin-top:20px;line-height:20px;width:auto;box-shadow:10px 15px 30px rgba(0,0,0,0.08);}
+.admin__scope-old .ah-chat-message .ah-reply-message .sender_message_host{background:#46bcff;color:#fff;padding:13px 20px;border-radius:10px 10px 10px 0;margin-bottom:0;margin-top:20px;line-height:20px;width:auto;box-shadow:10px 15px 30px rgba(0,0,0,0.08);}
+.admin__scope-old .ah-chat-message .ah-message .sender_message_host .table_head_label, .admin__scope-old .ah-chat-message .ah-reply-message .sender_message_host .table_head_label{font-size: 1.2rem;}
+.admin__scope-old .ah-chat-message .select_grid1{display:none}
+.admin__scope-old .pager,.admin__scope-old .pager{margin-top: 20px;}
+.admin__scope-old .ah-reply-userimg{display:flex;position:relative;margin-right:20px;width:100%;align-items:flex-end}
+.admin__scope-old .ah-reply-userimg .ah-userimage{float:left;width:30px;height:30px;border-radius:100px;overflow:hidden;margin-top:28px;margin-right:10px}
+.admin__scope-old .ah-reply-userimg .ah-userimage img{max-width:30px;height:auto}
+.admin__scope-old .ah-reply-userimg.customer{float: right;width:100%;justify-content:flex-end;margin:20px 0px 10px 0px;}
+.admin__scope-old .ah-reply-userimg.customer .ah-userimage{order:2;margin-left: 10px;margin-right: 0px;}
+.admin__scope-old .ah-reply-userimg.customer .ah-reply-message{justify-content: flex-end;}
+.admin__scope-old .profile_inbox_table .ah-inbox-checkin,.admin__scope-old .profile_inbox_table .ah-inbox-checkout{font-size:1.2rem;color:#aaa;float:left;border:1px solid #ddd;padding:4px 10px;border-radius:3px;font-weight: bold;}
+.admin__scope-old .account.airhotels-message-inbox .inboxTable tbody tr td,.admin__scope-old .account.airhotels-message-sent .inboxTable tbody tr td{border:0}
+.admin__scope-old #mailSpace #reply_message_form{background:#fff;display:inline-block;width:100%;padding:0px 15px 20px;box-sizing:border-box;position:relative;box-shadow:0 9px 30px rgba(0,0,0,0.1)}
+.admin__scope-old #mailSpace #reply_message_form textarea{width:100%;padding:10px 0;font-family:'CircularStd-Book';font-size:.8rem;border:0;resize:none;box-sizing:border-box;padding-right:80px;border-bottom: 1px solid #ddd;}
+.admin__scope-old #mailSpace #reply_message_form .submitbtn{position:absolute;right:20px;top:30px;background:#ff5a60;outline:0;border-radius:4px;color:#FFF;font-size:.8rem;border:0;padding:8px 20px;cursor:pointer;margin-right:0;}
+.admin__scope-old textarea::placeholder{color:#ccc}
+.admin__scope-old .ah-backbtn{position:absolute;top:-20px;right:0;color:#fff;text-decoration:none;font-size:1.4rem;padding: 3px 18px 5px;background: #008389;border-radius: 3px;}
+.airhotelsadmin-contacthost-edit .page-header .page-title-wrapper {display:none;}

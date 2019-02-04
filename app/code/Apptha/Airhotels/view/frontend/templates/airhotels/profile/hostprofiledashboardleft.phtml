@@ -1,0 +1,55 @@
+<?php
+/**
+ * Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+$hostId =  $this->getRequest ()->getParam ('id');
+$profileData=$this->getCustomerProfileData($hostId);
+if(!empty($profileData->getProfileimage())){
+     $getCustomerProfileImage=$this->getCustomerProfileImage().$profileData->getProfileimage();
+}else{
+     $getCustomerProfileImage=$block->getViewFileUrl('Apptha_Airhotels::images/no_user.jpg');
+}
+?>
+<div class="col-left sidebar">
+    <div class="user-profile-image">
+            <img class="profilephoto" src="<?php echo $getCustomerProfileImage; ?>" alt="">
+            <div class="view-edit-profile"></div>
+    </div>
+
+<div class="content-block">
+    <div class="verify" style="position: relative;"><h2 class="account-heading"><?php echo __('Verified Info'); ?></h2>
+      </div>
+      <div class="account-heading-contents">
+          <ul class="verify-info">
+              <li><span class="verify-label"><?php echo __('Government ID'); ?></span><i class="sprite verifyed-icon"></i></li>
+              <li><span class="verify-label"><?php echo __('Email ID'); ?></span><i class="sprite verifyed-icon"></i></li>
+              <li><span class="verify-label"><?php echo __('Phone Number'); ?></span><i class="sprite verifyed-icon"></i></li>
+          </ul>
+      </div>
+</div>
+</div>

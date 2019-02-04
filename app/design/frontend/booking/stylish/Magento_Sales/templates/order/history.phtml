@@ -1,0 +1,65 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php $_orders = $block->getOrders(); ?>
+<?php if ($_orders && count($_orders)): ?>
+    <div class="property_history_responsivetable">
+        <table cellspacing="2" cellpadding="2" border="1" id="property_history_table" class="property_history">
+            <thead>
+                <tr>
+       <th style="width: 12%;"><?php echo __('Order #'); ?></th>
+                <th style="width: 17%;"><?php echo __('Date'); ?></th>
+                <th style="width: 14%;"><?php echo __('Order Total'); ?></th>
+                <th style="width: 14%;"><?php echo __('Status'); ?></th>
+                <th style="width: 14%;"><?php echo __('Action'); ?></th>
+                </tr>
+            </thead>
+                <?php foreach ($_orders as $_order): ?>
+                    <tr>
+                        <th data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_order->getRealOrderId() ?></th>
+                        <th data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo date('d M Y', strtotime($block->formatDate($_order->getCreatedAt()))); ?></th>
+
+                        <th data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $_order->formatPrice($_order->getGrandTotal()) ?></th>
+                        <th data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_order->getStatusLabel() ?></th>
+                        <th data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php /* @escapeNotVerified */ echo $block->getViewUrl($_order) ?>" class="action view">
+                                <span><?php /* @escapeNotVerified */ echo __('View Order') ?></span>
+                            </a>
+                        </th>
+                    </tr>
+                <?php endforeach; ?>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have placed no orders.'); ?></span></div>
+<?php endif ?>

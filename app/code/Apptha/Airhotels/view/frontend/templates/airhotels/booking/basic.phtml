@@ -1,0 +1,415 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+?>
+<?php
+
+/**
+ * Initilizing experience data
+ */
+$currentUrl = $block->storeManager->getStore ()->getCurrentUrl ();
+/**
+ * Currency Code
+ */
+$currencyCountry = $block->getCurrentBaseCurrency ();
+/**
+ * Get the Request Variable.
+ */
+$request = $this->getRequest ( 'step' );
+/**
+ * Get the Current Controller Action anme
+ */
+$controllerAction = $request->getActionName ();
+$action = $this->getRequest ()->getParam ( 'step' );
+/**
+ * Get the current experience ID
+ */
+
+$currentExperienceId = $this->getRequest ()->getParam ( 'id' );
+$experienceName = $experienceLocation = $experienceDescription = $assignedAttributeSet = $attributeSet = $experienceCity = $experiencePrice = $experienceCity = $experienceState = $experienceLatitude = $experienceLongitude = $experienceCountry = "";
+$experiencePeopleMinimum = $privateNotes = $experienncePeopleMaximum = $experienceDuration = $experiencePriceType = $experienceTags = $experienceTax = "";
+$productCategoryIds = $mediaGallery = array ();
+/**
+ * Check the current Experience has been set.
+ */
+if ($currentExperienceId) {
+     /**
+      * setting store id
+      */
+     $storeIdVal = $this->getRequest ()->getParam ( 'storeId' );
+     $storeId = 0;
+     if (! empty ( $storeIdVal )) {
+          $storeId = $storeIdVal;
+     }
+     /**
+      * Checking product id is not equal to empty
+      * Initilize product data
+      */
+     $product = $block->getProductData ( $currentExperienceId, $storeId );
+     $productCategoryIds = $product->getCategoryIds ();
+     $experienceName = $product->getName ();
+     $attributeSet = ( int ) $product->getAttributeSetId ();
+     $experienceLocation = $product->getPropertyaddress ();
+     $experienceDescription = $product->getDescription ();
+     $privateNotes = $product->getPrivateNotes ();
+     $price =  $product->getPrice ();
+     $experiencePrice = $this->helper('Apptha\Airhotels\Helper\General')->priceConverter($price);
+     $experiencePrice = preg_replace("/[^0-9.]/", "", $experiencePrice);
+     $experiencePropertyType = $product->getPropertytype ();
+     $experienceCity = $product->getCity ();
+     $experienceState = $product->getState ();
+     $experienceLatitude = $product->getLatitude ();
+     $experienceLongitude = $product->getLongitude ();
+     $experienceCountry = $product->getcountry ();
+     $experiencePeopleMinimum = $product->getAccommodateMinimum ();
+     $experienncePeopleMaximum = $product->getAccommodateMaximum ();
+     $experienceTax = $product->getTaxClassId ();
+}
+/**
+ * Get the Property time ID
+ */
+$customerId = $this->customerSession->getId ();
+
+$currencyCode = $block->getCurrentBaseCurrency ();
+
+?>
+<form id="basic_form" class="list_an_experience_forms wizard clearfix"
+     data-mage-init='{"validation":{}}' name="basic_form" method="post"
+     action="<?php echo $block->getBaseUrl() . 'booking/listing/basicsave/' ?>"
+     enctype="multipart/form-data">
+     <div class="content clearfix">
+          <h3 class='title current'><?php echo __('Basic');?></h3>
+          <input type="hidden" id="current_product_id"
+               value="<?php echo $currentExperienceId;?>" name="product_id" /> <input
+               type="hidden" id="attribute_set" value="4" name="attribute_set" />
+          <fieldset class="body current contentcontainer">
+               <div class="field required fieldset"
+                    data-hasrequired="<?php  echo __('* Required Fields') ?>">
+
+<?php
+/**
+ * Get categories
+ */
+$categories = $block->getStoreCategories ( true, false, true );
+?>
+
+                      <div class="airhotels-category-filter">
+                      <div class="list_title listing-module">
+                         <label for="name" class="listing-title"><?php echo __('Experience Name'); ?>
+                            <i class="fa fa-star mandatory_star"><em>*</em></i></label>
+
+                              <input name="product[name]" value="<?php echo $experienceName; ?>"
+                                   data-content='<?php echo __('EXAMPLE: "Shanghai historic pub tour" (No more than 60 characters)')?>'
+                                   data-placement="right" data-title="EXPERIENCE NAME"
+                                   placeholder="<?php echo __('The name should be clear and descriptive');?>"
+                                   id="name" maxlength="60" value=""
+                                   class="required-entry input_width"
+                                   data-validate="{required:true}" type="text" rel="popover"
+                                   onchange="contentChanges();" />
+
+                         <input type="hidden" name="selected_tab" id="selected_tab" value="" />
+                    </div>
+                    <div class="list_location listing-module">
+                         <label for="propertyadd" class="listing-title"><?php echo __('Location');?>
+                            <i class="fa fa-star mandatory_star"><em>*</em></i> </label>
+                              <input data-validate="{required:true}" type="text"
+                                   class="required-entry input_width"
+                                   value="<?php echo $experienceLocation;?>"
+                                   name="product[propertyaddress]" id="propertyadd"
+                                   onchange="contentChanges()"
+                                   data-content="<?php echo __('Example: 123 Hipster Avenue, Brooklyn, NY 11249.');?>"
+                                   data-placement="right" data-title="MEETING ADDRESS"
+                                   placeholder="<?php echo __('Search Your Location');?>"
+                                   rel="popover" /> <input type="hidden" name="product[latitude]"
+                                   id="latitude" value="<?php echo $experienceLatitude;?>" /> <input
+                                   type="hidden" name="product[longitude]" id="longitude"
+                                   value="<?php echo $experienceLongitude; ?>" />
+                    </div>
+                    <div class="experienceCity listing-module">
+                         <label for="city" class="listing-title"><?php echo __('City');?>
+                                    <i class="fa fa-star mandatory_star"><em>*</em></i>
+                         </label>
+                              <input data-validate="{required:true}" type="text"
+                                   class="required-entry input_width" name="product[city]" id="city"
+                                   placeholder="<?php echo __('City');?>"
+                                   value="<?php echo $experienceCity ?>" />
+                    </div>
+                    <div class="experienceState listing-module">
+                         <label for="state" class="listing-title"><?php echo __('State');?>
+                                    <i class="fa fa-star mandatory_star"><em>*</em></i>
+                         </label>
+                              <input data-validate="{required:true}" type="text"
+                                   class="required-entry input_width" name="product[state]"
+                                   id="state" placeholder="<?php echo __('State');?>"
+                                   value="<?php echo $experienceState;?>" />
+                    </div>
+                    <div class="experienceCountry listing-module">
+                         <label for="country" class="listing-title"><?php echo __('Country');?>
+                                    <i class="fa fa-star mandatory_star"><em>*</em></i>
+                         </label>
+                              <input data-validate="{required:true}" type="text"
+                                   class="required-entry input_width" name="product[country]"
+                                   id="country" placeholder="<?php echo __('Country');?>"
+                                   value="<?php echo $experienceCountry ?>" />
+                    </div>
+                    <!-- Load Map -->
+                    <div class="map_address_locator listing-module">
+                         <div id="mapWrapper"></div>
+                         <div id="map_canvas"></div>
+                    </div>
+                    <!--  Summary-->
+                    <div class="summary listing-module">
+                         <label for="description" class="listing-title"><?php echo __('Summary') ?> <i
+                              class="fa fa-star mandatory_star"><em>*</em></i></label>
+                              <textarea data-validate="{required:true}"
+                                   name="product[description]" id="description"
+                                   class="required-entry"
+                                   data-content='<?php echo __('EXAMPLE: "Our Shanghai pub tour is a gentle 4 km amble through some of Shanghai is old streets, enjoying fine views, quirky history and a couple of drinks along the way...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stopping at least 5 unique Shanghai pubs to quench our thirst, the small group provides a personal touch and the local feel..."');?>'
+                                   data-placement="right" data-title="SUMMARY"
+                                   placeholder="<?php echo __('Every experience on Airhotels is unique.Highlight what makes your experience welcoming so that it stands out to travellers who want as the local companion.');?>"
+                                   cols="5" rows="5" rel="popover" onchange="contentChanges();"><?php echo $experienceDescription;?></textarea>
+                    </div>
+                    <div class="field taxclass listing-module" style="display:none">
+                         <div class="selectprivacy">
+                              <label for="privacy" class="required left lable_inner listing-title"> <?php echo __('Tax Class') ?> <em>*</em></label>
+                              <div class="floatleft">
+                                   <select id="tax_class_id" name="product[tax_class_id]"
+                                        class=" required-entry required-entry select">
+
+                                   </select>
+                              </div>
+                              <div class="clear"></div>
+                         </div>
+                    </div>
+                     <div class="basicprice clearfix listing-module">
+                         <!-- Price -->
+                         <label for="price" class="listing-title"> <?php echo __('Pricing') ?><i
+                              class="fa fa-star mandatory_star"></i></label>
+                         <p class="price_bar">
+                              <span class="basic_price_currency basic_price_symbol"></span>
+                              <input data-validate="{required:true}"
+                                   class="required-entry validate-number validate-greater-than-zero"
+                                   id="price"
+                                   value="<?php if($experiencePrice){ echo $experiencePrice;}else { echo "50.00"; } ?>"
+                                   name="product[price]" number="true" size="30"
+                                   type="text" placeholder=<?php echo "50.00"?> onchange="contentChanges();"
+                                   onblur="checkIsEmpty(this.value,this)"> <span
+                                   class="basic_price_currency basic_price_symbol"><?php echo $currencyCode; ?></span>
+                         </p>
+                    </div>
+
+                    <div class="fieldset airhotels-category-type listing-module">
+                         <label for="category" class="label category-label listing-title"><?php echo __('Categories'); ?><em>*</em></label>
+                         <div class="block-category">
+                          <div class="input-box">
+                            <select multiple="multiple" name="product[category_ids][]" data-validate="{required:true}" class="multiselect required-entry">         <?php foreach($categories as $category){?>
+                                <option <?php echo in_array( $category->getId(),$productCategoryIds)?'selected':''; ?> value="<?php echo $category->getId();?>"><?php echo $category->getName()?></option>
+                             <?php }?>
+                            </select>
+                          </div>
+            </div>
+                    </div>
+
+
+                    <!-- People -->
+                    <div class="basic_accommodates listing-module">
+                         <label for="accommodate" class="listing-title"><?php echo __('Accommodate(s)') ?> <i
+                              class="fa fa-star mandatory_star"></i></label> <input
+                              data-validate="{required:true}"
+                              class="required-entry validate-number validate-greater-than-zero booking_input_field"
+                              id="accommodate_minimum" name="product[accommodate_minimum]"
+                              size="30" type="number" min="1" max="10"
+                              value="<?php if($experiencePeopleMinimum){echo $experiencePeopleMinimum;}else{echo "1";} ?>"
+                              onchange="contentChanges();"
+                              onblur="checkIsEmpty(this.value,this)" /> <span class="min_max"><?php echo __('Min'); ?></span>
+                         <input data-validate="{required:true}"
+                              class="required-entry validate-number validate-greater-than-zero booking_input_field"
+                              id="accommodate_maximum" name="product[accommodate_maximum]"
+                              size="30" type="number" min="1" max="10"
+                              value="<?php if($experienncePeopleMaximum){echo $experienncePeopleMaximum;}else{ echo "4";} ?>"
+                              onchange="contentChanges();"
+                              onblur="checkIsEmpty(this.value,this)" /> <span class="min_max"><?php echo __('Max'); ?></span>
+                    </div>
+
+
+
+                </div>
+
+               </div>
+
+               <input type="hidden"
+                    value="<?php echo $block->getCustomAttributesUrl(); ?>"
+                    name="custom_attributes_ajax_url" id="custom_attributes_ajax_url" />
+               <div id="custom_attributes_loader" style="display: none;">...</div>
+               <div id="custom_attributes"></div>
+               <script>
+require([
+         'jquery',
+         'mage/calendar'
+     ], function($){
+            $('#custom_attributes_loader').show();
+            var customAttributeSetId = $('#attribute_set').val();
+            var currentProductId = $('#current_product_id').val();
+            $.ajax({
+                type: "POST",
+                url: $('#custom_attributes_ajax_url').val(),
+                 data: {custom_attribute_set_id: customAttributeSetId,current_product_id: currentProductId},
+                success: function(transport){
+                $('#custom_attributes').html(transport);
+                $('#custom_attributes_loader').hide();
+                }
+                });
+    $( document ).ready(function(){
+        var customAttributeSetId = $('#attribute_set').val();
+        var customCurrentProductId = $('#current_product_id').val();
+        $('#custom_attributes_loader').show();
+        $.ajax({
+            type: "POST",
+            url: $('#custom_attributes_ajax_url').val(),
+             data: {custom_attribute_set_id: customAttributeSetId,current_product_id: customCurrentProductId},
+             success: function(transport){
+                $('#custom_attributes').html(transport);
+                $('#custom_attributes_loader').hide();
+                $(".calendar_inputField").calendar({
+                    buttonText:"<?php echo __('Select Date') ?>",
+               });
+            }
+            });
+    });
+
+});
+</script>
+          </fieldset>
+     </div>
+<?php
+/**
+ * End if for custom attributes section
+ */
+?>
+        <div class="form_next_button_section">
+          <button type="submit" class="profile_submit form_next_button"
+               id="basic_submit" value="Next">
+               <span class="form_next_btn_style"><?php echo __('save and continue');?></span>
+          </button>
+     </div>
+</form>
+<input type="hidden" id="currentLocationLatitude" value="" />
+<input type="hidden" id="currentLocationLongitude" value="" />
+<input type="hidden" id="currentLocationName" value="" />
+<!-- Div for removing custom option -->
+
+<script>
+var jQ = jQuery.noConflict();
+var map_marker_icon = '';
+jQ(function(){
+        var experienceLocation='<?php echo $experienceLocation;?>';
+        if (navigator.geolocation) {
+               navigator.geolocation.getCurrentPosition(function(showPosition) {
+           }, function(error) {
+               console.log('Error occurred. Error code: ' + error.message);
+           },{timeout:5000});
+        } else {
+               alert("Geolocation is not supported by this browser.");
+        }
+});
+function showPosition(position) {
+           var latitude = position.coords.latitude;
+           var longitude = position.coords.longitude;
+        jQ("#currentLocationLatitude").val(latitude);
+        jQ("#currentLocationLongitude").val(longitude);
+        initialize();
+}
+jQ(window).resize(function(){
+        if (jQ(window).width() <= 480){
+                jQ("#accommodate_minimum").attr("placeholder", "Minimum");
+                jQ("#accommodate_minimum").attr("placeholder", "Maximum");
+        }
+});
+function checkIsEmpty(value,thisInput)
+{
+        var inputId=thisInput.id;
+        if(value=="")
+        {
+                if(inputId=="price")
+                {
+                        document.getElementById(inputId).value="50.00";
+                }
+                if(inputId=="accommodate_minimum")
+                {
+                        document.getElementById(inputId).value="1";
+                }
+                if(inputId=="accommodate_maximum")
+                {
+                        document.getElementById(inputId).value="4";
+                }
+                if(inputId=="duration")
+                {
+                        document.getElementById(inputId).value="2";
+                }
+        }
+        else
+        {
+                if(inputId=="price") {
+                        var newValue = value.replace(/[^\d\.]/g,"");
+                        document.getElementById(inputId).value = newValue;
+                }
+                else if(inputId=="accommodate_minimum")        {
+                        var accommodate_maximum = document.getElementById("accommodate_maximum").value;
+                        if((parseInt(value) > 9) || (parseInt(accommodate_maximum) < parseInt(value))) {
+                                document.getElementById(inputId).value="1";
+                        }
+                }
+                else if(inputId=="accommodate_maximum") {
+                        var accommodate_minimum = document.getElementById("accommodate_minimum").value;
+                        if((parseInt(value) > 10) || (parseInt(accommodate_minimum) > parseInt(value))) {
+                                document.getElementById(inputId).value="10";
+                        }
+                }
+                else {
+                        var newValue = value.replace(/\D/g,'');
+                        document.getElementById(inputId).value = newValue;
+                }
+        }
+}
+</script>
+<script type="text/javascript">
+jQ(document).ready(function() {
+        initializeAutocomplete();
+});
+</script>
+<script type="text/javascript">
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+   var dataForm = $('#basic_form');
+   dataForm.mage('validation', {});
+
+});
+</script>

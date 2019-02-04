@@ -1,0 +1,87 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+
+?>
+<form class="form form-orders-search" id="oar-widget-orders-and-returns-form" data-mage-init='{"ordersReturns":{}, "validation":{}}' action="<?php /* @escapeNotVerified */ echo $block->getActionUrl() ?>"
+      method="post" name="guest_post">
+    <fieldset class="fieldset">
+        <legend class="admin__legend"><span><?php /* @escapeNotVerified */ echo __('Booking Information') ?></span></legend>
+        <br>
+
+        <div class="field id required">
+            <label class="label" for="oar-order-id"><span><?php /* @escapeNotVerified */ echo __('Booking ID') ?></span></label>
+
+            <div class="control">
+                <input type="text" class="input-text" id="oar-order-id" name="oar_order_id"
+                       data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field lastname required">
+            <label class="label" for="oar-billing-lastname"><span><?php /* @escapeNotVerified */ echo __('Billing Last Name') ?></span></label>
+
+            <div class="control">
+                <input type="text" class="input-text" id="oar-billing-lastname" name="oar_billing_lastname"
+                       data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field find required">
+            <label class="label" for="quick-search-type-id"><span><?php /* @escapeNotVerified */ echo __('Find Booking By') ?></span></label>
+
+            <div class="control">
+                <select name="oar_type" id="quick-search-type-id" class="select">
+                    <option value="email"><?php /* @escapeNotVerified */ echo __('Email'); ?></option>
+                    <option value="zip"><?php /* @escapeNotVerified */ echo __('ZIP Code'); ?></option>
+                </select>
+            </div>
+        </div>
+        <div id="oar-email" class="field email required">
+            <label class="label" for="oar_email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+
+            <div class="control">
+                <input type="email" class="input-text" id="oar_email" name="oar_email"
+                       data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+        <div id="oar-zip" class="field zip required">
+            <label class="label" for="oar_zip"><span><?php /* @escapeNotVerified */ echo __('Billing ZIP Code') ?></span></label>
+
+            <div class="control">
+                <input type="text" class="input-text" id="oar_zip" name="oar_zip" data-validate="{required:true}"/>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Continue') ?>" class="action submit primary">
+                <span><?php /* @escapeNotVerified */ echo __('Continue') ?></span>
+            </button>
+        </div>
+    </div>
+</form>

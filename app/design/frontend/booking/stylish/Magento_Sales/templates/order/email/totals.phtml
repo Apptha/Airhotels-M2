@@ -1,0 +1,76 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php
+$orderId=$this->getRequest()->getParam('order_id');
+$getOrderInfo = ($orderId)?$this->helper('\Apptha\Airhotels\Helper\Order')->getOrderInformation($orderId,'')->getData():$this->helper('\Apptha\Airhotels\Helper\Order')->getCheckoutServiceFee();
+$currencySymbol=  $this->helper('\Apptha\Airhotels\Helper\Order')->getOrderCurrencySymbol($block->getOrder()->getOrderCurrencyCode());
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+?>
+<?php foreach ($block->getTotals() as $_code => $_total): ?>
+    <?php if ($_total->getBlockName()): ?>
+        <?php echo $block->getChildHtml($_total->getBlockName(), false); ?>
+    <?php else:?>
+    <?php if($orderId && $_code!= 'subtotal' && $_code!= 'base_grandtotal' && !empty($getOrderInfo[0]['service_fee'])){
+    ?>
+            <tr class="processing_fee">
+            <th colspan="2"><?php echo __('Processing Fee');?></th>
+            <td><?php echo $currencySymbol.$getOrderInfo[0]['service_fee'];?></td>
+            </tr>
+    <?php }?>
+     <?php if(empty($orderId) && $_code!= 'base_grandtotal' && $_code!= 'subtotal' && !empty($getOrderInfo)){
+    ?>
+            <tr class="processing_fee">
+            <th colspan="2"><?php echo __('Processing Fee');?></th>
+            <td><?php echo $currencySymbol.$getOrderInfo;?></td>
+            </tr>
+    <?php }?>
+    <tr class="<?php /* @escapeNotVerified */ echo $_code?>">
+        <th <?php /* @escapeNotVerified */ echo $block->getLabelProperties()?> scope="row">
+            <?php if ($_total->getStrong()):?>
+            <strong><?php echo $block->escapeHtml($_total->getLabel());?></strong>
+            <?php else:?>
+            <?php echo $block->escapeHtml($_total->getLabel());?>
+            <?php endif?>
+        </th>
+        <td <?php /* @escapeNotVerified */ echo $block->getValueProperties()?> data-th="<?php echo $block->escapeHtml($_total->getLabel());?>">
+            <?php if ($_total->getStrong()):?>
+            <strong><?php /* @escapeNotVerified */ echo $block->formatValue($_total) ?></strong>
+            <?php else:?>
+            <?php /* @escapeNotVerified */ echo $block->formatValue($_total) ?>
+            <?php endif?>
+        </td>
+    </tr>
+    <?php endif?>
+<?php endforeach?>

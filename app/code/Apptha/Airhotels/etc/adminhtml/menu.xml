@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ * 
+ */
+--> 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+       	   <add id="Apptha_Airhotels::main_menu" title="Airhotels" module="Apptha_Airhotels" sortOrder="40" resource="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::profile" title="Manage Profile" module="Apptha_Airhotels" sortOrder="50" action="airhotelsadmin/profile/index" resource="Apptha_Airhotels::airhotelsadmin_profile" parent="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::reviews" title="Manage Reviews" module="Apptha_Airhotels" sortOrder="55" action="review/product/index" resource="Apptha_Airhotels::airhotelsadmin_reviews" parent="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::verifyhosts" title="Manage Host Verification" module="Apptha_Airhotels" sortOrder="56" action="airhotelsadmin/verifyhosts/index" resource="Apptha_Airhotels::airhotelsadmin_verifyhosts" parent="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::catalog_category" title="Manage Categories" module="Apptha_Airhotels" sortOrder="198" action="catalog/category/index" resource="Apptha_Airhotels::airhotelsadmin_catalog_category" parent="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::review_rating" title="Manage Rating" module="Apptha_Airhotels" sortOrder="200" action="review/rating/index" resource="Apptha_Airhotels::airhotelsadmin_review_rating" parent="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::cities" title="Manage Cities" module="Apptha_Airhotels" sortOrder="201" action="airhotelsadmin/cities/index" resource="Apptha_Airhotels::airhotelsadmin_cities" parent="Apptha_Airhotels::main_menu"/>
+           <add id="Apptha_Airhotels::manage_products" title="Manage Listings" module="Apptha_Airhotels" sortOrder="3" parent="Apptha_Airhotels::main_menu" action="airhotelsadmin/products/index" resource="Apptha_Airhotels::manage_products" />
+           <add id="Apptha_Airhotels::host_orders" title="Bookings" module="Apptha_Airhotels" sortOrder="3" parent="Apptha_Airhotels::main_menu" action="airhotelsadmin/orders/index" resource="Apptha_Airhotels::host_orders" />
+           <add id="Apptha_Airhotels::manage_payments" title="Host Payments" module="Apptha_Airhotels" sortOrder="3" parent="Apptha_Airhotels::main_menu" action="airhotelsadmin/payments/index" resource="Apptha_Airhotels::manage_payments" />
+           <add id="Apptha_Airhotels::settings" title="Configurations" module="Apptha_Airhotels" sortOrder="9" parent="Apptha_Airhotels::main_menu" action="adminhtml/system_config/edit/section/airhotels" resource="Apptha_Airhotels::settings" />
+            <add id="Apptha_Airhotels::cms_page" title="Manage CMS Pages" module="Apptha_Airhotels" sortOrder="201" action="cms/page/index" resource="Apptha_Airhotels::airhotelsadmin_cms_page" parent="Apptha_Airhotels::main_menu"/>
+            <add id="Apptha_Airhotels::cms_block" title="Manage CMS Blocks" module="Apptha_Airhotels" sortOrder="202" action="cms/block/index" resource="Apptha_Airhotels::airhotelsadmin_cms_block" parent="Apptha_Airhotels::main_menu"/>
+           
+             <add id="Apptha_Airhotels::system_design_theme" title="Manage Themes" module="Apptha_Airhotels" sortOrder="202" action="adminhtml/system_design_theme" resource="Apptha_Airhotels::airhotelsadmin_system_design_theme" parent="Apptha_Airhotels::main_menu"/>
+
+            <add id="Apptha_Airhotels::contacthost" title="Contact Host" module="Apptha_Airhotels" sortOrder="203" action="airhotelsadmin/contacthost/index"  resource="Apptha_Airhotels::airhotels_contacthost" parent="Apptha_Airhotels::main_menu"/>
+     </menu>
+</config>

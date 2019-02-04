@@ -1,0 +1,45 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php if ($_item = $block->getItem()): ?>
+  <?php
+  $listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+  $convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getConvertedDate($listingDateFormat);
+  ?>
+    <div id="order_item_<?php echo $_item->getId() ?>_title"
+         class="product-title">
+         <?php $getOrderInfo = $this->helper('\Apptha\Airhotels\Helper\Order')->getOrderInformation($_item->getId(),$_item->getProductId())->getData();?>
+        <?php echo $block->escapeHtml($_item->getName());?>
+        <ul>
+          <li><span><?php echo __('Check In :');?></span><span><?php echo date ( $convertedDateFormat, strtotime ($getOrderInfo[0]['fromdate']) );?></span></li>
+          <li><span><?php echo __('Check Out :');?></span><span><?php echo date($convertedDateFormat,strtotime($getOrderInfo[0]['todate']));?></span></li>
+        </ul>
+    </div>
+<?php endif; ?>

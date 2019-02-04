@@ -1,0 +1,60 @@
+<?php
+$_sliderGallery = $this->getData('slider_gallery');
+$_product = $this->getData('product');
+$cityName = $this->getData('city_name');
+$stateName = $this->getData('state_name');
+$countryName = $this->getData('country_name');
+
+$imagehelper = $this->helper ( 'Magento\Catalog\Helper\Image' );
+$imageCount = count ( $_sliderGallery );
+                $increment = 0;
+                if ($imageCount != 0) { ?>
+                   <div class="photo-grid">
+                   <?php foreach ( $_sliderGallery as $_image ) {
+                        
+                        $baseImage =  $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl().'catalog/product'.$_image['file'];
+                        $baseImageSlider = $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl().'catalog/product'.$_image['file'];
+                        /**
+                         * check the first two photos and displayed on top
+                         */
+                        if ($increment < 2) {
+                            ?>
+                                           <div class="first_row_gallery">
+                                                  <a class="fancybox-thumbs_gallery" data-fancybox-group="thumbs" title="<?php if(isset($cityName)){echo ucwords($cityName);}if(isset($stateName)){echo ', '.ucwords($stateName);}if(isset($countryName)){echo ', '.ucwords($countryName); }?>" href="<?php echo $baseImageSlider; ?>"> 
+                                                  <img src="<?php echo $baseImage; ?>" width="300" />
+                                                  </a>
+                                             </div>
+                  <?php /**
+                         * check the above two photos and displayed on below
+                         */
+                        } else if (($increment < 5) && ($increment >= 2)) {
+                            ?>
+                                                  <div class="second_row_gallery">
+                                                  <a class="fancybox-thumbs_gallery" data-fancybox-group="thumbs" title="<?php if(isset($cityName)){echo ucwords($cityName);}if(isset($stateName)){echo ', '.ucwords($stateName);}if(isset($countryName)){echo ', '.ucwords($countryName); }?>" href="<?php echo $baseImageSlider; ?>"> 
+                                                   <img src="<?php echo $baseImage; ?>" width="200" />
+                      <?php /**
+                             * check and print the content for remaining photos
+                             */
+                            if (($imageCount > 5) && ($increment == 4)) {
+                                /**
+                                 * Get the remaining photos count.
+                                 */
+                                $remaining = $imageCount - 5;
+                                $content = "See other $remaining photos";
+                                ?>
+                                            <div class="seeothers_container">
+                                                            <span><?php echo __($content);?></span>
+                                            </div>
+                                                                          <?php }?>
+                                                          </a>
+                                             </div>
+                                                            <?php } else { ?>
+                                                 <a class="fancybox-thumbs_gallery" data-fancybox-group="thumbs" title="<?php if(isset($cityName)){echo ucwords($cityName);}if(isset($stateName)){echo ', '.ucwords($stateName);}if(isset($countryName)){echo ', '.ucwords($countryName); }?>" href="<?php echo $baseImageSlider; ?>" style="display: none;">
+                                                  <img src="<?php echo $baseImage; ?>" width="200" />
+                                             </a>
+                                                            <?php }
+                        $increment ++;
+                    }
+                    ?>
+                                            </div>
+                                      <?php } ?>

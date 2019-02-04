@@ -1,0 +1,64 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+namespace Magento\Catalog\Model\Product\Type;
+
+class Virtual extends \Magento\Catalog\Model\Product\Type\AbstractType
+{
+    /**
+     * Check is virtual product
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @return bool
+     */
+    public function isVirtual($product)
+    {
+        return true;
+    }
+
+    /**
+     * Check that product of this type has weight
+     *
+     * @return bool
+     */
+    public function hasWeight()
+    {
+        return false;
+    }
+
+    /**
+     * Delete data specific for Virtual product type
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @return void
+     */
+    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product)
+    {
+    }
+}

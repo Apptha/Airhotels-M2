@@ -1,0 +1,430 @@
+<?php
+/**
+ * Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<?php
+$bestSeller = $this->getCollection ();
+$cityList = $this->getCityCollection ();
+$categoryCollection = $this->getCategoryCollection ();
+$url = $this->getMediaUrl ();
+$imagehelper = $this->helper ( 'Magento\Catalog\Helper\Image' );
+$store = $this->helper('Apptha\Airhotels\Helper\Data')->getStore();
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getConvertedDateFormat($listingDateFormat);
+?>
+<div class="banner">
+         <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage_banner')->toHtml();?>
+          <div class="container">
+               <div class="search-panels-container">
+                    <div class="panels-body">
+                         <h2><?php echo __('Experience with Global');?></h2>
+                         <h3><?php echo __ ( 'Live thousands of new lives around the globe');?></h3>
+                         <div class="panels-content" id="mob_search_popup_form">
+                             <div class="panels-anywhere">
+                                        <label class="anywhere-icon sprite" for="searchTextField"><?php echo __('Where');?></label>
+                                        <input href="#home_page_search_popup_form" type="text" class="searchmainpage_popup" id="home_page_search_popup"
+                                             placeholder="<?php echo __('Where do you want to go?'); ?>"
+                                             autocomplete="off" />
+                                   </div>
+                                 </div>
+                         <div class="panels-content" id="home_page_search_popup_form">                             
+                              <form data-mage-init='{"validation": {}}' id="home_page_search"
+                                   action="<?php echo $block->getBaseUrl().'booking/listing/search/'; ?>"
+                                   method="get" enctype="multipart/form-data"
+                                   name="home_page_search">
+                                   <div class="panels-anywhere">
+                                        <label class="anywhere-icon sprite" for="searchTextField"><?php echo __('Where');?></label>
+                                        <input data-validate='{"required":true}' id="searchTextField"
+                                             name="q" type="text" class="searchmainpage  "
+                                             placeholder="<?php echo __('Where do you want to go?'); ?>"
+                                             autocomplete="off" />
+                                   </div>
+                                   <div class="panels-anytime">
+                                        <label class="anytime-icon sprite" for="from"><?php echo __('When');?></label>
+                                        <div class="datarangeinput">
+                                             <div class='date_input'>
+                                                  <div class="date_checkin">
+                                                       <input readonly name="from" id="checkin_before" class="checkin_date" value="Check In" onkeydown="return false" />
+                                                  </div>
+                                                  <div class="date_checkout">
+                                                       <input readonly name="to" id="checkout_before" class="checkout_date" value="Check Out" onkeydown="return false" />
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div class="panels-guest">
+                                        <label for="guest"><?php echo __('Guests');?></label>
+                                            <select data-validate='{"required":true}'
+                                                       id="guests" name="guests" class="justselect">
+                                                       <option value="1" selected><?php echo __('1 Guest'); ?></option>
+                                  <?php for($i=2;$i<=12;$i++) { ?>
+                                      <option value="<?php echo $i; ?>"><?php
+                                              if ($i == 12) {
+                                                   echo $i . '+' . ' ';
+                                                   echo __ ( 'Guests' );
+                                              } else {
+                                                   echo $i . ' ';
+                                                   echo __ ( 'Guests' );
+                                              }
+                                     ?></option>
+                                 <?php } ?>
+                                            </select>
+                                   </div>
+                                   <div class="panels-search">
+                                      <button class="search-btn"><?php echo __('Search');?></button>
+                                   </div>
+                              </form>
+                              <div id="map_canvas_top"></div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+</div>
+<div class="container home-page-tab">
+        <ul class="tab">
+               <li class="tablinks active" onclick="openCity(event, 'home')"><?php echo __('Home');?></li>
+               <li class="tablinks" onclick="openCity(event, 'category')"><?php echo __('Category');?></li>
+               <li class="tablinks" onclick="openCity(event, 'place')"><?php echo __('Place');?></li>
+        </ul>
+     <div id="home" class="tabcontent">
+      <ul class="tabcontent-grid">
+        <li class="listings">
+                    <h3 class="listings" style="display:none;"><?php echo __('Listings');?></h3>
+                             <div class="owl-carousel home-owl owl-theme">
+                                 <?php foreach($bestSeller as $bestSellerProduct):
+                               $bestSellerProducts = $this->getProduct ( $bestSellerProduct->getId () );
+                               $privacyType = $bestSellerProducts->getAttributeText ( 'privacy' );
+                               $propertyType = $bestSellerProducts->getAttributeText ( 'booking_type' );
+                               $bedType = $bestSellerProducts->getAttributeText ( 'bedtype' );
+                               $reviewSummary = $this->helper ( 'Apptha\Airhotels\Helper\Product' )->getRatingSummary ( $bestSellerProducts );
+                               $reviewSummary = $reviewSummary ? $reviewSummary : 0;
+                               $helper = $this->helper('Apptha\Airhotels\Helper\General');
+                               $placeholderUrl = $helper->getPlaceholderImage();
+                               $imageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $bestSellerProducts->getImage();
+                               ?>
+                               <div class="item">
+                                  <a href="<?php echo $bestSellerProducts->getProductUrl();?>">
+                                    <div class="carousel-image">
+                                       <div class="carousel-image-img owl-lazy"
+                                       data-src="<?php echo $bestSellerProducts->getImage()?$imageUrl:$placeholderUrl?>"
+                                       style="background-image: url('<?php echo $bestSellerProducts->getImage()?$imageUrl:$placeholderUrl?>')">
+                                       </div>
+                                    </div>
+                                    <div class="carousel-cnt">
+                                       <h4><?php echo $bestSellerProducts->getName ();?></h4>
+                                       <p><?php echo $privacyType;?>/<?php echo $propertyType;?>. <?php echo $bedType;?></p>
+                                       <div class="rating-box">
+                                            <div class="rating" style="width: <?php echo $reviewSummary;?>%;"></div>
+                                       </div>
+                                       <div class="price">
+                                           <h4><?php echo $this->toCurrentCurrency($bestSellerProducts->getPrice());?></h4>
+                                       </div>
+                                    </div>
+                                  </a>
+                                  </div>
+                                   <?php endforeach;?>
+                           </div>
+            </li>
+
+             <li class="place">
+                            <h3 class="city_property" style="display:none;">
+                                   <span><?php echo __('City');?></span>
+                           </h3>
+                         <div class="owl-carousel city-owl owl-theme">
+                <?php foreach($cityList as $city):?>
+                <div class="item">
+                                   <a href="<?php echo $block->getBaseUrl().'booking/listing/search/?q=' . $city->getName().'&guests=1';?>">
+                                        <div class="carousel-image">
+                                             <div class="carousel-image-img owl-lazy" data-src="<?php echo $url.'Airhotels/Cityimage/'.$city->getImages()?>"
+                                             style="background-image: url('<?php echo $url.'Airhotels/Cityimage/'.$city->getImages()?>')"></div>
+                                        </div>
+                                   </a>
+                                   <div class="carousel-cnt">
+                                        <h4><?php echo $city->getName()?></h4>
+                                   </div>
+                              </div>
+                <?php endforeach;?>
+                </div>
+               </li>
+
+
+
+                     <?php $i=1;?>
+                         <?php foreach($categoryCollection as $category):
+                     $ProductByCategory = $this->getProductCollectionByCategory($category->getId());
+                     if(count($ProductByCategory)> 0): ?>
+                     <?php if($i<=5):?>
+                        <li>
+                                   <h3 class="category_name" style="display:none;">
+                                      <span><?php echo $category->getName();?></span>
+                                      </h3>
+                               <div class="owl-carousel owl-theme category-owl-<?php echo $category->getId();?>">
+
+                                   <?php foreach($ProductByCategory as $categoryProduct):?>
+                                        <div class="item">
+                                               <?php  $products = $this->getProduct ( $categoryProduct->getId () );
+                                                      $reviewSummary = $this->helper ( 'Apptha\Airhotels\Helper\Product' )->getRatingSummary ( $products );
+                                                      $reviewSummary = $reviewSummary ? $reviewSummary : 0?>
+                                                        <a href="<?php echo $products->getProductUrl();?>">
+                                                         <div class="carousel-image">
+                                                            <div class="carousel-image-img owl-lazy"
+                                                            data-src= "<?php echo $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $products->getImage();?>" style="background-image: url('<?php echo $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $products->getImage();?>');"> </div>
+                                                         </div>
+                                                         <div class="carousel-cnt">
+                                                           <h4> <?php echo $products->getName();?></h4>
+                                                           <div class="ratings-review-section">
+                                                              <div class="rating-box">
+                                                                 <div class="rating" style="width: <?php echo $reviewSummary;?>%;">
+                                                                 </div>
+                                                              </div>
+                                                           </div>
+                                                         </div>
+                                                         <div class="price">
+                                                              <h4><?php echo $this->toCurrentCurrency($categoryProduct->getPrice());?></h4>
+                                                         </div>
+                                                     </a>
+                                           </div>
+                                  <?php endforeach;?>
+                                      </div>
+                        </li>
+                        <script>require(['jquery','mage/calendar'], function($){
+                            $(document).ready(function() {
+                               $('.category-owl-<?php echo $category->getId();?>').owlCarousel({margin: 12, lazyLoad:true,nav: true,loop: false,responsive:{0:{stagePadding:35,items:2},480:{stagePadding:35,items:3},1025:{items:5},1366:{items:5}} });
+                            });
+                            })
+                   </script>
+                  <?php endif;?>
+                  <?php $i++;?>
+                  <?php endif;?>
+                  <?php endforeach;?>
+              </ul> 
+     </div>
+     <div id="category" class="tabcontent" style="display: none;">
+          <ul class="tabcontent-grid">
+          <?php $i=1;?>
+      <?php foreach($categoryCollection as $category):?>
+      <?php $ProductCollectionByCategory = $this->getProductCollectionByCategory($category->getId());
+       if(count($ProductCollectionByCategory)> 0): ?>
+         <?php if($i<=5):?>
+            <li>
+                <h3>
+                     <span><?php echo $category->getName();?></span>
+                </h3>
+                     <div class="owl-carousel owl-theme category-owl-<?php echo $category->getId();?>">
+                         <?php foreach($ProductCollectionByCategory as $categoryProduct):?>
+                                   <div class="item">
+                                     <?php $products = $this->getProduct ( $categoryProduct->getId () );
+                                      $reviewSummary = $this->helper ( 'Apptha\Airhotels\Helper\Product' )->getRatingSummary ( $products );
+                                      $reviewSummary = $reviewSummary ? $reviewSummary : 0?>
+                                              <a href="<?php echo $products->getProductUrl();?>">
+                                                   <div class="carousel-image">
+                                                        <div class="carousel-image-img owl-lazy" data-src="<?php echo $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $products->getImage();?>"
+                                                        style="background-image: url('<?php echo $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $products->getImage();?>');">
+                                                        </div>
+                                                   </div>
+                                                   <div class="carousel-cnt">
+                                                        <h4> <?php echo $products->getName();?></h4>
+                                                        <div class="ratings-review-section">
+                                                             <div class="rating-box">
+                                                                  <div class="rating" style="width: <?php echo $reviewSummary?>%;">
+                                                                  </div>
+                                                             </div>
+                                                        </div>
+                                                   </div>
+                                                   <div class="price">
+                                                        <h4><?php echo $this->toCurrentCurrency($products->getPrice());?></h4>
+                                                   </div>
+                                              </a>
+                                   </div>
+                             <?php endforeach;?>
+                      </div>
+             </li>
+             <script>require(['jquery','mage/calendar'], function($){
+                               $(document).ready(function() {
+                               $('.category-owl-<?php echo $category->getId();?>').owlCarousel({margin: 12, lazyLoad:true,nav: true,loop: false,responsive:{0:{stagePadding:35,items:2},480:{stagePadding:35,items:3},1025:{items:3},1366:{items:5}} });
+                                   });
+                               })
+                           </script>
+           <?php endif;?>
+          <?php $i++;?>
+       <?php endif;?>
+      <?php endforeach;?>
+      </ul>
+     </div>
+     <div id="place" class="tabcontent" style="display: none;">
+               <ul class="tabcontent-grid">
+                       <?php foreach($cityList as $city): ?>
+                       <li>
+                       <?php $porductCollectionByCity = $this->getProductionByCity($city->getName());?>
+                       <?php if($porductCollectionByCity):?>
+                         <h3><span><?php echo $city->getName();?></span> <?php
+                         $cityProductsCount = count ($porductCollectionByCity);
+                         if($cityProductsCount > 5): ?>
+                         <a href="<?php echo $block->getBaseUrl().'booking/listing/search/?q=' . $city->getName().'&guests=1';?>"><?php echo __('See All');?> </a>
+                         <?php endif;?>
+                         </h3>
+                         <div class="owl-carousel owl-theme owl-city-<?php echo $city->getId();?>">
+                              <?php foreach($porductCollectionByCity as $productList):?>
+                                       <div class="item">
+                                             <?php  $products = $this->getProduct ( $productList->getId () );
+                                          $reviewSummary = $this->helper ( 'Apptha\Airhotels\Helper\Product' )->getRatingSummary ( $products );
+                                          $reviewSummary = $reviewSummary ? $reviewSummary : 0?>
+                                                <a href="<?php echo $products->getProductUrl();?>">
+                                             <div class="carousel-image">
+                                                <div class="carousel-image-img owl-lazy"
+                                                  data-src="<?php echo $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $products->getImage();?>"
+                                                  style="background-image: url('<?php echo $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $products->getImage();?>');">
+                                                </div>
+                                             </div>
+                                                 <div class="carousel-cnt">
+                                                     <h4> <?php echo $products->getName();?></h4>
+                                                     <div class="ratings-review-section">
+                                                        <div class="rating-box">
+                                                          <div class="rating" style="width: <?php echo $reviewSummary;?>%;">
+                                                          </div>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="price">
+                                                      <h4><?php echo $this->toCurrentCurrency($products->getPrice());?></h4>
+                                                 </div>
+                                            </a>
+                                       </div>
+                             <?php endforeach;?>
+                        </div>
+                    </li>
+                <?php endif;?>
+                 <script>require(['jquery','mage/calendar'], function($){
+        $(document).ready(function() {
+        $('.owl-city-<?php echo $city->getId();?>').owlCarousel({margin: 12, lazyLoad:true,nav: true,loop: false,responsive:{0:{stagePadding:35,items:2},480:{stagePadding:35,items:3},1025:{items:5},1366:{items:5}} });
+        });
+        })
+        </script>
+        <?php endforeach;?>
+               </ul>
+
+     </div>
+
+</div>
+<div class="home-information container clearfix">
+     <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('customer_support')->toHtml();?>
+</div>
+<script>
+
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+require([
+    'jquery',
+    'mage/calendar'
+], function($)
+{
+$("#from").calendar({
+              buttonText:"<?php echo __('Select Date') ?>",
+         });
+     $(window).scroll(function() {
+          var nav = $('.header.content');
+          var top = 50;
+          if ($(window).scrollTop() >= top) {
+          nav.addClass('fixed');
+          } else {
+          nav.removeClass('fixed');
+          }
+          });
+    $(document).ready(function() {
+        $('.home-owl').owlCarousel({margin: 12, lazyLoad:true,nav: true,loop: false,responsive:{0:{stagePadding:35,items:2},480:{stagePadding:35,items:3},1025:{items:3},1366:{items:3}} });
+        $('.city-owl').owlCarousel({margin: 12, lazyLoad:true,nav: true,loop: false,responsive:{0:{stagePadding:35,items:2},480:{stagePadding:35,items:3},1025:{items:5},1366:{items:5}} });
+    });
+})
+</script>
+<script type="text/javascript">
+require([
+"jquery",
+"jquery/ui",
+"moment",
+"daterangepicker"
+], function($){
+  $('#home_page_search_popup').fancybox({"width":400,"height":300,
+    'afterClose': function() {
+                              $(document.body).removeClass('menu-style');
+                            }
+});
+  $("#home_page_search_popup").click(function(){
+       $(document.body).addClass('menu-style');
+   });
+   $(document).ready(function() {    
+        myFunction();
+      if( $('.checkin_date').val()!="<?php echo __('Check In')?>"){
+         $('.checkin_date').attr('id','checkin_after');
+        }
+        if( $('.checkout_date').val()!="<?php echo __('Check Out')?>"){
+         $('.checkout_date').attr('id','checkout_after');
+        }
+   });
+     $('.date_input').show();
+    $('.datarangeinput').daterangepicker({
+      autoUpdateInput: false,
+      autoApply: true,
+      locale: {
+          format: "<?php echo $convertedDateFormat; ?>"
+      },
+    });
+  $('.datarangeinput').on('show.daterangepicker', function(ev, picker) {
+  //do something, like clearing an input
+    $('.date_input').show();
+    $('.daterangespan').hide();
+  });
+  function myFunction() {
+         setTimeout(function(){ $('.listings,.category_name,.city_property').css('display','block'); }, 500);
+     }
+});
+</script>
+<script type="text/javascript">
+var autoCompleteFlag;
+        function initialize() {
+            var input = document.getElementById('searchTextField');
+            var autocomplete = new google.maps.places.SearchBox(input);
+            google.maps.event.addDomListener(autocomplete,'places_changed', function() {
+                    autoCompleteFlag = true;
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('block_identifier')->toHtml();?>

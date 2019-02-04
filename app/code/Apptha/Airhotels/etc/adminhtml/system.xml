@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+! -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/system_file.xsd">
+  <system>
+    <tab id="apptha" translate="label" sortOrder="1">
+      <label>Airhotels</label>
+    </tab>
+    <section id="airhotels" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Configuration</label>
+      <tab>apptha</tab>
+      <resource>Apptha_Airhotels::system_config</resource>
+      <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>General Settings</label>
+        <field id="enable_in_frontend" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Activate Airhotels </label>
+          <comment>Enable/ Disable Airhotels Module.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enter Title </label>
+          <comment>Title which appears on frontend </comment>
+        </field>
+        <field id="googlemap" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enter Google Map API </label>
+          <comment>Enter Google Map API key </comment>
+        </field>
+        <field id="processing_fee" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label> Order Processing Fee </label>
+          <validate>validate-zero-or-greater</validate>
+          <comment> Processing fee charged per night on listing in (%) taken by admin from customer </comment>
+        </field>
+        <field id="commission_fee" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label> Listing Commission Fee </label>
+          <validate>validate-zero-or-greater</validate>
+          <comment> Commission fee charged per night on listing in (%) taken by admin from host </comment>
+        </field>
+         <field id="cancel_request" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable cancel request option for the user </label>
+          <comment>Enable/ Disable Airhotels cancel request for the user.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+    <field id="payment_request" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable payment request option for host </label>
+          <comment>Enable/ Disable Airhotels payment request for host.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+      <group id="product" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Listing Settings</label>
+        <field id="product_approval" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Listing Auto Approval</label>
+          <comment>Enable auto approval of Listing </comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="new_booking_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select New Listing Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+        <field id="host_booking_approval_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Host Listing Approval Request Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+        <field id="approval_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Listing Approval Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+        <field id="disapproval_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Listing Disapproval Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+        <field id="admin_booking_delete_option" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Admin Listing Delete Template To Host</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>    
+      
+      </group>
+      <group id="order" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Order Management</label>
+        <field id="host_order" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable Host Order Management</label>
+          <comment>Enable to allow order management for host(invoice, cancel)</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="notification_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Host New Order Notification Email Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+        <field id="item_request_template" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Buyer Order Cancel Request Email Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+        <field id="item_cancel_return_template" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Select Host Order Cancel Email Template</label>
+          <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+          <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+        </field>
+      </group>
+      <group id="advancesearch_price_slider" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Advanced Search Price Slider Configuration</label> 
+        <field id="range_start" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Range Start </label>
+          <comment>Please enter numeric value in field,for example:700, range start greater than min price (Based on Base Currency) </comment>
+        </field>
+        <field id="minimum_price" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Minimum Price </label>
+          <comment>Please the enter the value in form on number,for example:500, min price for price slider (Based on Base Currency)</comment>
+        </field>
+        <field id="maximum_price" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Maximum Price </label>
+          <comment>Please enter numeric value in field,for example:1000, max price for price slider (Based on Base Currency) </comment>
+        </field>
+        </group>
+        <group id="advancesearch_configuration" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Advance Search Configuration</label> 
+        <field id="default_location_address" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Default Location Address </label>
+          <comment>Please enter the city to load the default city on the search page.</comment>
+        </field>
+        <field id="radius_range_cover" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Radius Range Cover </label>
+          <comment>Distance in kilometer</comment>
+        </field>
+        </group>
+        <group id="sample_data" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Sample Data Configuration</label> 
+        <field id="enable_sample_data" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable Sample Data </label>
+          <comment>Enable Sample Data</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        </group>        
+        <group id="date_format" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Date Format Configuration</label> 
+        <field id="listing_date_format" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Date Format for listing</label>
+          <comment>Choose the Date Format to change the view of dates in website front end.</comment>
+          <source_model>Apptha\Airhotels\Model\Config\Source\Dateformatoptions</source_model>
+        </field>
+        </group>
+
+        <group id="contact_host" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Contact Host Configuration</label> 
+          <field id="airhotels_product_contact_host" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Contact Host</label>
+          <comment>Enable to show the contact host button in listing page</comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="airhotels_product_contact_host_email" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Email address</label>
+          <comment>Enable to show the email address field in contact host popup </comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="airhotels_product_contact_host_phoneno" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label> Phone Number</label>
+          <comment>Enable to show the phone number in contact host popup  </comment>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        </group>
+    </section>
+  </system>
+</config>

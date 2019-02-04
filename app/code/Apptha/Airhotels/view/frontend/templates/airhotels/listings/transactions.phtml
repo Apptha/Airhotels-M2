@@ -1,0 +1,90 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+?>
+<?php
+$transactionArray = array(2 => __ ('Refunded'),3 => __ ('Paid'),0 => __ ('Not paid'));?>
+<div class="my-account" style="padding:0">
+        <h2 class="account-heading"><?php echo __('Transaction History')?></h2>
+</div>
+<div class="order-manage">
+   <?php
+   $transactionCollection = $block->getCollection ();
+   if ($transactionCollection->getSize () > 0) { ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history"  id="my-orders-table">
+            <thead>
+            <tr><th><?php echo __('Booking Id ');?>#</th>
+                <th><?php echo __('Total Amount');?></th>
+                <th><?php echo __('Host Amount');?></th>
+                <th><?php echo __('Admin Commission');?></th>
+                <th><?php echo __('Paid Status');?></th>
+            </tr>
+          </thead>
+  <?php foreach ($transactionCollection as $transaction){ ?>
+             <tr>
+                <td><?php echo $transaction->getOrderId();?></td>
+                <td><?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($transaction->getHostProductTotal (),true,false);?></td>
+                <td><?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($transaction->getHostAmount (),true,false);?></td>
+                <td><?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(($transaction->getHostProductTotal () - $transaction->getHostAmount ()),true,false);?></td>
+                <td>
+                <?php if(empty($transaction->getPaymentStatus()) && $block->getPaymentRequestValue() == 1){ ?>
+                      <a href="<?php echo $block->getUrl('booking/payment/request/id/'.$transaction->getId())?>"
+                          class="action view"> <span><?php echo __('Payment Request');?></span>
+                      </a>
+                      <?php }elseif($transaction->getPaymentStatus() == 1){
+                            echo __('Payment Request Sent');
+                      }elseif($transaction->getPaymentStatus()==3){?>
+                        <a href="<?php echo $block->getUrl('booking/payment/acknowledge/id/'.$transaction->getId())?>"
+                          class="action view"> <span><?php echo __('Acknowledge');?></span>
+                                </a>
+                        <?php }elseif($transaction->getPaymentStatus()==4){
+                            echo __('Acknowledgement Sent');
+                        } elseif (array_key_exists($transaction->getPaymentStatus(),$transactionArray)){
+                             echo $transactionArray[$transaction->getPaymentStatus()];
+                        }else{
+                            echo __('Not Paid');
+                      } ?>
+               </td>
+            </tr>
+         <?php }?>
+      </table>
+        <div class="toolbar-bottom">
+            <div class="toolbar bottom">
+            <?php echo $block->getPagerHtml(); ?>
+         </div>
+        </div>
+    </div>
+   <?php
+} else {?>
+  <div class="norecords">
+    <p class="no_transaction_records"><?php  echo __ ( 'No Records were Found' );?></p>
+    </div>
+<?php } ?>
+</div>

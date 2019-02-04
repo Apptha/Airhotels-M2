@@ -1,0 +1,515 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ * MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category Apptha
+ * @package Apptha_Airhotels
+ * @version 1.0
+ * @author Apptha Team <developers@contus.in>
+ * @copyright Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license http://www.apptha.com/LICENSE.txt
+ *
+ */
+/**
+* Getting a date format which selected in admin panel.
+*/
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$product_Ids [] = $block->getProduct ()->getId ();
+if (! empty ( $product_Ids )) {
+     foreach ( $product_Ids as $items ) {
+          $productCollection = $block->getProductData ( $items );
+          $productId = $productCollection->getId ();
+          $city = $productCollection->getCity ();
+          $minimumPeople = $productCollection->getMinimumDays ();
+          $accommodateMinimum = $productCollection->getAccommodateMinimum ();
+          $price = $productCollection->getPrice ();
+          $latitude = trim ( $productCollection->getLatitude () );
+          $longitude = trim ( $productCollection->getLongitude () );
+          $productName = $productCollection->getName ();
+          $from = base64_decode ( $this->getRequest ()->getParam ( 'from' ) );
+          $to = base64_decode ( $this->getRequest ()->getParam ( 'to' ) );
+          $_productCollection = $block->getSimilarLocation ( $city, $productId );
+          $currSymbol =  $this->helper('Apptha\Airhotels\Helper\Order')->getCurrencySymbol();
+          $similarListingCount =  $_productCollection ->count();
+          if ($similarListingCount) :
+               ?>
+<!-- similar listing -->
+<div id="similar_listings_outer_wrapper" class="container similar-listing-section">
+     <div id="similar_listings_wrapper" class="box">
+          <div class="similar-headings clearfix">
+               <h1 class="similar_listings_title"><?php echo __('Similar listings'); ?></h1>
+          </div>
+          <div class="similar_listing_scroll owl-carousel"><?php
+               foreach ( $_productCollection as $_similarproduct ) :
+                    $imageUrl = $_similarproduct->getImage ();
+                    $baseImageUrl = $imageUrl ? $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl () . 'catalog/product' . $imageUrl : '#';
+                    ?>
+                <div class="item">
+                    <a href="<?php echo $_similarproduct->getProductUrl(); ?>">
+                         <div class="carousel-image">
+                              <div class="carousel-image-img"
+                                   style="background-image: url('<?php echo $baseImageUrl;?>')"></div>
+                         </div>
+                         <div class="carousel-cnt">
+                              <h4><?php echo $_similarproduct->getName();?></h4>
+                              <p><?php echo $_similarproduct->getAttributeText ( 'booking_type' ).'/'.$_similarproduct->getCity().','.$_similarproduct->getCountry();?></p>
+                              <div class="rating-box">
+                              <?php
+                    $ratingSummary = $this->helper('Apptha\Airhotels\Helper\Product')->getRatingSummary ( $_similarproduct );
+                    $ratingSummary = $ratingSummary ? $ratingSummary : 0
+                    ?>
+                                   <div class="rating" style="width: <?php echo $ratingSummary;?>%;"></div>
+                              </div>
+                              <div class="price">
+                                   <h4><?php echo $block->convertPrice($_similarproduct->getPrice ());?></h4>
+                              </div>
+                         </div>
+                    </a>
+               </div>
+               <?php endforeach; ?>
+                                  </div>
+     </div>
+</div>
+<?php endif; ?>
+<?php
+     }
+}
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->datepickerFormat($listingDateFormat);
+?>
+<script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js" ></script>
+<script type="text/javascript">
+require([
+"jquery",
+"jquery/ui",
+"mage/calendar",
+"moment"
+], function(jQuery){
+        var bookit_sumbit_button_status = 0;
+flag= false;
+          jQuery(function() {
+               var minimumDays = "<?php echo $minimumPeople ?>";
+               <?php if ($from != "" && $to != ""): ?>
+                          checkavail(jQuery("#from").val(),jQuery("#to").val(),'<?php echo $productId;?>','<?php echo $price;?>');
+                  <?php endif; ?>
+                   var date = new Date();
+                  disableDates((date.getMonth()+1), date.getFullYear());
+/* Array of dates to be disabled */
+var unavailableDates ='';
+  function disableDates(month, year){
+      jQuery.ajax({
+          type: "get",
+          url: "<?php echo $block->getUrl() . 'booking/listing/calendarvalidation/' ?>",
+          data: {'productId': jQuery('#productId').val(), 'month': month, 'year': year},
+          beforeSend: function() { jQuery('#ui-datepicker-div').addClass('datepicker-loader'); },
+          success:  function(data) {
+             // console.log(data);
+              unavailableDates = JSON.parse( data );
+              jQuery( "#from, #to" ).datepicker("refresh");
+              jQuery('#ui-datepicker-div').removeClass('datepicker-loader');
+              console.log(data);
+          }
+        });
+    }
+        function unavailable(date) {
+
+        dmy = ("0" + date.getDate()).slice(-2) + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        if (jQuery.inArray(dmy, unavailableDates.bookeddates) == -1) {
+            setTimeout(function () {
+                // Displaying specialprice in specific date if available
+        var cellContents = unavailableDates.specialprice;
+        jQuery('.ui-datepicker td > *').each(function (idx, elem) {
+            var value = cellContents[idx + 1] || 0;
+            var normalprice = <?php echo $price; ?> ;
+            var className = 'datepicker-content-' + CryptoJS.MD5(value).toString();
+            jQuery('.ui-datepicker td').addClass('specialprice');
+            if(value == 0)
+                jQuery(this).attr('title', normalprice);
+            else
+                jQuery(this).attr('title', value);
+             jQuery(this).addClass(className);
+        });
+    }, 0);
+            return [true, ""];
+        } else {
+            return [false, "", "Unavailable"];
+        }
+    }
+    jQuery.datepicker.setDefaults({ dateFormat: '<?php echo $convertedDateFormat;?>' });
+                  var dates = jQuery( "#from, #to" ).datepicker({
+                      changeMonth: false,
+                      minDate: '0',
+                      numberOfMonths: 1,
+                      beforeShowDay: unavailable,
+                      onChangeMonthYear: function(year, month, instance){
+                      disableDates(month, year);
+                                           },
+                      monthNames:["<?php echo __('January') ?>","<?php echo __('February') ?>","<?php echo __('March') ?>","<?php echo __('April') ?>","<?php echo __('May') ?>","<?php echo __('June') ?>","<?php echo __('July') ?>","<?php echo __('August') ?>","<?php echo __('September') ?>","<?php echo __('October') ?>","<?php echo __('November') ?>","<?php echo __('December') ?>"],
+                      onSelect: function( selectedDate ) {
+                          var option = this.id == "from" ? "minDate" : "maxDate";
+                              if(this.id == "from"){
+                                      var depart = jQuery.datepicker.parseDate(jQuery.datepicker._defaults.dateFormat, selectedDate);
+                                          depart.setDate(depart.getDate() + parseInt(minimumDays));
+                                              jQuery("#to" ).datepicker( "option", "minDate", depart );
+}
+                              if(jQuery("#from").val()!='' && jQuery("#to").val()!='' || flag == true) {
+                               
+                                checkavail(jQuery("#from").val(),jQuery("#to").val(),'<?php echo $productId;?>','<?php echo $price;?>');
+
+                                              }
+}
+}).focus(function(){
+    jQuery(this).blur();
+});
+});
+var map_marker_icon = '';
+function initialize() {
+        var myLatlng = new google.maps.LatLng('<?php echo $latitude;?>','<?php echo $longitude;?>');
+          var mapOptions = {
+            Zoom: 8,
+            minZoom: 2,
+            maxZoom: 12,
+            center: myLatlng,
+            scrollwheel: false
+}
+          var map = new google.maps.Map(document.getElementById('customer_view_map_for_space'), mapOptions);
+          var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: '<?php echo $productName;?>',
+      icon:map_marker_icon
+});
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+jQuery(document).ready(function() {
+jQuery('.similar_listing_scroll').owlCarousel({margin: 20, lazyLoad:true,nav: true,loop: false,responsive:{0:{items:2},480:{items:3},1000:{items:5},1300:{items:5}} });
+
+
+});
+
+        function checkCalendar(from,to){
+    if (jQuery.trim(from)=="" || jQuery.trim(from)=="<?php echo $listingDateFormat ?>" ) {
+            jQuery( "#from").datepicker("show");
+            document.getElementById("txtHint").innerHTML="";
+            return false;
+}
+    if (jQuery.trim(to)!="" || jQuery.trim(to)!="<?php echo $listingDateFormat ?>" ) {
+            jQuery( "#to").datepicker("show");
+            document.getElementById("txtHint").innerHTML="";
+            return false;
+}
+}
+function getHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest){
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+} else{
+    // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+return xmlhttp;
+}
+jQuery(function() {
+    jQuery("#guests").val('<?php echo $accommodateMinimum; ?>');
+});
+        function checkavail(from,to,product_id,product_price) {
+        var no_of_days = jQuery("#dayscount").val();
+        var url = "";
+        bookit_sumbit_button_status = 0;
+    if (jQuery.trim(from)=="" || jQuery.trim(from)=="<?php echo $listingDateFormat ?>" ) {
+                jQuery( "#from").datepicker("show");
+                document.getElementById("txtHint").innerHTML="";
+            return false;
+}
+        else if(jQuery.trim(to) !="" && jQuery.trim(to)!="<?php echo $listingDateFormat ?>" || flag==true) {
+                document.getElementById("txtHint").innerHTML="<div class='loadingWrapper'><div class='content three-bounce'><div class='one'></div><div class='two'></div><div class='three'></div></div></div>";
+        var xmlhttp = getHttp();
+        xmlhttp.onreadystatechange=function() {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                        console.log(xmlhttp.responseText);
+        var responsemessage = xmlhttp.responseText;
+        var maximumdays = '<?php echo __('Maximum property day(s)') ?>';
+        var minimumdays = '<?php echo __('Minimum property day(s)') ?>';
+            document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+            if(xmlhttp.responseText != "<?php echo __('Dates are not available refer to calendar') ?>"){
+                document.getElementById("cart").style.display = "block";
+}
+            if(xmlhttp.responseText == "<?php echo __('Dates are not available refer to calendar') ?>"){
+                    document.getElementById("cart").style.display = "none";
+                    document.getElementById("txtHint").style.color = "red";
+}
+            if(xmlhttp.responseText == "<?php echo __("Host can't book their own listing") ?>" || responsemessage.indexOf(maximumdays) !== -1 || responsemessage.indexOf(minimumdays) !== -1){
+                            document.getElementById("cart").style.display = "none";
+                            document.getElementById("txtHint").style.color = "red";
+            }
+
+}
+}
+         url = "<?php echo $block->getBaseUrl() . 'booking/listing/checkavail/' ?>";
+     url=url+"?from="+from;
+     url=url+"&to="+to;
+     url=url+"&productid="+product_id;
+     url=url+"&price="+product_price;
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send();        
+}
+}
+        jQuery( "#openReviewForm" ).click(function() {
+    jQuery( "#review_form" ).slideToggle( "slow", function() {
+    //Animation complete.
+});
+});
+jQuery('.service').click(function(e) {
+    e.preventDefault();
+});
+
+function bookItNow(url){
+    alert(bookit_sumbit_button_status);
+    jQuery('#bookit_sumbit_button').attr('disabled','disabled');
+    if(bookit_sumbit_button_status == 1){
+            return false;
+}else{
+            bookit_sumbit_button_status = 1;
+}
+    var fromdate = document.getElementById('from').value;
+    var todate = document.getElementById('to').value;
+if(flag==true) {
+    var todate = document.getElementById('hiddento').value;
+}
+    fromdate = fromdate.replace(/(\/)/gi,"@");
+    todate = todate.replace(/(\/)/gi,"@");
+    var accomodate = document.getElementById('guests').value;
+    var days = document.getElementById('subtotal_days').value;
+    var subtotal_amt = document.getElementById('subtotal_amt').value;
+    var newurl = url+"fromdate/"+fromdate+"/todate/"+todate+"/accomodate/"+accomodate+"/qty/"+days+"/subtotal_amt/"+subtotal_amt;
+    window.location.href = newurl;
+}
+        var userAgent = window.navigator.userAgent;
+jQuery(window).scroll(function () {
+   var winTop = jQuery(this).scrollTop();
+   var imgs = jQuery('#location');
+   if(jQuery(imgs).position().top <= winTop)
+               jQuery("#formhide").hide();
+   if (jQuery(this).scrollTop()>0) {
+           if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+} else{
+                   jQuery('#ui-datepicker-div').fadeOut();
+}
+}
+   if (jQuery(this).scrollTop() > 387) {
+     jQuery('.nav-section').addClass("fix-nav");
+     jQuery('#sidebar').addClass("sticky");
+     jQuery('body').addClass("fix-body");
+     jQuery(".right-form-section #fromh2").css("line-height", "40px");
+} else {
+     jQuery('.nav-section').removeClass("fix-nav");
+     jQuery(".right-form-section #fromh2").css("line-height", "34px");
+     jQuery('body').removeClass("fix-body");
+     jQuery('#sidebar').removeClass("sticky");
+}
+     var height = jQuery("#content").height();
+     if(jQuery(window).scrollTop() > height) {
+                   jQuery(".right-form-section").hide();
+}else{
+             jQuery("#sidebar").show();
+             jQuery(".right-form-section").show();
+}
+          var winTop = jQuery(this).scrollTop();
+          var imgs = jQuery('#location');
+          if(jQuery(imgs).position().top <= winTop){
+
+                  jQuery(".right-form-section").hide();
+                  jQuery(".wishlist-addthis").hide();
+
+}else{
+                  jQuery("#formhide").show();
+                  jQuery(".wishlist-addthis").show();
+
+}
+});
+jQuery(document).ready(function() {
+        jQuery("input:text, textarea, select, input:password").focus(function(){
+                jQuery(this).css('border', '1px solid #5aaee5');
+                jQuery(this).css('box-shadow', '0px 0px 10px rgba(90,157,229,0.5)');
+});
+        jQuery("input:text, textarea, select, input:password").blur(function(){
+                jQuery(this).css('border', '1px solid #dbdbdb');
+                jQuery(this).css('box-shadow', 'none');
+});
+});
+jQuery("#from,#to").click(function(event){
+ jQuery("#ui-datepicker-div").css("display", "block");
+});
+jQuery(document).keydown(function(event) {
+    if (event.keyCode == 27) { 
+        jQuery('#ui-datepicker-div').css("display", "none");
+    }
+});
+
+
+/**
+ * Adding CSS to sticky nav bar Active Menu
+ */
+jQuery("a").click(function(event){
+    var selector = '.navv ul li a';
+    elems = document.querySelectorAll(selector);
+    this.classList.add('active');
+    makeActive = function () {
+        for (var i = 0; i < elems.length; i++){
+            elems[i].classList.remove('active');
+        }
+        this.classList.add('active');
+    };
+    for (var i = 0; i < elems.length; i++){
+        elems[i].addEventListener('mousedown', makeActive);
+    }
+});
+ jQuery(function() {
+             var showTotalChar = 200, showChar = "Show (+)", hideChar = "Hide (-)";
+             jQuery('.listingInfo').each(function() {
+                  var content = jQuery(this).text();
+                  if (content.length > showTotalChar) {
+                       var con = content.substr(0, showTotalChar);
+                       var hcon = content.substr(showTotalChar, content.length - showTotalChar);
+                       var txt= con + '<span class="dots">...</span><span class="morectnt" style="display:none;">' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
+                       jQuery(this).html(txt);
+}
+});
+             jQuery(".showmoretxt").click(function() {
+                  if (jQuery(this).hasClass("sample")) {
+                      jQuery(this).removeClass("sample");
+                      jQuery(".dots").show();
+                      jQuery(this).text(showChar);
+} else {
+                       jQuery(this).addClass("sample");
+                      jQuery(".dots").hide();
+                       jQuery(this).text(hideChar);
+}
+                  jQuery(this).parent().prev().toggle();
+                  jQuery(this).prev().toggle();
+                  return false;
+});
+});
+
+require([
+"jquery",
+"jquery/ui",
+"mage/calendar"
+], function(jQuery){
+/**
+ * Sticky nav bar
+ */
+jQuery(document).ready(function () {
+         
+         jQuery("#ui-datepicker-div").show();
+        jQuery('a[href^="#"]').on('click', function (e) {
+                e.preventDefault();
+                jQuery(document).off("scroll");
+                jQuery('a').each(function () {
+                        jQuery(this).removeClass('active');
+})
+                jQuery(this).addClass('active');
+                var target = this.hash;
+                 jQtarget = jQuery(target);
+                jQuery('html, body').stop().animate({
+}, 500, 'swing', function () {
+                        window.location.hash = target;
+                        
+});
+});
+});
+});
+/**
+ * for Calender script Ends
+ */
+ var currectHourlyBlock = '';
+ var hourlyOverlayFlag = 0;
+ function showHourlyCalendar(value){
+ if(jQuery(value).is(":visible")){
+ if(hourlyOverlayFlag == 0){
+ currectHourlyBlock = value;
+}else{
+         jQuery(currectHourlyBlock).hide();
+         jQuery('.airhotels_hourly_overlay').hide();
+ hourlyOverlayFlag = 0;
+}
+}else{
+         jQuery('.airhotels_hourly_overlay').show();
+         jQuery(value).show();
+ currectHourlyBlock = value;
+}
+}
+ jQuery(".airhotels_hourly_overlay").click(function() {
+ jQuery(currectHourlyBlock).hide();
+ jQuery('.airhotels_hourly_overlay').hide();
+});
+ function airhotels_hourly_overlay_close(){
+ hourlyOverlayFlag = 1;
+}
+ jQuery('.view-calendar').click(function(e) {
+    if (jQuery("#calendar_div").is(":visible"))
+{
+            jQuery("#calendar_div").hide();
+            jQuery(".view-calendar").text('<?php echo __('View Calendar')?>');
+}
+    else
+{
+            jQuery("#calendar_div").show();
+            jQuery(".view-calendar").text('<?php echo __('Hide Calendar')?>');
+}
+    return false;
+});
+     jQuery(".more_btn").click(function (e) {
+                    jQuery(".less_btn").show();
+                    jQuery(".more_btn").hide();
+                    jQuery(".hostInfo").addClass("hostinfo_btn");
+                    jQuery(".hostInfo").removeClass("hostInfo_less");
+});
+            jQuery(".less_btn").click(function (e) {
+                    jQuery(".less_btn").hide();
+                    jQuery(".more_btn").show();
+                    jQuery(".hostInfo").addClass("hostInfo_less");
+                    jQuery(".hostInfo").removeClass("hostinfo_btn");
+});
+            jQuery(".more_description").click(function (e) {
+                    jQuery(".less_description").show();
+                    jQuery(".more_description").hide();
+                    jQuery(".listingInfo").addClass("listingInfo_btn");
+                    jQuery(".listingInfo").removeClass("listingInfo_less");
+});
+            jQuery(".less_description").click(function (e) {
+                    jQuery(".less_description").hide();
+                    jQuery(".more_description").show();
+                    jQuery(".listingInfo").addClass("listingInfo_less");
+                    jQuery(".listingInfo").removeClass("listingInfo_btn");
+});
+        // show hide option script for more and less reviews.
+        jQuery("#morereviews").click(function (e) {
+                jQuery(this).hide();
+                jQuery("#lessreviews").show();
+});
+        jQuery("#lessreviews").click(function (e) {
+                jQuery(this).hide();
+                jQuery("#morereviews").show();
+});
+});
+</script>

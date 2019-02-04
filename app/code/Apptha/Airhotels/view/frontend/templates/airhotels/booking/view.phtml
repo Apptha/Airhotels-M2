@@ -1,0 +1,731 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ * MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category Apptha
+ * @package Apptha_Airhotels
+ * @version 1.0
+ * @author Apptha Team <developers@contus.in>
+ * @copyright Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license http://www.apptha.com/LICENSE.txt
+ *
+ */
+
+use Magento\Framework\App\Action\Action;
+$from = base64_decode($this->getRequest()->getParam('from'));
+$to = base64_decode($this->getRequest()->getParam('to'));
+$numberOfGuests = base64_decode($this->getRequest()->getParam('guests'));
+$productIds = array();
+$productIds[] = $block->getProduct()->getId();
+$hostImageUrl = $block->getHostImageUrl();
+$imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$postParams = '';
+$blockObj = $block->getLayout()->createBlock('Apptha\Airhotels\Block\Booking\Form');
+$collection = $blockObj->getCustomerOrder($productIds)->getData();
+$orderedCollectionCount = count($collection);
+/**
+ * Getting a date format which selected in admin panel.
+ */
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+?>
+<script src="//code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript"
+    src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-566ec3a601bea51e"
+    async="async"></script>
+<script type="text/javascript">
+flag= false;
+</script>
+<?php 
+if (empty($productIds)) {
+    ?>
+<div class="contpad clearfix">
+    <div class="nodealtext clearfix ">
+         <?php echo "<h1>" . $this->__('No Listing') . "</h1>"?>
+         </div>
+</div>
+<?php
+} else {
+    $count = 1;
+    
+    foreach ($productIds as $item) {
+        /**
+         * Getting product model
+         */
+        $_product = $block->getProductData($item);
+        $sliderGallery = $_product->getMediaGallery('images');
+        $baseImage = $_product->getImage('base_image');
+        $propertyType = $_product->getBookingType();
+        $baseUrl = $block->getBaseUrl();
+        $skinUrl = '';
+        $displayCategory = "";
+        $hostId = $_product->getUserId();
+        $customerStatus = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getCustomerIds($hostId);
+        $productId = $_product->getId();
+        $city = $_product->getCity();
+        $country = $_product->getCountry();
+        $minimumPeople = $_product->getMinimumDays();
+        $maximumPeople = $_product->getMaximumDays();
+        $accommodateMinimum = $_product->getAccommodateMinimum();
+        $accommodateMaximum = $_product->getAccommodateMaximum();
+        $rooms = $_product->getAttributeText('rooms');
+        $propertyTypeId = $block->getAttributeId('booking_type');
+        $propertyType = $_product->getAttributeText('booking_type');
+        $roomType = $_product->getAttributeText('privacy');
+        $bedType = $_product->getAttributeText('bedtype');
+        $houseRules = $_product->getHouseRules();
+        $currencySymbol = $block->getCurrentCurrencySymbol();
+        $price = $_product->getPrice();
+        $amenity = $_product->getAmenity();
+        $cancelPolicy = $_product->getAttributeText('cancelpolicy');
+        $cityName = $_product->getCity();
+        $stateName = $_product->getState();
+        $countryName = $_product->getCountry();
+        $_productCollection = $block->getSimilarLocation($city, $productId);
+        $similarListingCount = $_productCollection->count();
+        ?>
+<div id="photo_gallery banner-section">
+    <div class="photo-grid banner">
+        <div class="first_row_gallery">
+            <a class="fancybox-thumbs_gallery" data-fancybox-group="thumbs"
+                title="<?php echo $cityName.', '.$stateName.', '.$countryName;?>"
+                href="<?php echo $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl().'catalog/product'.$baseImage;?>"
+                rel="gallery"> <img
+                src="<?php echo $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl().'catalog/product'.$baseImage;?>"
+                alt="<?php echo $_product->getName (); ?>" width="300">
+                <button class="view-photos"><?php echo __('See Photos');?></button>
+            </a>
+        </div>
+       <?php
+        
+        if (count($sliderGallery) > 0) {
+            $productCount = 0;
+            foreach ($sliderGallery as $image) {
+                $product = ($baseImage != $image['file']) ? 1 : 0;
+                ?>
+            <div class="first_row_gallery">
+            <a style="<?php echo ($productCount > 0)? 'display:none;':'display:block';?>" class="fancybox-thumbs_gallery" <?php echo ($product == 0) ? '':'data-fancybox-group="thumbs"';?> title="<?php echo $cityName.', '.$stateName.', '.$countryName;?>" href="<?php echo $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl().'catalog/product'.$image['file'];?>" rel="gallery">
+                <img
+                src="<?php echo $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl().'catalog/product'.$image['file'];?>"
+                alt="<?php echo $_product->getName (); ?>" width="300">
+            </a>
+        </div>
+          <?php
+                
+                $productCount ++;
+            }
+        }
+        ?>
+          </div>
+</div>
+<div class="container">
+    <div id="content">
+        <div class="nav-section container">
+            <div class="navv" id="menu-center">
+                <nav>
+                    <ul class="navigation-tab nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link" href="#aboutListing"
+                            id="#aboutListing" class="photo_gallery"><?php echo __('Overview'); ?></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#review-section"
+                            id="#review-section"><?php echo __('Reviews'); ?> </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#location"
+                            id="#location" class="location"><?php echo __('Location'); ?></a></li>
+                              <?php if($similarListingCount > 0){?>
+                              <li class="nav-item"><a class="nav-link"
+                            href="#similar_listings_wrapper" id="#similar_listings_wrapper"
+                            class="location"><?php echo __('Similar Listings'); ?></a></li>
+                              <?php }?>                              
+                         </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="xs-form-section">
+            <div class="mob_price_calculate">
+                <span class="from"><?php echo __('From') ;?></span> <span
+                    class="overallprice"><?php echo  $block->convertPrice($price); ?></span>
+                <span class="per-night"><?php echo __('per night')?></span>
+            </div>
+            <button type="submit" title="Book Now">
+                <span><a href="#book_it" class="click_view"><?php echo __('Book Now')?></a></span>
+            </button>
+
+            <a href="#contact-hostpopup" class="click_popup_view" title=""> <span><?php echo __('Contact Host') ?></span>
+            </a>
+
+        </div>
+        <div class="host_details_wrapper clearfix"><?php
+        $customerData = $block->getHostData($hostId);
+        $customer = $this->customerSession->getCustomer();
+        $hostDetails = $this->helper('Apptha\Airhotels\Helper\Data')->getCustomerDetails($hostId);
+        $hostName = $hostDetails->getFirstname() . ' ' . $hostDetails->getLastname();
+        $popularProductdct = $imagehelper->init($_product, 'category_page_list')
+            ->constrainOnly(TRUE)
+            ->keepAspectRatio(FALSE)
+            ->keepFrame(FALSE)
+            ->resize(308, 315)
+            ->getUrl();
+        ?>
+                            <div class="host-profile">
+                <div class="host_property_details clearfix">
+               <?php
+        /**
+         * Host image and Name display
+         */
+        ?>
+                <div class="host-property-detail-section">
+                        <h2 class="product-heading"><?php
+        /**
+         * Display experience name with host name
+         */
+        echo ucwords($_product->getName());
+        /**
+         * Display city and country of experience
+         */
+        ?>
+                 </h2>
+                        <div class="property-owner-description clearfix">
+                            <div class="address-ratings">
+                                <address class="city_name">
+                                    <span class="content_text"><?php if(isset($cityName)){echo ucwords($cityName);}if(isset($countryName)){echo ', '.ucwords($countryName); }?></span>
+                                </address>
+                            </div>
+                <?php
+        /**
+         * Display of Reviews and Ratings of experience
+         */
+        ?>
+                <div id="action_buttons"><?php
+        $reviewCollection = $this->helper('Apptha\Airhotels\Helper\Product')->getReviewDetails($_product->getId());
+        $productReviewsCount = count($reviewCollection);
+        /**
+         * rating form starts
+         */
+        $ratingSummary = $this->helper('Apptha\Airhotels\Helper\Product')->getRatingSummary($_product);
+        ?>
+                                        <div class="rating-box">
+                                    <div class="rating" style="width:<?php echo (empty($ratingSummary))?0:$ratingSummary;?>%;"></div>
+                                </div>
+                            </div>
+                            <div class="porperty-review">
+                                <span class="rating-num"><?php echo $productReviewsCount; ?></span>
+                                <span class="rating-title"><?php echo __('Review(s)');?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-owner-image">
+                    <div class="property-image">
+                                   <?php  if (!empty($customerData->getProfileimage())):?>
+                                        <a
+                            href="<?php echo $block->getUrl('booking/profile/hostprofile/id/',array('id' => $hostId)); ?>"><img
+                            src="<?php echo $hostImageUrl . $customerData->getProfileimage(); ?>"
+                            height="92"
+                            alt="<?php echo $block->getListingName($_product->getName()); ?>"
+                            class="customer_photo" style = "<?php if($customerStatus == "online-customer"){ ?> border:2px solid #4caf50; <?php }else{ ?> border:2px solid #ff5e00; <?php } ?>">  
+                            <span class="<?php echo $customerStatus; ?> "></span>
+                            </a>
+                                        <?php else: ?>
+                                       <a
+                            href="<?php echo $block->getUrl('booking/profile/hostprofile/',array('id' => $hostId)); ?>">
+                            <img
+                            src="<?php echo $block->getViewFileUrl('Apptha_Airhotels::images/no_user.jpg'); ?>"
+                            height="92"
+                            alt="<?php echo $block->getListingName($_product->getName()); ?>"
+                            class="customer_photo"> <span
+                            class="<?php echo $customerStatus; ?> "></span>
+                        </a>
+                                        <?php endif; ?>
+                         <span class="verified-host-img airhotel-sprite"></span>
+                        </div>
+
+                       <div> <span><?php echo ucwords ( $hostName );?></span> </div>
+                    </div>
+                </div>
+                <div class="facilities-section">
+                    <ul>
+                        <li><span class="sprite booking_type bed"></span>
+                            <p><?php echo $propertyType.' '. __('Booking');?></p></li>
+                        <li><span class="sprite room_type private-room"></span>
+                            <p><?php echo $roomType.' '. __('Rooms');?></p></li>
+                        <li><span class="sprite guest bed-one"></span>
+                            <p><?php echo $accommodateMaximum.' '.__(' Guests');?></p></li>
+                        <li><span class="sprite rooms one-room"></span>
+                            <p><?php echo $rooms.' '.__('Rooms');?></p></li>
+                    </ul>
+                </div>
+            </div>
+            <!--sidebar-->
+            <aside id="sidebar" class="">
+                <div class="inside">
+                    <!-- Property Price  -->
+                    <div class="right_column">
+                        <div id="book_it" class="box">
+                            <div class="middle">
+                                <div id="book_it_default"
+                                    class=" daily-property rounded monthly">
+                                    <div id="pricing" class="book_it_section demo">
+                                <?php   ?>
+                                <div class="price-calculate">
+                                            <h2 id="fromh2" style="display: block;"><?php echo __('From '); ?>
+                                          <span class="price">  <?php echo  $block->convertPrice($price); ?></span>
+                                            <?php echo __(' per night'); ?>
+                                     </h2>
+                                            <input type="hidden" id="priceVal"
+                                                value="<?php echo $block->convertPrice($price); ?>" />
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div id="changeVal"></div>
+                                        <div class="right-form-section">
+                                            <div class="form-section">
+                       <?php $postParams = $block->getAddToCartPostParams ( $_product );?>
+                                        <form id="formhide"
+                                                    action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>"
+                                                    data-role="tocart-form" method="post">
+                                                    <div class="demo book_it_section ">
+                                                        <div class="check-in-out-section clearfix">
+                                                            <div class="select_grid">
+                                                                <label for="checkin"><?php echo __('Check In') ?> </label>
+                                                                <input readonly type="text" id="from" name="from"
+                                                                    autocomplete="off"
+                                                                    placeholder="<?php echo __($listingDateFormat);?>"
+                                                                    value="<?php echo $from; ?>" />
+                                                            </div>
+                                                            <div class="select_grid">
+                                                                <label id="labelto" for="to"><?php echo __('Check Out') ?></label>
+                                                                <input readonly type="text" id="to" name="to"
+                                                                    autocomplete="off"
+                                                                    placeholder="<?php echo __($listingDateFormat);?>"
+                                                                    value="<?php echo $to; ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="select_grid1">
+                                                            <label for="guests"><?php echo __('Guests') ?> </label>
+                                                            <div class="sort_grid">
+                                                                <select id="guests" name="number_of_guests">
+                                                                    <option value="<?php echo  $accommodateMinimum; ?>"
+                                                                        selected><?php echo $accommodateMinimum; ?></option>
+                                                    <?php for ($i = $accommodateMinimum+1; $i <= $accommodateMaximum; $i++) { ?>
+                                                    <option
+                                                                        value="<?php echo  $i; ?>"
+                                                                        <?php if(!empty($numberOfGuests) && $numberOfGuests ==  $i){ echo 'selected="selected"';} ?>><?php echo $i; ?></option>
+                                                    <?php
+        }
+        ?>
+                                                    </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="clear"></div>
+                                                    </div>
+                                                    <div id="txtHint"></div>
+                                                    <div id="avail" style="display: none;">
+                                                        <input type="button" class=" pink_grid"
+                                                            value="<?php echo __('Book it') ?>!"
+                                                            onClick="checkavail(from.value,to.value,'<?php echo $productId;?>','<?php echo $price;?>');return checkCalendar(from.value,to.value);" />
+                                                    </div>
+                                                    <div id="cart" style="display: none">
+                                                        <input type="hidden" name="product"
+                                                            value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+                                                        <input type="hidden"
+                                                            name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>"
+                                                            value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                            <?php echo $block->getBlockHtml('formkey');?>
+                                                <button type="submit"
+                                                            title="<?php echo $block->escapeHtml(__('Book Now')); ?>"
+                                                            class="action tocart primary">
+                                                            <span><?php /* @escapeNotVerified */ echo __('Book Now') ?></span>
+                                                        </button>
+                                                    </div>
+                                                                <?php $contactHost = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getContactHost($hostId); ?>
+                                                                 <div id="contact-host" style="<?php echo $contactHost['style']?>">
+                                                                        <?php
+        ?>
+                                                                        <a
+                                                            href="<?php echo $contactHost['logged_in'] ?>"
+                                                            class="iframe12" title=""> <span><?php /* @escapeNotVerified */ echo __('Contact Host') ?></span>
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="addthis_sharing_toolbox">
+                                                <h3 class="title"></h3>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                                    <?php
+        $latitude = trim($_product->getLatitude());
+        $longitude = trim($_product->getLongitude());
+        ?>
+                          <input type="hidden" id="lat_for_space"
+                                value="<?php if(!empty($latitude)){ echo $latitude; } ?>" /> <input
+                                type="hidden" id="lng_for_space"
+                                value="<?php if(!empty($longitude)){ echo $longitude; } ?>" />
+                            <div class="clear"></div>
+                        </div>
+            
+            </aside>
+            <!--end sidebar-->
+        </div>
+        <div class="content_outer_wrapper only_view_page clearfix">
+            <div class="content_wrapper">
+                <div class="host_description">
+                    <div class="description_content">
+                        <div class="view_description_container">
+                            <div class="left_view_column">
+                                <div id="aboutListing">
+                                    <div class="host_view_content">
+                                        <div class="about-space-section">
+                                            <div class="about-listings">
+                                                <h4><?php echo __('About this listing'); ?></h4>
+                                                <p class="listingInfo"><?php echo $_product->getDescription(); ?></p>
+                                            </div>
+                                        </div>
+                                        <ul class="list-review-catalog">
+                                            <li class="lising-details property-space clearfix">
+                                                <h5><?php echo __('Property Space'); ?></h5>
+                                                <div class="left-cnt-listing-details">
+                                                    <ul class="space-list">
+                                                        <li><span class="property"><?php echo __('Booking Type: '); ?></span><span
+                                                            class="value_description"><?php echo __($propertyType); ?></span></li>
+                                                        <li><span class="property"><?php echo __('Privacy: '); ?></span><span
+                                                            class="value_description"><?php echo __($roomType); ?></span></li>
+                                                        <li><span class="property"><?php echo __('Bed type: '); ?></span><span
+                                                            class="value_description"><?php echo __($bedType); ?></span></li>
+                                                        <li><span class="property"><?php echo __('Rooms: '); ?></span><span
+                                                            class="value_description"><?php echo __($rooms); ?></span></li>
+                                                        <li><span class="property"><?php echo __('City : '); ?></span><span
+                                                            class="value_description"><?php echo __($city); ?></span></li>
+                                                        <li><span class="property"><?php echo __('Country : '); ?></span><span
+                                                            class="value_description"><?php echo __($country); ?></span></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="lising-details property-space clearfix">
+                                                <h5><?php echo __('Amenities'); ?></h5>
+                                                <div class="left-cnt-listing-details">
+                                                    <ul class="space-list">
+                                                               <?php
+        $amenityId = $block->getAttributeId('amenity');
+        $amenityAttribute = $this->eavConfig->getAttribute('catalog_product', $amenityId);
+        
+        $amenityCollectionData = array(
+            'amenity_collection' => $amenityAttribute->getSource()->getAllOptions(),
+            'array_amenity' => explode(',', $amenity)
+        );
+        echo $this->getLayout()
+            ->createBlock("Apptha\Airhotels\Block\Booking\View")
+            ->setData($amenityCollectionData)
+            ->setTemplate("airhotels/booking/amenity.phtml")
+            ->toHtml();
+        ?>
+                                                           </ul>
+                                                </div>
+                                            </li>
+                                            <li class="lising-details property-space clearfix">
+                                                <h5><?php echo __('Prices'); ?></h5>
+                                                <div class="left-cnt-listing-details">
+                                                    <p><?php echo __('Per Night') ?> : <span><?php echo  $block->convertPrice($price); ?></span>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li class="lising-details property-space clearfix">
+                                                <h5><?php echo __('House Rules'); ?></h5>
+                                                <div class="left-cnt-listing-details">
+                                                    <div class="para-sec">
+                                                            <?php
+        $houseRulesId = $block->getAttributeId('house_rules');
+        $houseRulesAttribute = $this->eavConfig->getAttribute('catalog_product', $houseRulesId);
+        
+        $houseRulesCollectionData = array(
+            'house_rules_collection' => $houseRulesAttribute->getSource()->getAllOptions(),
+            'house_rules' => explode(',', $houseRules)
+        );
+        echo $this->getLayout()
+            ->createBlock("Apptha\Airhotels\Block\Booking\View")
+            ->setData($houseRulesCollectionData)
+            ->setTemplate("airhotels/booking/house_rules.phtml")
+            ->toHtml();
+        ?>
+                                                            </div>
+                                                </div>
+                                            </li>
+                                            <li class="lising-details property-space clearfix">
+                                                <h5><?php echo __('Cancellations'); ?></h5>
+                                                <div class="left-cnt-listing-details">
+                                                    <p><?php echo $cancelPolicy;?></p>
+                                                </div>
+                                            </li>
+                                                  <?php
+        $propertyMaximum = $maximumPeople;
+        $propertyMinimum = $minimumPeople;
+        ?>
+                                                  <li
+                                                class="lising-details property-space clearfix">
+                                                <h5><?php echo __('Availability') ?></h5>
+                                                <div class="left-cnt-listing-details">
+                                                    <div class="available-section">
+                                                        <p><?php echo __('Minimum stay')?> : <span><?php echo $propertyMinimum ?><?php echo __(' Day(s)')?></span>
+                                                        </p>
+                                                        <p><?php echo __('Maximum stay ')?> : <span><?php echo $propertyMaximum ?> <?php echo __('Day(s)')?></span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="appthaAjaxLoading"
+                                id="appthaAjaxLoading" value="" /> <input type="hidden"
+                                name="productId" id="productId"
+                                value="<?php echo $productId; ?>" /> <input type="hidden"
+                                name="customerId" id="customerId" value="<?php echo $hostId; ?>" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+               <?php }?>
+    </div>
+        <div class="clear"></div>
+        <div class="review-section clearfix" style="padding-top: 30px;"
+            id="review-section">
+     <?php
+    $avgRatingData = array(
+        'avg_rating' => $ratingSummary,
+        'collection' => $reviewCollection
+    );
+    echo $this->getLayout()
+        ->createBlock("Apptha\Airhotels\Block\Booking\View")
+        ->setData($avgRatingData)
+        ->setTemplate("airhotels/booking/review_rating.phtml")
+        ->toHtml();
+    
+    $moreReviewLink = $block->getUrl('airhotels/review/details') . 'id/' . $productId;
+    ?>
+          <div class ="more-reviews" style="<?php echo (count($reviewCollection) > 3)? 'display:block':'display:none';?>">
+                <a target="_blank" href="<?php echo $moreReviewLink; ?>"><?php echo __('More Reviews')?></a>
+            </div>
+        </div>
+        <div id="reviewsLoading"></div>
+        <div class="clear"></div>
+          <?php if($orderedCollectionCount > '0'){?>
+          <div class="reviews_btn_wrappers">
+            <a id="openReviewForm" href=""
+                class="leave_review service import_button"> <?php echo __('Leave a Review');?></a>
+        </div>
+          <?php }?>
+     </div>
+</div>
+<div class="container">
+    <div id="review_form" style="display: none;">
+        <div class="review_form_content">
+                          <?php echo $block->getLayout()->createBlock('Magento\Review\Block\Form')->toHtml();?>
+                    </div>
+    </div>
+</div>
+<!-- Display google map -->
+<div class="container">
+    <div id="location" class="map-section">
+        <h4><?php echo __('Location');?></h4>
+        <div id="customer_view_map_for_space"></div>
+    </div>
+</div>
+<?php
+    echo $this->getLayout()
+        ->createBlock("Apptha\Airhotels\Block\Booking\View")
+        ->setTemplate("airhotels/booking/view_script.phtml")
+        ->toHtml();
+    ?>
+<?php } ?>
+</div>
+</div>
+<script type="text/javascript">
+require([
+"jquery","jquery/ui","bootstrap"], function($){
+$(".click_view").fancybox({
+  scrolling: "yes", openEffect: "none", padding: 0,
+  closeEffect: "none",
+    helpers: { overlay: { locked: true } }
+ });
+
+$(".click_view" ).click(function() {
+    $('.ah-checkin .sort_grid').children('#from').attr('id', 'from1');
+    $('.ah-checkout .sort_grid').children('#to').attr('id', 'to1');
+});
+
+$(".click_popup_view").fancybox({
+  scrolling: "yes", openEffect: "none", padding: 0,
+  closeEffect: "none",
+    helpers: { overlay: { locked: true } }
+});
+
+$( ".click_popup_view" ).click(function() {
+    $('.select_grid').children('#from').attr('id', 'from1');
+    $('.select_grid').children('#to').attr('id', 'to1');
+});
+
+ $('.view-photos').on('click', function() {
+    $('body').addClass('viewphotos');
+});
+ $('#contact-host').on('click', function() {
+    $('body').addClass('contacthost');
+});
+$('.fancybox-close').on('click', function() {   
+      $('body').removeClass('viewphotos');  
+      $('body').removeClass('contacthost');    
+      $('.fancybox-close').removeClass('contacthost');
+  }); 
+  $('body').scrollspy({ target: '#menu-center' });
+  $(document).ready(function(){
+    $(".catalog-product-view").addClass("fancy-popup");
+setTimeout(() => {
+  $('#ui-datepicker-div').hide();
+}, 400);
+  });
+});
+</script>
+
+<script>
+    var $ = jQuery.noConflict();
+    $(document).ready(function() {
+        $(".iframe12").fancybox({
+            open: '#contac-hostpopup'
+        });
+    });
+    $( ".iframe12" ).click(function() {
+        $('.select_grid').children('#from').attr('id', 'from1');
+        $('.select_grid').children('#to').attr('id', 'to1');
+    });
+    </script>
+<div id="contact-hostpopup" style="display: none;">
+    <form id="contacthost-form" name=""
+        action="<?php echo $contactHost['action']; ?>" method="post" onsubmit="return validateForm();" >
+        <div class="ah-checkin">
+            <label for="guests"><span><?php echo __('Check-In') ?></span><em>*</em></label>
+            <div class="sort_grid">
+                <input type="text" id="from" name="from" class="input-text required"
+                    autocomplete="off"
+                    placeholder="<?php echo __($listingDateFormat);?>" value="" /><br>
+            </div>
+        </div>
+        <div class="ah-checkout">
+            <label for="guests"><span><?php echo __('Check-Out') ?></span><em>*</em>
+            </label>
+            <div class="sort_grid">
+                <input type="text" id="to" name="to" class="input-text required"
+                    autocomplete="off"
+                    placeholder="<?php echo __($listingDateFormat);?>" value=""><br>
+            </div>
+        </div>
+        <div class="ah-guests">
+            <label for="guests"><span><?php echo __('Guests') ?></span></label>
+            <div class="sort_grid">
+                <select id="guests" name="number_of_guests">
+                    <option value="<?php echo  $accommodateMinimum; ?>" selected><?php echo $accommodateMinimum; ?></option>
+                    <?php for ($i = $accommodateMinimum+1; $i <= $accommodateMaximum; $i++) { ?>
+                    <option value="<?php echo  $i; ?>"
+                        <?php if(!empty($numberOfGuests) && $numberOfGuests ==  $i){ echo 'selected="selected"';} ?>><?php echo $i; ?></option>
+                    <?php } ?>
+                    </select>
+            </div>
+        </div>
+        <div class="ah-phone" style="display:<?php echo $contactHost['phoneno'] ? 'block' : 'none';?>">
+            <label>Phone No : <em>*</em></label><input onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" name="phoneno"
+                id="phoneno" class="input-text required"
+                placeholder="<?php echo __('Phone Number'); ?>" value="" /><br>
+                <div id="MobileError" class="contacthost-error"></div>
+        </div>
+        <div class="ah-description">
+            <label for="guests"><span><?php echo __('Description') ?></span><em>*</em></label>
+            <div class="sort_grid">
+                <textarea rows="4" cols="50" class="input-text required"
+                    name="contact_host_desc" id="contact_host_desc"
+                    placeholder="<?php echo __('Description');?>"></textarea>
+                <br>
+            </div>
+        </div>
+        <input type="hidden" name="product_id" id="product_id"
+            value="<?php echo $productId; ?>" /> <input type="hidden"
+            name="host_id" id="host_id" value="<?php echo $hostId; ?>" />
+        <div class="ah-email" style="display:<?php echo $contactHost['email'] ? 'block' : 'none';?>">
+            <label>Email : </label><input type="text" id="email" name="email"
+                class="input-text required" class="input-text required"
+                placeholder="<?php echo __('E-Mail ID');?>"
+                value="<?php echo $contactHost['customer_email'];?>" disabled><br>
+        </div>
+        <div class="ah-submitbtn">
+            <input type="submit" value="<?php echo __('Submit');?>" id="inboxMessageSubmitButton" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    require([
+    'jquery',
+    'mage/mage'
+], function($){ 
+   var dataForm = $('#contacthost-form');
+   dataForm.mage('validation', {}); 
+});
+</script>
+<script type="text/javascript">
+        // open the host select message
+        function validateForm() {
+            var contacthosterrorFlag = false;
+            var mailSubject     = jQuery.trim(jQuery("#contact_host_desc").val());
+            var mailSubject = mailSubject.replace(/\s/g, '');
+            var mobileNo        = jQuery("#phoneno").val();
+            if(mobileNo != '') {
+             var rephonenumber   = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+                if (!rephonenumber.test(mobileNo)) {
+                    if (/^\d{10}$/.test(mobileNo)){
+                     contacthosterrorFlag = false;
+                    } else {                        
+                    jQuery("#MobileError").html("<?php echo __('Please enter valid mobile number'); ?>");
+                    jQuery("#phoneno").css("border","1px red solid");
+                    contacthosterrorFlag = true;
+                    }
+                }
+            }
+            if(mailSubject != ''){
+                var rehttp             = /(ftp|http|https):\/\//i;
+                var rewww           = /www\.\w+/i;
+                var redomainext     = /\w+\.(dot|com|net|org|biz|ws|name)/i;
+                var rephonenumber   = /([0-9]{3,9}[\- ]?){3,9}/;
+                var blocklistwords = new RegExp('\\b' + ['dot', 'email', 'phone', 'mail','facebook','twitter','@','zero','one','two','three','four','five','six',
+                    'seven','eight','nine','ten','hundred'].join('\\b|\\b') + '\\b');
+                var reemail         = /\w+(\.\w+){0,1}(@)[\w|\-]+(\.|\W{1,3}dot\W{1,3})\w+/;
+                var reemaildomain   = /( aol|gmail|hotmail|msn|yahoo)(\.com){0,1}/i;
+                var iswebsite       = (rehttp.test(mailSubject) || rewww.test(mailSubject) || redomainext.test(mailSubject) || blocklistwords.test(mailSubject));
+                var isphone         = rephonenumber.test(mailSubject);
+                var isemail         = (reemail.test(mailSubject) || reemaildomain.test(mailSubject));
+                if (iswebsite || isphone || isemail) {
+                alert("<?php echo __('Warning: It looks like you may be trying to send contact information.'); ?>");
+                return false;
+                }
+            }
+            if (contacthosterrorFlag) {
+                return false;
+            } else{
+                return true;
+            }
+        }
+</script>

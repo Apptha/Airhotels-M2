@@ -1,0 +1,157 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+ $collection = $this->getHostOrderCollection();
+?>
+<?php
+/**
+* Convert date format.
+*/
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getConvertedDate($listingDateFormat);
+$convertedDateFormatForScript = $this->helper('Apptha\Airhotels\Helper\Dateformat')->datepickerFormat($listingDateFormat);
+
+?>
+<div class="my-account" style="padding:0">
+    <h2 class="account-heading"><?php echo __('Booking History')?></h2>
+    <!-- Property History  Starts-->
+    <div id="reserve_div" class="norecords clearfix">
+        <div id="propertyform">
+            <h2 class="property_history" style="display:none;"><?php echo __('Booking History')?></h2>
+            <div class="clear"></div>
+            <?php
+                            $fromDate = $this->getRequest()->getParam('from');
+                           $toDate = $this->getRequest()->getParam('to');?>
+        <form action="" method="post">
+            <div class="property_from left">
+                <h3 class="property_history_from"><?php echo __('Start Date')?></h3>
+                <input readonly type="text" <?php if ($fromDate): ?>
+                                               value="<?php echo $fromDate ?>" <?php endif; ?> id="from_calendar" value="<?php echo $listingDateFormat ?>" autocomplete="off" name="from" onfocus="if (this.value=='yyyy-mm-dd') this.value = ''" class="hasDatepicker">
+            </div>
+            <div class="property_to left">
+                <h3 class="property_history_to"><?php echo __('End Date')?></h3>
+                <input readonly type="text" <?php if ($toDate): ?>
+                                               value="<?php echo $toDate ?>" <?php endif; ?> id="to_calendar" value="<?php echo $listingDateFormat ?>" autocomplete="off" name="to" onfocus="if (this.value=='yyyy-mm-dd') this.value = ''" class="hasDatepicker">
+            </div>
+            <div class="property-search-action">
+                <input type="hidden" name="clear" value="0" id="bookclear">
+                <input type="submit" value="Search" class="listing-search-btn" onclick="return propertySearch();">
+                <input type="submit" value="Clear" style="margin-left: 5px" class="listing-clear-btn" onclick="clearForm()">
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="property_history_responsivetable">
+        <table cellspacing="0" cellpadding="0" border="0" id="property_history_table" class="property_history"> <!-- property_property -->
+            <thead>
+            <tr>
+                <th style="width: 6%;"><?php echo __('Booking Number'); ?></th>
+                <th style="width: 17%;"><?php echo __('Experience Name'); ?></th>
+                <th style="width: 14%;"><?php echo __('Price'); ?></th>
+                <th style="width: 14%;"><?php echo __('Start on'); ?></th>
+                <th style="width: 14%;"><?php echo __('End on'); ?></th>
+                <th style="width: 15%;"><?php echo __('Booking Status'); ?></th>
+                <th style="width: 14%;"><?php echo __('Action'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($collection->count()!=0):?>
+            <?php foreach($collection as $order):?>
+            <tr>
+                <td><?php echo $order->getOrderId(); ?></td>
+                <td><?php echo $order->getListingName(); ?></td>
+                <td><?php echo $this->getCurrentCurrencySymbol().''.$this->toCurrentCurrency($order->getHostAmount()); ?></td>
+                <td><?php echo date($convertedDateFormat, strtotime($order->getFromdate()));?></td>
+                <td><?php echo date($convertedDateFormat, strtotime($order->getTodate()));?></td>
+                <td><?php $cancelRequestStatus=$this->helper('Apptha\Airhotels\Helper\Order')->getCancelRequestStatus($order->getOrderItemId());if($cancelRequestStatus==1){ ?>
+                <span><?php echo __('Cancellation Request Sent'); ?>
+                <?php } elseif($cancelRequestStatus==3){?>
+                <span><?php echo __('Closed'); ?>
+                <?php }
+                else{
+                 echo ucwords($order->getOrderStatus());
+                 }?>
+                 </td>
+                <td><a class="view-booking" href="<?php echo $block->getUrl('sales/order/view/').'order_id/'.$this->getOrderitemInfo($order->getOrderId()); ?>"><?php echo __('View Booking')?></a></td>
+            </tr>
+            <?php endforeach; ?>
+            <?php else: ?>
+            <tr>
+                <td colspan="8"><div class="norecords">
+    <p class="no_transaction_records"><?php echo __('You have no booking'); ?></p>
+    </div></td>
+            </tr>
+          </tbody>
+            <?php endif; ?>
+        </table>
+    </div>
+
+</div>
+<?php
+     if ($block->getPagerHtml()): ?>
+         <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+     <?php endif ?>
+
+<script>
+     require([
+          "jquery",
+          "mage/calendar"
+     ], function($){
+       $.datepicker.setDefaults({ dateFormat: '<?php echo $convertedDateFormatForScript;?>' });
+         $("#from_calendar").calendar({
+              buttonText:"<?php echo __('Select Date') ?>",
+         });
+         $("#to_calendar").calendar({
+              buttonText:"<?php echo __('Select Date') ?>",
+         });
+       });
+</script>
+<script type="text/javascript">
+    function propertySearch(){
+        var fromDate = jQuery("#from_calendar").val();
+        var toDate = jQuery("#to_calendar").val();
+         if (toDate < fromDate) {
+            alert("To date should not be prior to From date.");
+            return false;
+        }
+        if(fromDate == "" || fromDate == "<?php echo $listingDateFormat ?>" ){
+             alert("Please select From date!");
+            return false;
+          } else if(toDate == "" || toDate == "<?php echo $listingDateFormat ?>"){
+             alert("Please select To date!");
+              return false;
+          }
+    }
+    function clearForm(){
+        jQuery("#from_calendar").attr("value","<?php echo $listingDateFormat ?>");
+        jQuery("#to_calendar").attr("value","<?php echo $listingDateFormat ?>");
+        jQuery("#bookclear").attr("value","1");
+    }
+</script>

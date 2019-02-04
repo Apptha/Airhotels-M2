@@ -1,0 +1,116 @@
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<!--@subject {{trans "Your %store_name booking confirmation" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order.getEmailCustomerNote()":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"var shipping_msg":"Shipping message"
+} @-->
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0px">
+            <!-- [ header starts here] -->
+            <table bgcolor="FFFFFF" cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #E0E0E0;padding:0px 10px;">
+                <tr>
+                    <td valign="top">
+                        {{template config_path="design/email/header_template"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size:20px;color: #333;line-height: 16px;font-weight: bold; padding:20px 0px 22px 0px;">
+                            {{trans "%customer_name," customer_name=$order.getCustomerName()}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 10px 0;color: #666;">
+                            {{trans "Thank you for your booking from %store_name." store_name=$store.getFrontendName()}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 10px 0;color: #666;">
+                            {{trans 'You can check the status of your booking by <a href="%account_url" style="color:#008389;text-decoration:none;">logging into your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 30px 0;color: #666;">
+                            {{trans 'If you have questions about your booking, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone" style="color:#008389;text-decoration:none;">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
+                            {{depend store_hours}}
+                            {{trans 'Our hours are %store_hours.' store_hours=$store_hours |raw}}
+                            {{/depend}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd;padding: 10px 20px;font-size: 0.6em;color: #333;    line-height: 1.1;margin-top: 0;margin-bottom: 20px;">
+                            <h1>{{trans 'Your Booking #%increment_id' increment_id=$order.increment_id |raw}}</h1>
+                            <p style="padding-left: 0px;color: #666;font-size: 12px;">{{trans 'Booked on %created_at' created_at=$order.getCreatedAtFormatted(2) |raw}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="padding: 20px 0px 0px;">
+                        {{depend order.getEmailCustomerNote()}}
+                        <table class="message-info">
+                            <tr>
+                                <td>
+                                    {{var order.getEmailCustomerNote()|escape|nl2br}}
+                                </td>
+                            </tr>
+                        </table>
+                        {{/depend}}
+                        <table class="order-details" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <tr>
+                                <td class="address-details">
+                                    <h3 style="background:#eee;padding: 7px 20px;font-size:14px;color:#333;font-weight:bold;line-height: 28px;">{{trans "Billing Info"}}</h3>
+                                    <p style="padding-left: 20px;color:#666;font-size: 12px;">{{var formattedBillingAddress|raw}}</p>
+                                </td>
+                                <td class="method-info" style="vertical-align: top;">
+                                    <h3 style="background:#eee;padding: 7px 20px;font-size:14px;color:#333;font-weight:bold;line-height: 28px;">{{trans "Payment Method"}}</h3>
+                                    {{var payment_html|raw}}
+                                </td>
+                            </tr>
+                        </table>
+                        {{layout handle="sales_email_order_items" order=$order area="frontend"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="center" style="">
+                            {{template config_path="design/email/footer_template"}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

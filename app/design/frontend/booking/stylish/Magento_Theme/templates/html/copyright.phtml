@@ -1,0 +1,82 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?><div class="footer-content">
+	<div class="container clearfix">	 
+		<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer_links')->toHtml();?>
+
+	</div>
+	 <div id="back-top">
+		<a href="#top" class="sprimg"><span><?php echo ('Top'); ?></span><i class="up_arrow sprimg"></i></a>
+	</div>
+</div>
+<div class="container footer-copyright clearfix">
+<small class="copyright">
+    <span><?php /* @escapeNotVerified */ echo $block->getCopyright() ?></span>
+</small>
+<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('social_links')->toHtml();?>
+</div>
+<?php $demoNotice = $this->helper('Apptha\Airhotels\Helper\Dateformat')->displayDemoNotice(); ?>
+<script type="text/javascript">
+require([
+"jquery",
+"jquery/ui"
+], function($){
+
+      $(document).ready(function(){
+		$("#back-top").hide();
+		// fade in #back-top
+		$(function () {
+			$(window).scroll(function () {
+				if ($(this).scrollTop() > 50) {
+					$('#back-top').fadeIn();
+					$('#message-global-demo').hide();
+					$(".searchmainpage_1").removeClass("noticed");
+					$(".mob_show_filter").removeClass("noticed");
+				} else {
+					$('#back-top').fadeOut();
+					$('#message-global-demo').show();
+					$(".searchmainpage_1").addClass("<?php if ($demoNotice){  echo "noticed"; } ?>");
+					$(".mob_show_filter").addClass("<?php if ($demoNotice){  echo "noticed"; } ?>");
+				}
+			});
+
+			// scroll body to 0px on click
+			$('#back-top a').click(function () {
+				$('body,html').animate({
+					scrollTop: 0
+				}, 800);
+				return false;
+			});
+		});
+		$(".messages").fadeOut(9000);	
+
+	});
+      });
+</script>

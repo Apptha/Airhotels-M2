@@ -1,0 +1,76 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+?>
+<?php
+/**
+ * get current controller action name
+ */
+$controllerAction = $this->getRequest()->getActionName();
+?>
+<?php
+/**
+ * sidebar to manage property history and my listings pages
+ */
+?>
+<?php if(!$this->getRequest()->getParam('customer')){?>
+<div class="content-block sidebar-button">
+<h2 class="account-heading" id="sidebar-button"><?php echo __('My Listings'); ?></h2>
+<div class="account-heading-contents sidebar-menu" id = "sidebar-menu">
+  <ul>
+    <li><a href="<?php echo $block->getUrl('airhotels/listing/manage/'); ?>" <?php if($controllerAction == 'manage'){?>class="selected"<?php }?>><?php echo __('Manage Listings'); ?></a></li>
+    <li><a href="<?php echo $block->getUrl('airhotels/listing/history/'); ?>" <?php if($controllerAction == 'history' || $controllerAction == 'invoice' || $controllerAction == 'view'){?>class="selected"<?php }?>><?php echo __('Booking History'); ?></a></li>
+    <li><a href="<?php echo $block->getUrl('airhotels/listing/transactions/'); ?>" <?php if($controllerAction == 'transactions'){?>class="selected"<?php }?>><?php echo __('Transaction History'); ?></a></li>
+  </ul>
+  </div>
+</div>
+<?php } else {
+    $blockObj= $block->getLayout()->createBlock('Apptha\Airhotels\Block\Mytrip\Tripnavigation');
+    ?>
+ <div class="content-block sidebar-button">
+<h2 class="account-heading" id = "sidebar-button"><?php echo __('My Trips')?></h2>
+<div class="account-heading-contents sidebar-menu" id = "sidebar-menu">
+  <ul>
+    <li><a href="<?php echo $blockObj->getUpcomingTripUrl();?>"><?php echo __('Upcoming Trips');?></a></li>
+    <li><a href="<?php echo $blockObj->getCurrentTripUrl();?>"><?php echo __('Current Trips');?></a></li>
+    <li><a href="<?php echo $blockObj->getPreviousTripUrl();?>"><?php echo __('Previous Trips');?></a></li>
+  </ul>
+ </div>
+</div>
+<?php }?>
+
+<script type="text/javascript">
+   require(["jquery","jquery/ui",], function($){
+$(document).ready(function(){
+    $("#sidebar-button").click(function(){
+        $("#sidebar-menu").toggle();
+    });
+});
+});
+</script>

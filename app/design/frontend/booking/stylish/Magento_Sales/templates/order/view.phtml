@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder();?>
+    <div class="actions-toolbar-main clearfix">
+    <div class="order-title">
+    <?php /* @escapeNotVerified */ echo __('Booking Number #') ?><?php /* @escapeNotVerified */ echo $_order->getIncrementId(); ?>
+    <?php 
+    $orderId = $this->getRequest()->getParam('order_id');
+    $getOrderInfo = $this->helper('\Apptha\Airhotels\Helper\Order')->getOrderInformation($orderId,'')->getData();
+    $customerData = $this->helper('\Apptha\Airhotels\Helper\Data')->getCustomerData();
+    $customerDataId = $customerData->getCustomerId();
+    $hostId = $getOrderInfo[0]['host_id'] ;
+    $customerId = $getOrderInfo[0]['customer_id'];
+    ?>
+        <?php if ($_order->getTracksCollection()->count()) : ?>
+            <?php echo $block->getChildHtml('tracking-info-link') ?>
+        <?php endif; ?>
+    </div>
+</div>
+    <?php echo $block->getChildHtml('order_items') ?>
+
+    <?php if ($this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order) && $_order->getGiftMessageId()): ?>
+    <div class="block block-order-details-gift-message">
+        <div class="block-title"><strong><?php /* @escapeNotVerified */ echo __('Gift Message for This Order') ?></strong></div>
+        <?php $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessageForEntity($_order); ?>
+        <div class="block-content">
+            <dl class="item-options">
+                <dt class="item-sender"><strong class="label"><?php /* @escapeNotVerified */ echo __('From') ?></strong><?php echo $block->escapeHtml($_giftMessage->getSender()) ?></dt>
+                <dt class="item-recipient"><strong class="label"><?php /* @escapeNotVerified */ echo __('To') ?></strong><?php echo $block->escapeHtml($_giftMessage->getRecipient()) ?></dt>
+                <dd class="item-message"><?php /* @escapeNotVerified */ echo $this->helper('Magento\GiftMessage\Helper\Message')->getEscapedGiftMessage($_order) ?></dd>
+            </dl>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+   <div class="actions-toolbar">
+        <div class="secondary">
+        <?php if($customerDataId === $customerId){?>
+            <a href="<?php /* @escapeNotVerified */ 
+            $listingUrl = $this->helper( 'Apptha\Airhotels\Helper\General' );
+            echo $listingUrl->getMytripUrl() ?>" class="action back">
+                <span><?php echo __('Back To My Trips')?></span>
+            </a>
+            <?php } else {?>
+            <a href="<?php /* @escapeNotVerified */ 
+            $listingUrl = $this->helper( 'Apptha\Airhotels\Helper\Data' );
+            echo $listingUrl->getListingUrl() ?>" class="action back">
+                <span><?php echo __('Back To Booking History')?></span>
+            </a>
+            <?php }?>
+        </div>
+    </div>

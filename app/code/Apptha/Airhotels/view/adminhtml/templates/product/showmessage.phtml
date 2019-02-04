@@ -1,0 +1,134 @@
+<?php 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */?>
+<?php 
+$messageId = $this->getRequest ()->getParam ('id');
+$adminblockObj =  $this->getInboxDetails ();
+$adminreplyObj =  $this->getReplyMessageDetails ();
+$requestValue     = $this->getRequest();
+/*
+* Date Format conversion as per admin settings.
+*/
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->messagingDateFormat();
+?>
+<div class="profile_inbox_table" onload="myFunction()">
+<div class="ah-inbox-detail">
+    <a href="<?php echo $_SERVER['HTTP_REFERER'] ?>" class="ah-backbtn"><?php echo __('Back');?></a> 
+    <table class="inboxTable" id="outboxList">
+          <?php  foreach($adminblockObj as $adminblockObj ) {
+                    $product =  $this->getProduct($adminblockObj->getProductId());
+                    $senderId = $adminblockObj->getSenderId();
+                    $customer =  $this->getCustomer($senderId);
+                    $customerName = $customer->getFirstname() .' '.$customer->getLastname();
+                    $productName = $product->getName();
+                    $messageId = $adminblockObj->getId();
+                    $profileImage = $this->getProfileImage($senderId);
+                    $mediaUrl = $this->getHostImageUrl();
+                    $messageCreationDate = 
+             date('Y-m-d', strtotime($adminblockObj->getCreatedAt()));
+             $msgCheckInDate = date('Y-m-d', strtotime($adminblockObj->getCheckin()));
+             $msgCheckOutDate =  date('Y-m-d', strtotime($adminblockObj->getCheckout()));
+
+            $productImage = $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl(). 'catalog/product/' .  $product->getImage ();
+                    
+          ?>
+        <div class="ah-inbox-panel">
+                <div class="ah-userimage-panel">
+                    <div class="ah-userimage">
+                        <img alt="<?php echo $productName; ?>" src="<?php echo $productImage; ?>"/>                       
+                    </div>                    
+                </div>
+            <div class="ah-product-detail">
+                 <p class="ah-username"><?php echo $customerName; ?> </p>
+                 <p class="ah-productname"><a href="#"><?php echo $productName; ?></a></p>
+                 <div class="ah-checkin-out desktop-checkin-checkout">
+                     <p class="ah-inbox-checkin"><span><?php echo __('Check-In');?></span> <?php  echo date($convertedDateFormat, strtotime($msgCheckInDate)); ?></p>
+                     <p class="ah-inbox-checkout"><span><?php echo __('Check-Out');?></span><?php  echo date($convertedDateFormat, strtotime($msgCheckInDate)); ?></p>
+                </div>
+            </div>
+            
+            <div class="ah-product-date">
+                <span><?php echo date($convertedDateFormat, strtotime($messageCreationDate)); ?></span>
+            </div>
+        </div>
+      <!-- content -->
+        <div class="ah-chat-message">
+         <p class="ah-message">
+            <span class="sender_message_host"><?php echo $adminblockObj->getMessage(); ?></span>
+         </p>
+         
+         <?php $style = ($adminblockObj->getPhoneNo() != 0 ) ? 'black' : 'none'; ?>
+         <div style="display:<?php echo $style; ?>;" >
+         <p class="table_head_label">TelePhone Number : <?php echo $adminblockObj->getPhoneNo() ?></p>
+        </div>
+         <?php } ?>
+         <?php if(!empty($adminreplyObj) && count($adminreplyObj) != 0 ) {  ?>
+            <div class="select_grid1">
+                    <label for="guests"><?php echo __('Reply:') ?> </label>
+            </div>
+            <?php
+                foreach($adminreplyObj as $adminreplyObj){
+                $message = $adminreplyObj->getMessage();
+                $time = $adminreplyObj->getReplyAt();
+                if($this->getCustomerId() == $adminreplyObj->getSenderId() ) {
+                    $messagerDetails = 'customer';
+                } else{
+                   $messagerDetails = 'host'; 
+                }
+                $profileImage = $this->getProfileImage($adminreplyObj->getSenderId());        
+            ?>  
+                <div class="ah-reply-userimg <?php echo $messagerDetails ?>">
+                    <div class="ah-userimage">
+                        <img alt="" src="<?php echo $mediaUrl.'/'.$profileImage; ?>"/>
+                    </div>
+                    <div class="ah-reply-message">
+                        <div class = "sender_message_<?php echo $messagerDetails ?>"> 
+                            <p class="table_head_label"><?php echo $message; ?></p>
+                            <p class="table_head_label"><?php echo $time; ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php } 
+            } ?>
+           </div>          
+    </table>
+</div>
+</div>
+<script>
+require([
+    "jquery",
+    "jquery/ui","mcustomscroll"
+    ], function($){
+            window.dima = baron({
+                root: '.baron',
+                scroller: '.baron__scroller',
+                bar: '.baron__bar'
+            });
+    });
+    </script>

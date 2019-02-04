@@ -1,0 +1,106 @@
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<!--@subject {{trans "Welcome to %store_name" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0px">
+            <!-- [ header starts here] -->
+            <table bgcolor="FFFFFF" cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #E0E0E0;padding:0px 10px;">
+                <tr>
+                    <td valign="top">
+                        {{template config_path="design/email/header_template"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size:20px;color: #333;line-height: 16px;font-weight: bold; padding:20px 0px 22px 0px;">
+                            {{trans "%name," name=$customer.name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 30px 0;color: #666;">
+                            {{trans "Thank you for confirming your %store_name account." store_name=$store.getFrontendName()}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0px 0 20px 0;color: #333;font-weight:bold;">
+                           {{trans
+                            'To sign in to our site, use these credentials during checkout or on the <a href="%customer_url">My Account</a> page:'
+                            customer_url=$this.getUrl($store,'customer/account/',[_nosid:1])
+                         |raw}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0px;color: #666;border-bottom:1px solid #E0E0E0;">
+                            <ul style="list-style-type:none;margin:0px;padding:0px;">
+                                <li style="padding-bottom:5px;margin:0px;padding-left:0px;color:#666;"><strong>{{trans "Email:"}}</strong> {{var customer.email}}</li>
+                                <li style="padding-bottom:5px;margin:0px;padding-left:0px;color:#666;"><strong>{{trans "Password:"}}</strong> {{trans "Password you set when creating account"}}</li>
+                            </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 20px 0 20px 0;color: #666;">
+                            {{trans
+                                'Forgot your account password? Click <a href="%reset_url">here</a> to reset it.'
+
+                                reset_url="$this.getUrl($store,'customer/account/createPassword/',[_query:[id:$customer.id,token:$customer.rp_token],_nosid:1])"
+                            |raw}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 14px;line-height: 16px;padding: 0 0 10px 0;color: #333;font-weight:bold;">
+                           {{trans "When you sign in to your account, you will be able to:"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-size: 13px;line-height: 16px;padding: 20px 10px;color: #333;border:1px solid #ddd;">
+                            <ul style="margin:0px;padding:0px 20px 0px 20px;">
+                                <li style="padding-bottom:5px;margin:0px;padding-left:0px;">{{trans "Proceed through checkout faster"}}</li>
+                                <li style="padding-bottom:5px;margin:0px;padding-left:0px;">{{trans "Check the status of orders"}}</li>
+                                <li style="padding-bottom:5px;margin:0px;padding-left:0px;">{{trans "View past orders"}}</li>
+                                <li style="padding-bottom:5px;margin:0px;padding-left:0px;">{{trans "Store alternative addresses (for shipping to multiple family members and friends)"}}</li>
+                            </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="center">
+                            {{template config_path="design/email/footer_template"}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

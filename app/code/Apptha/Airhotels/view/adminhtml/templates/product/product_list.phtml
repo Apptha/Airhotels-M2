@@ -1,0 +1,165 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php 
+$productId = $this->getRequest ()->getParam ( 'id' );
+$product = $this->getProductDetails();
+?>
+<?php 
+$inboxDetails = $product->getData();
+/*
+* Date Format conversion as per admin settings.
+*/
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->messagingDateFormat();
+?>
+<div class="col-main">
+<div class="my-account clearfix">
+<div class="page-title">
+    <h2 class="account-heading"><?php echo __('Inbox')?></h2>
+</div>
+    <?php if(!empty($inboxDetails)) { ?>
+    <div id="inboxSpace">
+    <a href="<?php echo $_SERVER['HTTP_REFERER'] ?>" class="ah-backbtn"><?php echo __('Back');?></a> 
+        <p class="inbox_action_buttons">
+             <button onclick="confirmDelete()" class="inbox_delete_checkall"> <?php echo __('Delete'); ?></button>
+             <button class="inbox_delete_checkall" type="button" id="check_all_buttons" value="<?php echo __('Check All'); ?>" onClick="this.value=checkUncheckAll()"><?php echo __('Check All'); ?></button>
+        </p>
+    <form name="mailform" action="" method="post" id="mailin">
+           <div class="profile_inbox_table">
+            <table class="inboxTable" id="outboxList">
+             <tr>
+             <td></td>
+                    <td class="table_head_label"><?php echo __('From'); ?></td>
+                    <td class="table_head_label"><?php echo __('Message'); ?></td>
+                    <td class="table_head_label"><?php echo __('Date'); ?></td>
+                    </tr>
+                <?php
+                    $customerDetails = $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getCustomerData();
+                    $customerId = $customerDetails->getCustomerId();
+                    for($i=0;$i<count($inboxDetails);$i++ ){ 
+                    $receiverId = $inboxDetails[$i]["receiver_id"]; 
+    
+                    if ($customerId == $receiverId) {
+                        if ($inboxDetails[$i]["receiver_read"] == '1') {
+                            $readClass = "class='read'";
+                            $unRead = 0;
+                        } else {
+                            $readClass = "class='unread' ";
+                            $unRead = 1;
+                        }
+                    } else {
+                        if ($inboxDetails[$i]["sender_read"] == '1') {
+                            $readClass = "class='read'";
+                            $unRead = 0;
+                        } else {
+                            $readClass = "class='unread' ";
+                            $unRead = 1;
+                        }
+                    } 
+                        //Get customer name
+                        $customer = $this->getCustomer($inboxDetails[$i]["sender_id"]);
+                        $customerName = $customer->getName();
+                        //Get reply message un read count
+                        $unreadCount = $this->getReplyMessageCount($inboxDetails[$i]["id"]);
+                        
+                    ?>
+                    <tr style="cursor: pointer" <?php echo $readClass; ?>  onclick="this.className ='read' " id="<?php echo $inboxDetails[$i]["id"]; ?>">
+                    <td class="select_message_box checkbox_design">
+                    <?php echo $unreadCount;?>
+                    <input type="checkbox" style="margin-left: 5px" name="messageid[]" value="<?php echo $inboxDetails[$i]["id"]; ?>" id="checkinbox" onchange="checkboxAction();"/><i class="sprimg"></i></td>
+                    <td onclick="openMessage(1,'<?php echo $inboxDetails[$i]["id"]; ?>','<?php ?>')">  <?php  echo $customerName; 
+                            ?>
+                    </td>
+                    <td onclick="openMessage(1,'<?php echo $inboxDetails[$i]["id"]; ?>','<?php echo $unRead; ?>')">
+                        <?php echo (strlen($inboxDetails[$i]["message"])>30)? substr($inboxDetails[$i]["message"],0,30) : $inboxDetails[$i]["message"]."...";   ?>
+                    </td>
+                    <td onclick="openMessage(1,'<?php echo $inboxDetails[$i]["id"]; ?>','<?php echo $unRead; ?>')">
+
+                        <?php $inboxmsgDate = date('Y-m-d', strtotime($inboxDetails[$i]["created_at"]));
+                        echo date($convertedDateFormat, strtotime($inboxmsgDate)); ?>
+                </tr>
+                <?php  } ?>
+            </table>
+            </div>
+    </form>
+    </div>
+    <div id="message-loader" style="display: none">
+        <?php  ?>
+        <img src="<?php echo $this->getMediaUrl().'wysiwyg/loader.gif'; ?>" alt="" width="300">
+    </div>
+    <div id="mailSpace" style="display: block"></div>
+    <?php } else { ?><h1 class="no_mails">
+    <?php echo __('No mail Received ')?></h1>
+    <?php } ?>
+    </div>
+</div>
+<?php echo $block->getPagerHtml();?>
+<script type="text/javascript">         
+        document.getElementById('page:main-container').className += 'airhotels-msgsysm';
+        document.getElementById('page:main-container').classList.remove('page-columns'); 
+        // open the host select message
+        function openMessage(flag,messageId,readStatus){
+            jQuery('#inboxSpace').hide();
+            jQuery('#message-loader').show();
+            jQuery.ajax({
+              url: "<?php echo $this->getUrl('bookingadmin/message/showmessage') ?>",
+              type: "POST",
+              data: {id : messageId},
+              cache: false,
+              success: function(html){
+                jQuery('#message-loader').hide();
+                jQuery("#mailSpace").append(html);
+              }
+            });
+        }
+        // Delete the messages if host click the delete button
+        function confirmDelete(){  
+            var arrayValues = [];
+            if(jQuery("input:checked").length != ""){
+            if(confirm("<?php echo __('Are you sure want to delete'); ?>")){
+                jQuery('input[name="messageid[]"]:checked').each(function() {
+                    jQuery("tr#"+this.value).hide();
+                    arrayValues.push(this.value);
+                });
+                jQuery.ajax({
+                    url: "<?php echo $this->getUrl('*/*/delete') ?>",
+                    type: "POST",
+                    data: {delete_id : arrayValues,id: 1},
+                    cache: false,
+                    success: function(html){
+                    }
+                });
+                return false;
+            }
+           }
+            else{
+                confirm("<?php echo __('Please select the checkbox to delete'); ?>");
+                return false;
+            }
+        }
+      // Check and uncheck the checkbox
+      var checkAllInboxCheckboxes = 0;
+      function checkUncheckAll() {
+          if(checkAllInboxCheckboxes == 0){       
+              jQuery('#inboxSpace input:checkbox').attr('checked', 'true');
+              checkAllInboxCheckboxes = 1;
+              return "Uncheck All";
+          }else{  
+              jQuery('#inboxSpace input:checkbox').removeAttr('checked', 'true');
+              checkAllInboxCheckboxes = 0;
+              return "Check All";
+          }
+      }
+      function checkboxAction() {
+         jQuery('#inboxSpace input:checkbox:not(:checked)').each(function(){
+            jQuery("#check_all_buttons").val("<?php echo __('Check All'); ?>");
+            checkAllInboxCheckboxes=0;
+            return;
+        });
+      }
+</script>
+

@@ -1,0 +1,80 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+$countryList=$this->getCountryList();
+$verifyHost = $this->getVerifyhost();
+$hostVerificationImage = '';
+?>
+
+<div class="account-verification">
+        <h3><?php echo __('Account verification required'); ?></h3>
+        <p><?php echo __('Verification is a process that build a trust . We belive endors trust , so we verify your IDs to ensure a safety of our growing community.'); ?></p>
+        <h3><?php echo __('Goverment Id'); ?></h3>
+        <p><?php echo __('Upload the picture of your official ID such as Passport or Identy card.'); ?></p>
+</div>
+<div class="id-verification">
+                     <form action="<?php echo $this->getSaveVerificationUrl(); ?>" method="post" name="form" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'>
+                            <h3 class="account-heading"><?php echo __('Id verification'); ?></h3>
+                            <div class="profile_document_section">
+                          <div class="country">
+                                          <label class="country_label"><?php echo __('Country'); ?></label>
+                                          <select name="country" id="country" data-validate="{required:true}">
+                                          <option value=""><?php echo __('Select Country') ?></option>
+                                          <?php foreach($countryList as $_countryList){ ?>
+                                          <option <?php if(strtolower($verifyHost->getCountryCode())==strtolower($_countryList['value'])){ echo "selected"; } ?> value="<?php echo $_countryList['value']; ?>"><?php echo $_countryList['label']; ?></option>
+                                          <?php } ?>
+                                  </select>
+                                   </div>
+                                   <div class="form-space clearfix" style="padding: 20px 0">
+                                          <label class="label_align"><?php echo __('Id File'); ?></label>
+                                                  <div class="verify_id_type"><input <?php if($verifyHost->getIdType()==0){ ?> checked="checked" <?php } ?> type="radio" name="id_type" value="0"><?php echo __('Passport'); ?></div>
+                                <div class="verify_id_type"><input data-validate="{'validate-one-required-by-name':true}" <?php if($verifyHost->getIdType()==1){ ?> checked="checked" <?php } ?> type="radio" name="id_type" value="1"><?php echo __('Identity Card'); ?></div>
+                                <div class="verify_id_type"><input data-validate="{'validate-one-required-by-name':true}" <?php if($verifyHost->getIdType()==2){ ?> checked="checked" <?php } ?> type="radio" name="id_type" value="2"><?php echo __('Driving License'); ?></div>
+                                 <div class="choose-file clearfix">
+                                    <label class="label_align">&nbsp;</label>
+                                    <input  data-validate="{required:true}" type="file" id="documentimage" name="documentimage" value="">
+                                    <span><?php echo __('Allowed Extensions : jpg, jpeg &amp; png'); ?></span>
+                               </div>
+                          </div>
+                            <?php 
+                            if(!empty($verifyHost->getFilePath())){
+                              $hostVerificationImage = $this->getDocumentImage().$verifyHost->getFilePath();
+                              } ?>
+                           <div class="upload-hostimage">
+                              <img src="<?php echo $hostVerificationImage; ?>"/>
+                           </div>
+                           <div class="upload-btn">
+                            <input type="submit" name="upload" title="<?php echo __('Upload ID'); ?>" value="<?php echo __('Upload ID'); ?>" class="import_button">
+                          </div>
+                                <label class="label_align"></label>
+                            </div>
+                     </form>
+</div>
+

@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $block->getOrder() ?>
+<div class="actions-toolbar-main clearfix">
+<?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
+<div class="order-title">
+    <?php /* @escapeNotVerified */ echo __('Invoice #') ?><?php /* @escapeNotVerified */ echo $_invoice->getIncrementId(); ?>
+    <a href="<?php /* @escapeNotVerified */ echo $block->getPrintInvoiceUrl($_invoice) ?>order_id/<?php echo $_order->getId()?>/"
+       onclick="this.target='_blank'"
+       class="action print">
+        <?php /* @escapeNotVerified */ echo __('Print Invoice') ?>
+    </a>
+</div>
+</div>
+<div class="table-wrapper table-order-items invoice">
+    <table class="data table table-order-items invoice" id="my-invoice-table-<?php /* @escapeNotVerified */ echo $_invoice->getId(); ?>">
+        <thead>
+            <tr>
+                <th class="col name" colspan="5"><?php /* @escapeNotVerified */ echo __('Booking Details') ?></th>
+                <th class="col price"><?php /* @escapeNotVerified */ echo __('Price') ?></th>
+                <th class="col subtotal"><?php /* @escapeNotVerified */ echo __('Subtotal') ?></th>
+            </tr>
+        </thead>
+        <?php $_items = $_invoice->getAllItems(); ?>
+        <?php $_count = count($_items) ?>
+        <?php foreach ($_items as $_item): ?>
+        <?php if ($_item->getOrderItem()->getParentItem()) {
+    continue;
+} ?>
+        <tbody>
+            <?php echo $block->getItemHtml($_item) ?>
+        </tbody>
+        <?php endforeach; ?>
+        <tfoot>
+            <?php echo $block->getInvoiceTotalsHtml($_invoice)?>
+        </tfoot>
+    </table>
+</div>
+<?php echo $block->getInvoiceCommentsHtml($_invoice)?>
+<?php endforeach; ?>

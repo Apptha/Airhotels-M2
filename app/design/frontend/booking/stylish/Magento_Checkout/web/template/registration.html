@@ -1,0 +1,45 @@
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div>
+    <!-- ko if: isFormVisible -->
+    <p data-bind="i18n: 'You can track your booking status by creating an account.'"></p>
+    <p><span data-bind="i18n: 'Email Address'"></span>: <span data-bind="text: getEmailAddress()"></span></p>
+    <form method="post" data-bind="submit: createAccount">
+        <input type="submit" class="action primary" data-bind="value: $t('Create an Account'), disable: creationStarted" />
+    </form>
+    <!-- /ko -->
+    <!-- ko if: accountCreated -->
+    <p data-bind="i18n: 'A letter with further instructions will be sent to your email.'"></p>
+    <!-- /ko -->
+</div>

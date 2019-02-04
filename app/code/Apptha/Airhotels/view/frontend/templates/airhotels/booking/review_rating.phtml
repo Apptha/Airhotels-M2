@@ -1,0 +1,89 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+$avg_rating = $this->getData ( 'avg_rating' );
+$reviewCollection = $this->getData ( 'collection' );
+?>
+     <div class="review-heading-section clearfix">
+          <h4><?php echo __('Reviews');?></h4>
+          <div class="rating-box" id="mainreviews">
+               <div class="rating" style="width: <?php echo (empty($avg_rating))?0:$avg_rating;?>%;"></div>
+          </div>
+     </div>
+     <?php 
+     if(count($reviewCollection) > 0){
+          $reviewCount = 0;
+          foreach($reviewCollection->getData() as $reviewValues){?>
+          <div class="review-list">
+               <div class="guest-image-section clearfix">
+                    <div class="guest-image">
+                    <?php 
+                    $hostImageUrl = $block->getHostImageUrl ();
+                    if($reviewValues['customer_id']){
+                         $customerData = $block->getHostData ( $reviewValues['customer_id'] );
+                         $reviewCustomerImageUrl = ($customerData->getProfileimage())? $hostImageUrl . $customerData->getProfileimage() : $block->getViewFileUrl('Apptha_Airhotels::images/no_user.jpg');
+                    }else{
+                         $reviewCustomerImageUrl = $block->getViewFileUrl('Apptha_Airhotels::images/no_user.jpg');
+                    }
+                    ?>
+                         <img src="<?php echo $reviewCustomerImageUrl;?>" alt="profile">
+                    </div>
+                    <div class="gust-img-info">
+                         <h5><?php echo $reviewValues['nickname'];?></h5>
+                         <h6><?php echo date("F Y", strtotime($reviewValues["created_at"])); ?></h6>
+                         <p><?php echo $reviewValues['detail'];?></p>
+                    </div>
+               </div>
+          </div>
+          <?php
+               $reviewCount++;
+               if($reviewCount == 3){
+                    break;
+               }
+           } 
+     }else{ ?>     
+       <span class='no_reviews'><?php echo __('Yet no reviews available.') ?></span>
+    <?php }?>   
+<script>
+jQuery('a[href^="#"]').on('click', function(event) {
+         var target =jQuery(this.getAttribute('href'));
+         if( target.length ) {
+             event.preventDefault();
+             if(event.clientY >= 250){
+             jQuery('html, body').stop().animate({
+                 scrollTop: target.offset().top-150
+             }, 1000);
+             } else {
+                  jQuery('html, body').stop().animate({
+                     scrollTop: target.offset().top-50
+                 }, 1000);
+             }
+         }
+     });
+</script>

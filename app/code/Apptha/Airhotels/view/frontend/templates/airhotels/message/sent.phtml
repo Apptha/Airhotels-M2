@@ -1,0 +1,225 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */?>
+<?php
+$sentDetails = $this->getSentItemsDetails ();
+$sentDetails = $sentDetails->getData();
+/*
+* Date Format conversion as per admin settings.
+*/
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->messagingDateFormat();
+?>
+<div class="col-main">
+<div class="my-account clearfix">
+<div class="page-title">
+    <h2 class="account-heading"><?php echo __('Sent Items')?></h2>
+</div>
+    <?php if(!empty($sentDetails)) { ?>
+    <div id="inboxSpace">
+        <p class="inbox_action_buttons">
+             <button title = "Delete" onclick="confirmDelete()" class="inbox_delete_checkall"> <svg class="ic-delete"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#rubbish-bin'); ?>'></svg></button>
+             <button title = "Check All" class="inbox_delete_checkall" type="button" id="check_all_buttons" value="<?php echo __('Check All'); ?>" onClick="this.value=checkUncheckAll()"><svg class="ic-selectall"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#select'); ?>'></svg></button>
+             <button title = "Read" class="inbox_delete_checkall" type="button" id="check_all_buttons" value="<?php echo __('Check All'); ?>" onClick="sentmsgReadStatus()"><svg class="ic-selectall"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#visibility'); ?>'></svg></button>
+             <button title = "Unread" class="inbox_delete_checkall" type="button" id="check_all_buttons" value="<?php echo __('Check All'); ?>" onClick="sentmsgUnreadStatus()"><svg class="ic-selectall"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#blind'); ?>'></svg></button>
+              <button title = "Default" class="inbox_delete_checkall" type="button" id="check_all_buttons" value="<?php echo __('Check All'); ?>" onClick="allMessage()"><svg class="ic-reset"><use xlink:href='<?php echo $this->getViewFileUrl('images/sprite.svg#round-right-arrow'); ?>'></svg></button>
+        </p>
+    <form name="mailform" action="" method="post" id="mailin">
+           <div class="profile_inbox_table">
+            <table class="inboxTable" id="outboxList">
+             <tr>
+             <td></td>
+                    <td class="table_head_label"><?php echo __('To');?></td>
+                    <td class="table_head_label"><?php echo __('Message');?></td>                    
+                    <td class="table_head_label"><?php echo __('Check In'); ?></td>
+                    <td class="table_head_label"><?php echo __('Check Out'); ?></td>
+                    <td class="table_head_label"><?php echo __('Date');?></td>
+                    </tr>
+                <?php
+                    $customerDetails = $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getCustomerData();
+                    $customerId = $customerDetails->getCustomerId();
+                    for($i=0;$i<count($sentDetails);$i++ ){ 
+                    $senderId = $sentDetails[$i]["sender_id"];                    
+                    $msgCheckInDate = date('Y-m-d', strtotime($sentDetails[$i]["checkin"]));
+                    $msgCheckOutDate =  date('Y-m-d', strtotime($sentDetails[$i]["checkout"])); 
+    
+                    if ($customerId == $senderId) {
+                        if ($sentDetails[$i]["receiver_read"] == '1') {
+                            $readClass = "class='read'";
+                            $unRead = 0;
+                        } else {
+                            $readClass = "class='unread' ";
+                            $unRead = 1;
+                        }
+                    } else {
+                        if ($sentDetails[$i]["sender_read"] == '1') {
+                            $readClass = "class='read'";
+                            $unRead = 0;
+                        } else {
+                            $readClass = "class='unread' ";
+                            $unRead = 1;
+                        }
+                    } 
+                      $customerIds = ($customerId == $senderId ) ? $sentDetails[$i]["receiver_id"] : $sentDetails[$i]["sender_id"] ;
+                        //Get customer name
+                        $customer = $this->getCustomer($customerIds);
+                        $customerName = ucfirst($customer->getName());
+                        //Get reply message un read count
+                        $unreadCount = $this->getReplyMessageCount($sentDetails[$i]["id"]);
+                        
+                    ?>
+                    <tr style="cursor: pointer" <?php echo $readClass; ?>  onclick="this.className ='read' " id="<?php echo $sentDetails[$i]["id"]; ?>">
+                    <td class="select_message_box checkbox_design">                    
+                    <input type="checkbox" style="margin-left: 5px" name="messageid[]" value="<?php echo $sentDetails[$i]["id"]; ?>" id="checkinbox" onchange="checkboxAction();"/><i class="sprimg"></i></td>
+                    <td onclick="openMessage(1,'<?php echo $sentDetails[$i]["id"]; ?>','<?php echo $unRead; ?>','<?php echo $senderId; ?>')">
+                        <?php echo __('From'); ?> : <?php  echo $customerName; ?>
+                    </td>
+                    <td onclick="openMessage(1,'<?php echo $sentDetails[$i]["id"]; ?>','<?php echo $unRead; ?>','<?php echo $senderId; ?>')">
+                        <?php echo (strlen($sentDetails[$i]["message"])>30)? substr($sentDetails[$i]["message"],0,30).".." : $sentDetails[$i]["message"];   ?>
+                    </td>
+                    <td class="ah-message" onclick="openMessage(1,'<?php echo $sentDetails[$i]["id"]; ?>','<?php echo $unRead; ?>')">
+                        <?php echo date($convertedDateFormat, strtotime($msgCheckInDate)); ?>
+                    </td>
+                    <td class="ah-message" onclick="openMessage(1,'<?php echo $sentDetails[$i]["id"]; ?>','<?php echo $unRead; ?>')">
+                        <?php   echo date($convertedDateFormat, strtotime($msgCheckOutDate)); ?>
+                    </td>
+                    <td onclick="openMessage(1,'<?php echo $sentDetails[$i]["id"]; ?>','<?php echo $unRead; ?>','<?php echo $senderId; ?>')">
+                        <?php  $sentmsgDate = date('Y-m-d', strtotime($sentDetails[$i]["created_at"]));
+                        echo date($convertedDateFormat, strtotime($sentmsgDate)); ?>
+                    </td>
+                </tr>
+                <?php  } ?>
+            </table>
+            </div>
+    </form>
+    </div>
+    <div id="message-loader" style="display: none">
+        <?php  ?>
+        <img src="<?php echo $this->getMediaUrl().'wysiwyg/loader.gif'; ?>" alt="" width="300">
+    </div>
+    <div id="mailSpace" style="display:block"></div>
+    <?php } else { ?><h1 class="no_mails">
+    <?php echo __('No mail sent ')?></h1>
+    <?php } ?>
+    </div>
+</div>
+<?php echo $block->getPagerHtml();?>
+<script type="text/javascript">
+        // open the customer select message
+        function openMessage(flag,messageId,readStatus, senderId){
+            jQuery('#inboxSpace').hide();            
+            jQuery('#message-loader').show();
+            jQuery(".pager").hide();
+            jQuery.ajax({
+              url: "<?php echo $this->getUrl('airhotels/message/customershowmessage') ?>",
+              type: "POST",
+              data: {id : messageId, sid : senderId},
+              cache: false,
+              success: function(html){
+                jQuery('#message-loader').hide();
+                jQuery("#mailSpace").append(html);
+              }
+            });
+           
+        }
+        // Delete the messages if host click the delete button
+        function confirmDelete(){  
+            var arrayValues = [];
+            if(jQuery("input:checked").length != ""){
+            if(confirm("<?php echo __('Are you sure want to delete?'); ?>")){
+                jQuery('input[name="messageid[]"]:checked').each(function() {
+                    jQuery("tr#"+this.value).hide();
+                    arrayValues.push(this.value);
+                });
+                jQuery.ajax({
+                    url: "<?php echo $this->getUrl('airhotels/message/deletemessage') ?>",
+                    type: "POST",
+                    data: {delete_id : arrayValues,id: 2},
+                    cache: false,
+                    success: function(html){
+                    }
+                });
+                return false;
+               
+            }
+           }
+            else{
+                confirm("<?php echo __('Please select the checkbox to delete'); ?>");
+                return false;
+            }
+        }
+      // Check and uncheck the checkbox
+      var checkAllInboxCheckboxes = 0;
+      function checkUncheckAll() {
+          if(checkAllInboxCheckboxes == 0){       
+              jQuery('#inboxSpace input:checkbox').attr('checked', 'true');
+              checkAllInboxCheckboxes = 1;
+              return "Uncheck All";
+          }else{  
+              jQuery('#inboxSpace input:checkbox').removeAttr('checked', 'true');
+              checkAllInboxCheckboxes = 0;
+              return "Check All";
+          }
+      }
+      
+      function checkboxAction() {
+         jQuery('#inboxSpace input:checkbox:not(:checked)').each(function(){
+            jQuery("#check_all_buttons").val("<?php echo __('Check All'); ?>");
+            checkAllInboxCheckboxes=0;
+            return;
+        });
+      }
+      function sentmsgReadStatus() {
+          jQuery("#outboxList tr.read").show();
+          jQuery("#outboxList tr.unread").hide();
+      }
+      function sentmsgUnreadStatus() {
+          jQuery("#outboxList tr.unread").show();
+          jQuery("#outboxList tr.read").hide();
+      }
+      function allMessage() {
+          sessionStorage.reloadAfterPageLoad = true;
+          location.reload();   
+      }
+</script>
+<script type="text/javascript">
+   require([
+  "jquery",
+  "jquery/ui"
+  ], function($){ 
+       $( function () {
+         if ( sessionStorage.reloadAfterPageLoad ) {
+            $("#outboxList tr.unread").show();
+            $("#outboxList tr.read").show();
+            sessionStorage.reloadAfterPageLoad = false;
+          }
+        } );      
+     });
+</script>
+
+

@@ -1,0 +1,284 @@
+<?php
+/**
+ * Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+
+<?php
+$googleApiKey = $this->helper('Apptha\Airhotels\Helper\Order')->getGoogleapiKey();
+$_helper = $this->helper('Apptha\Airhotels\Helper\General');
+$arrProductIds = $output = array ();
+$latitude = $longitude = NULL;
+$imagehelper = $this->helper ( 'Magento\Catalog\Helper\Image' );
+$searchAddressFrom = $this->getRequest ()->getParam ( 'searchAddressFrom' );
+$searchAddress = base64_encode ( $this->getRequest ()->getParam ( 'searchAddress' ) );
+$secAddress = $this->getRequest ()->getParam ( 'searchAddress' );
+$checkin = base64_encode ( $this->getRequest ()->getParam ( 'checkin' ) );
+$checkout = base64_encode ( $this->getRequest ()->getParam ( 'checkout' ) );
+$propertyServiceFrom = base64_encode ( $this->getRequest ()->getParam ( 'propertyServiceFrom' ) );
+$propertyServiceTo = base64_encode ( $this->getRequest ()->getParam ( 'propertyServiceTo' ) );
+$propertyServiceFromPeriod = base64_encode ( $this->getRequest ()->getParam ( 'propertyServiceFromPeriod' ) );
+$propertyServiceToPeriod = base64_encode ( $this->getRequest ()->getParam ( 'propertyServiceToPeriod' ) );
+$searchguest = base64_encode ( $this->getRequest ()->getParam ( 'searchguest' ) );
+$center = $this->getRequest ()->getParam ( 'latituteZoom' );
+$collection = $this->getAdvanceSearchResult ();
+$currencySymbol = $block->getCurrentCurrencySymbol ();
+if (count ( $collection )) {
+     ?>
+<div id="whislist_message"></div>
+<ul id="results" class="result-booking-list">
+        <?php
+     $model = $this->product;
+     foreach ( $collection as $_product ) {
+          /**
+           * product url
+           */
+
+          $product_url = $_product->getProductUrl ();
+          $productLatlong = $cordinates = '';
+          $cordinates .= $_product ['longitude'] . '|';
+          $productLatlong = $_product ['latitude'] . "," . $_product ['longitude'];
+          $propertyType = $_product->getBookingType ();
+          $price = $_helper->priceConverter ( $_product->getPrice () );
+          $privacyType = $_product->getAttributeText ( 'privacy' );
+          $propertyType = $_product->getAttributeText ( 'booking_type' );
+          $bedType = $_product->getAttributeText ( 'bedtype' );
+          $product = $this->getResult ( $_product->getId () );
+          $searchResultImage = $product->getMediaGallery ( 'images' );
+          ?>
+         <li
+          onmouseout="outHintMarkerInMap('<?php echo  $_product->getId();  ?>')"
+          onmouseover="hintMarkerInMap('<?php echo  $_product->getId();  ?>')"
+          class="search_result"
+          id="product_map_over_<?php echo  $_product->getId();  ?>"
+          data-location="<?php echo $productLatlong; ?>"
+          data-name="<?php echo $block->getPropertyName($_product->getName()); ?>"
+          data-url="<?php echo $product_url; ?>"
+          data-src="<?php echo $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl () . 'catalog/product' . $product->getImage (); ?>"
+          data-state="<?php echo $_product['state']; ?>"
+          currency-data="<?php echo $price ; ?>"
+          product_id="<?php echo $_product->getId(); ?>">
+          <div class="popular_2up_listings_view">
+               <div class="row2-wishlists-list clearfix">
+                    <div class="wishlists2-list-item twospace_list">
+                     <?php
+          $homemedium = $imagehelper->init ( $_product, 'category_page_list' )->constrainOnly ( TRUE )->keepAspectRatio ( TRUE )->keepFrame ( FALSE )->resize ( 400, null )->getUrl ();
+          ?>
+                            <div class="search-result-container">
+                              <a href="<?php echo $_product->getProductUrl(); ?>"
+                                   class="matte2-media-box rslides1">
+                                    <?php
+          if (count ( $product->getMediaGalleryImages () ) >= 1) {
+               ?>
+                                                <img
+                                   alt="<?php echo $block->getPropertyName($_product->getName()); ?>"
+                                   src="<?php
+               echo $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl () . 'catalog/product' . $product->getImage ();
+               ?>"
+                                   width="400" height="247"
+                                   title="<?php echo $block->getPropertyName($_product->getName()); ?>" />
+
+                                                                      <?php
+
+          } else {
+               ?>
+                                                                                <img
+                                   alt="<?php echo $block->getPropertyName($_product->getName()); ?>"
+                                   src="<?php echo $homemedium; ?>" />
+                                                                <?php } ?>
+                                    </a>
+                                    <?php
+          /**
+           * Code to display host profile image with redirect url to my experience listing page
+           */
+          ?>
+                                            <div class="feed_item_view">
+                                   <div class="floatleft">
+                                        <a href="<?php echo $_product->getProductUrl(); ?>"> <span
+                                             class="h4"><?php $str = $block->getPropertyName($_product->getName());?>
+                                                    </span>
+                                        </a>
+                                   </div>
+                              </div>
+
+                              <div class="search-result-right">
+                                   <div class="search-result-title-left">
+                                        <div class="room_details">
+                                             <div class="popular_price">
+                                                  <a href="<?php echo $_product->getProductUrl(); ?>"> <span
+                                                       class="price-tag-price">
+                                 <?php echo $price;?>
+                                </span>
+                                                  </a>
+                                             </div>
+                                             <span>
+                                                  <div>
+                                                       <h4><?php echo $block->getPropertyName($product->getName());?></h4>
+                                                       <p><?php echo $privacyType;?>/<?php echo $propertyType;?>. <?php echo $bedType;?></p>
+                                                  </div>
+
+                                             </span>
+                                             <div class="search-result-reviews">
+                                                  <em class="dot airhotel-sprite"></em> <em
+                                                       class="dot airhotel-sprite"></em>
+                                                  <div class="reviews-count">
+                                                  <?php
+          $reviewCollection = $this->helper ( 'Apptha\Airhotels\Helper\Product' )->getReviewDetails ( $_product->getId () );
+          $productReviewsCount = count ( $reviewCollection );
+          $ratingSummary = $this->helper ( 'Apptha\Airhotels\Helper\Product' )->getRatingSummary ( $_product );
+          $ratingSummary = $ratingSummary ? $ratingSummary : 0
+          ?>
+                                                  <div
+                                                            class="rating-box">
+                                                            <div class="rating" style="width:<?php echo $ratingSummary;?>%;"></div>
+                                                       </div>
+
+                                                       <div class="respond-review">
+                                                            <span class="reviews_count_no"> <?php if ($productReviewsCount != 0) { echo $productReviewsCount; } ?></span>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+
+     </li>
+        <?php } ?>
+    </ul>
+<div class="clear"></div>
+<div class="search-result-pagination">
+      <ul>
+            <?php   $n = ceil($collection->getSize() / 6);
+            if ($n > 1):
+                for ($i = 1; $i <= $n; $i++) {
+                    ?>
+                    <?php if ($this->getRequest()->getParam('pageno') == $i): ?>
+                        <li class="page-current"><?php echo $i; ?></li>
+                    <?php else: ?>
+                        <li class="page" onclick="ajaxSearchResult('<?php echo $i; ?>','','')"><?php echo $i; ?></li>
+                    <?php
+                    endif;
+                }
+            endif;
+            ?>
+        </ul>
+</div>
+<?php
+     if ($secAddress == '') {
+          $address = $this->helper( 'Apptha\Airhotels\Helper\Data' )->getDefaultLocation ();
+     } else {
+          $address = $secAddress;
+     }
+     $preAddr = str_replace ( ' ', '+', $address );
+     $addressAddPlus = str_replace ( ',', '+', $preAddr );
+     /**
+      * Check weahter 'allow_url_fopen' is enabled
+      */
+     $encodeAddress = urlencode ( $addressAddPlus );
+     if (ini_get ( 'allow_url_fopen' )) {
+          $geoCode = file_get_contents ( 'https://maps.google.com/maps/api/geocode/json?address=' . rtrim ( $encodeAddress ) . '&sensor=false&key='.$googleApiKey );
+     } else {
+          $channel = curl_init ();
+          curl_setopt ( $channel, CURLOPT_URL, 'https://maps.google.com/maps/api/geocode/json?address=' . rtrim ( $encodeAddress ) . '&sensor=false&key='.$googleApiKey );
+          curl_setopt ( $channel, CURLOPT_RETURNTRANSFER, 1 );
+          $geoCode = curl_exec ( $channel );
+     }
+     $output = json_decode ( $geoCode );
+     if(isset($output->results [0])){
+     $latitude = $output->results [0]->geometry->location->lat;
+     $longitude = $output->results [0]->geometry->location->lng;
+     }
+     $prductid = $_product->getId ();
+     echo "<div id='default_map_location' style='display:none; border:none;'>" . $latitude . '@|@' . $longitude . '@|@' . $prductid . "</div>";
+} else {
+     if ($center != '') {
+          $latlong = explode ( ",", $center );
+          $latitude = $latlong [0];
+          $longitude = $latlong [1];
+     } else {
+
+          if ($secAddress == '') {
+               $address = $this->helper( 'Apptha\Airhotels\Helper\Data' )->getDefaultLocation ();
+          } else {
+               $address = $secAddress;
+          }
+          $preAddr = str_replace ( ' ', '+', $address );
+          $addressAddPlus = str_replace ( ',', '+', $preAddr );
+          /**
+           * Check weahter 'allow_url_fopen' is enabled
+           */
+          $encodeAddress = urlencode ( $addressAddPlus );
+          if (ini_get ( 'allow_url_fopen' )) {
+               $geocode = file_get_contents ( 'https://maps.google.com/maps/api/geocode/json?address=' . rtrim ( $encodeAddress ) . '&sensor=false&key='.$googleApiKey);
+          } else {
+               $ch = curl_init ();
+               curl_setopt ( $ch, CURLOPT_URL, 'https://maps.google.com/maps/api/geocode/json?address=' . rtrim ( $encodeAddress ) . '&sensor=false&key='.$googleApiKey);
+               curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+               $geocode = curl_exec ( $ch );
+          }
+          $output = json_decode ( $geocode );
+     if(isset($output->results [0])){
+          $latitude = $output->results [0]->geometry->location->lat;
+          $longitude = $output->results [0]->geometry->location->lng;
+          }
+     }
+
+     echo "<div class='no-records-found' style='text-align: center;color:red'>" . __ ( 'No properties available for this city.' ) . "</div>
+          <div id='default_map_location' style='display:none; border:none;'>" . $latitude . '@|@' . $longitude . "</div>";
+}
+?>
+<input type="hidden" name="rescount" id="rescount"
+     value="<?php echo count($collection); ?>" />
+<script type="text/javascript">
+function bidNow(newurl){
+        window.location.href = newurl;
+}
+</script>
+<script>
+   var myWidth;
+   if( typeof( window.innerWidth ) == 'number' ) {
+       //Non-IE
+       myWidth = window.innerWidth;    }
+
+    var i;
+    try {
+         var elements = document.getElementsByClassName("wish_list_button");
+        for (i = 0; i < elements.length; i++) {
+             var url = elements[i].href;
+             var id = url.substring(url.lastIndexOf("product")+8,url.lastIndexOf("/form_key"));
+             url = JSON.stringify(url);
+             elements[i].href = 'javascript:ajaxnewwishlist('+url+','+id+')';
+        }
+    }
+    catch (exception) {
+        alert(exception);
+    }
+</script>

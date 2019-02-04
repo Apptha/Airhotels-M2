@@ -1,0 +1,111 @@
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<!--@subject {{trans "Your %store_name order has shipped" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var billing.getName()":"Guest Customer Name",
+"var order.increment_id":"Order Id",
+"var payment_html|raw":"Payment Details",
+"var comment":"Shipment Comment",
+"var shipment.increment_id":"Shipment Id",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block class='Magento\\\\Framework\\\\View\\\\Element\\\\Template' area='frontend' template='Magento_Sales::email\/shipment\/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var order.getShippingDescription()":"Shipping Description"
+} @-->
+{{template config_path="design/email/header_template"}}
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #e0e0e0;">
+    <tr class="email-intro">
+        <td>
+            <p class="greeting" style="font-size: 16px;color: #333;font-weight: bold;">{{trans "%name," name=$billing.getName()}}</p>
+            <p style="color:#666;">
+                {{trans "Thank you for your order from %store_name." store_name=$store.getFrontendName()}}
+                {{trans 'If you have questions about your order, you can email us at <a href="mailto:%store_email" style="color:#008389;text-decoration:none;">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone" style="color:#008389;text-decoration:none;">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
+                {{depend store_hours}}
+                    {{trans 'Our hours are <span class="no-link" style="color:#008389;text-decoration:none;">%store_hours</span>.' store_hours=$store_hours |raw}}
+                {{/depend}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h1 style="background:#eee;padding: 10px 20px;font-size:16px;color:#333;">{{trans "Your Shipment #%shipment_id for Order #%order_id" shipment_id=$shipment.increment_id order_id=$order.increment_id}}</h1>
+            <p style="padding-left: 20px;color: #666;font-size: 12px;">{{trans "Your shipping confirmation is below. Thank you again for your business."}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{depend comment}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        {{var comment|escape|nl2br}}
+                    </td>
+                </tr>
+            </table>
+            {{/depend}}
+            {{block class='Magento\\Framework\\View\\Element\\Template' area='frontend' template='Magento_Sales::email/shipment/track.phtml' shipment=$shipment order=$order}}
+            <table class="order-details" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                <tr>
+                    <td class="address-details">
+                        <h3 style="background:#eee;padding: 10px 20px;color:#333;">{{trans "Billing Info"}}</h3>
+                        <p style="padding-left: 20px;color:#666;">{{var formattedBillingAddress|raw}}</p>
+                    </td>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="address-details">
+                        <h3 style="background:#eee;padding: 10px 20px;color:#333;">{{trans "Shipping Info"}}</h3>
+                        <p style="padding-left: 20px;color:#666;">{{var formattedShippingAddress|raw}}</p>
+                    </td>
+                    {{/depend}}
+                </tr>
+                <tr>
+                    <td class="method-info">
+                        <h3 style="background:#eee;padding: 10px 20px;color:#333;">{{trans "Payment Method"}}</h3>
+                        {{var payment_html|raw}}
+                    </td>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="method-info">
+                        <h3 style="background:#eee;padding: 10px 20px;color:#333;">{{trans "Shipping Method"}}</h3>
+                        <p style="padding-left: 20px;color:#666;">{{var order.getShippingDescription()}}</p>
+                    </td>
+                    {{/depend}}
+                </tr>
+            </table>
+            {{layout handle="sales_email_order_shipment_items" shipment=$shipment order=$order}}
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+{{template config_path="design/email/footer_template"}}

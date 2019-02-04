@@ -1,0 +1,278 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+?>
+<?php
+$baseImage = '';
+$mediaGallery = array ();
+/**
+ * check whether listing id exist in session and retrieve the existing data
+ */
+$storeIdVal = $this->getRequest ()->getParam ( 'storeId' );
+$storeId = 0;
+if (! empty ( $storeIdVal )) {
+     $storeId = $storeIdVal;
+}
+$customerSession = $this->helper('Apptha\Airhotels\Helper\Data')->getCustomerData();
+$productId = $customerSession->getCurrentExperienceId ();
+$productData = $block->getProductData ( $productId, $storeId );
+$mediaGallery = $productData->getMediaGallery ();
+$baseImage = $productData->getImage ();
+$baseImageCount = count($baseImage);
+?>
+<?php
+/**
+ * form to upload gallery images for listing
+ */
+?>
+ <div id="progress-wrp" style="display:none;">
+     <div class="progress-bar"></div>
+     <div class="status">0%</div>
+</div>
+<form action="<?php echo $block->getImageUploadAjaxUrl(); ?>"
+     method="POST" enctype="multipart/form-data" class="image_upload_form"
+     id="image_upload_form">
+     <input type="hidden" id="image_upload_ajax_url" class="images_list"
+          name="image_upload_ajax_url"
+          value="<?php echo $block->getImageUploadAjaxUrl(); ?>" />
+
+     <div id="images_list" class="images_list">
+          <div class="image_holder image-placeholder">
+               <input accept="image/*" type="file" name="product_images[]" id="upload_product_images"
+                    multiple>
+               <p class="image-placeholder-text"><?php echo __('Browse to find or Drag image here.'); ?> <i class="fa fa-star mandatory_star"><em>*</em></i>
+               <span> <?php echo __('You are allowed to add image size below 2MB and width of Minimum  1400px each.'); ?> </span>
+               </p>
+
+          </div>
+          <div id="images_alert">
+          </div>
+          <?php if ($baseImageCount == 0 ) {?>
+          <div id="emptyimageerror"><?php echo __('Please upload image'); ?>
+          </div>
+         <?php }?>
+  <?php
+          if (! empty ( $productId )) {
+               $baseImageName = '';
+               $mediaImageUrl = $block->getMediaImageUrl ();
+               if (! empty ( $baseImage )) {
+                    $baseImageName = $baseImage;
+               }
+
+               ?>
+               <div class="save-photo">
+               <div class="listing-photo-image">
+               <?php
+               foreach ( $mediaGallery ['images'] as $image ) {
+                    if ($image ['media_type'] == 'image' && ! empty ( $baseImageName )) {
+                         $imagePath = $image ['file'];
+                         ?>
+
+            <div class="image_close remove_image_container">
+                         x <input type="hidden" class="remove_image" name="remove_image[]"
+                              value="<?php echo $image['value_id']; ?>">
+                    </div>
+                    <div>
+                         <img class=""
+                              src="<?php echo $mediaImageUrl.DIRECTORY_SEPARATOR.$imagePath; ?>"
+                              alt="<?php echo $imagePath; ?>" height="200" width="200">
+                    </div>
+                    <div class = "base_image_container">
+                         <input class="base_image" type="radio"
+                              <?php
+                         if (strpos ( $imagePath, $baseImageName ) !== false || $baseImage == '/' . $imagePath || $baseImage == $imagePath) {
+                              echo 'checked="checked"';
+                         }
+                         ?>
+                              name="base_images" title="<?php echo __('base'); ?>"
+                              value="<?php echo $imagePath; ?>"> <span><?php echo __('Album Cover');?></span>
+               </div>
+              </div>
+
+
+
+               <div class="listing-photo-image">
+  <?php
+                    }
+               }
+          }
+          ?>
+<div for="selectBaseImage" generated="true" class="mage-error"
+                         id="selectBaseImage" style="display: none;"><?php echo __('Please select base image for your product'); ?></div>
+               </div>
+               <div class="cssload-jumping" id="image_upload_ajax_loader"
+                    style="display: none;"></div>
+          </div>
+     </div>
+     <input style="display: none;" type="submit" value="submit">
+</form>
+
+
+<form class="form product form-product"
+     action="<?php echo $block->getBaseUrl().'booking/listing/saveimage' ?>"
+     method="post" id="form_product_validate" enctype="multipart/form-data"
+     autocomplete="off">
+     <input type="hidden" id="current_product_id"
+          value="<?php echo $productId; ?>" name="product_id" />
+
+     <div id="uploaded_images_for_product"></div>
+     <div id="remove_images_for_product"></div>
+     <div id="configurable_content_form"></div>
+     <div id="base_image_for_product" style="display: none;">
+<?php if(!empty($baseImage)){ ?>
+<input class="base_image" type="radio" name="base_image"
+               title="<?php echo __('base'); ?>" value="<?php echo $baseImage; ?>"><span><?php echo __('Album Cover');?></span>
+<?php } ?>
+</div>
+     <div class="actions-toolbar">
+          <div class="primary">
+               <button id="btn_save_product" type="submit"
+                    class="action submit primary" title="<?php echo __('Save') ?>">
+                    <span><?php echo __('Save') ?></span>
+               </button>
+          </div>
+     </div>
+</form>
+
+
+<script>
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+    $("#images_alert").hide();
+    $("#image_upload_form").on('submit',(function(e){
+        e.preventDefault();
+           var imgVal = $('#upload_product_images').val();
+           if(imgVal != ''){
+            $("#images_alert").hide();
+            $('#progress-wrp').show();
+            $.ajax({
+                url: $('#image_upload_ajax_url').val(),
+                allowedTypes:"jpg,png,gif,jpeg",
+                type: 'POST',
+                success: function (transport) {
+                var responsemessage = transport;
+                var filenotsupported = "<?php echo __('is not allowed'); ?>";
+                $('#progress-wrp').hide();
+                if(transport=='<?php echo __(' Upload the Image with minimum 1400px width'); ?>' || responsemessage.indexOf(filenotsupported) !== -1){
+                    $("#images_alert").show();
+                  $('#images_alert').html(transport);
+                }else{
+                   $("#images_alert").hide();
+                  $('#images_list').append(transport);
+                }
+                $('#upload_product_images').val('');
+                },
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
+                xhr: function(){
+                //upload Progress
+                      var xhr = $.ajaxSettings.xhr();
+                      if (xhr.upload) {
+                           xhr.upload.addEventListener('progress', function(event) {
+                                var percentComplete = 0;
+                                var position = event.loaded || event.position;
+                                var total = event.total;
+                                if (event.lengthComputable) {
+                                     var percentComplete = parseInt((position / total) * 100);
+                                     console.log("Upload: " + percentComplete + "% complete")
+                                }
+                                //update progressbar
+                                $("#progress-wrp .progress-bar").css("width", + percentComplete +"%");
+                                $("#progress-wrp .status").text(percentComplete +"%");
+                           }, true);
+                      }
+                      return xhr;
+                 }
+            });
+        }
+        }));
+
+    $("#upload_product_images").change(function() {
+            $('#progress-wrp').show();
+         $("#emptyimageerror").hide();
+    $('#image_upload_form').submit();
+    });
+
+    $('#images_list').on('click', '.image_close', function(e) {
+    $(this).parents("div:first").remove();
+    });
+
+
+    $('#form_product_validate').on('submit', function() {
+        var baseimagecount = '<?php echo $baseImageCount; ?>';
+       if((baseimagecount == 0) && $('#upload_product_images').val()=='' && $('.hidden_uploaded_image_path').val()== undefined){
+        $("#emptyimageerror").show();
+        return false;
+     }
+    $("#btn_save_product").attr('disabled','disabled');
+    $( ".hidden_uploaded_image_path" ).each(function( index ) {
+    $('#uploaded_images_for_product').append($(this).clone());
+    });
+    if($('#form_product_validate').valid()){
+    var configurableRedirectFlag = 0;
+    var configurableRedirectFlag = 0;
+
+    var productTypeFlagForConfigurable = $('#product_type').val();
+    var isConfigurableFlagForConfigurable = $('#is_configurable_product').val();
+    var configurableProductFlagCheck = 0;
+    if(productTypeFlagForConfigurable == 'configurable' || isConfigurableFlagForConfigurable == 1){
+    configurableProductFlagCheck = 1;
+    }
+    var configurableAssociatedProductFlag = 0;
+    if($('#configurable_associated_product_flag')){
+    var configurableAssociatedProductFlag = $('#configurable_associated_product_flag').val();
+    }
+    if(configurableProductFlagCheck == 1){
+    if($('#variants_generate_flag').val() != 1){
+    if(configurableAssociatedProductFlag != 1){
+    $('#configurable_variant_error').show();
+    $('#btn_save_product').removeAttr('disabled');
+    return false;
+    }
+    }
+    }
+
+var configurableProductClone = $('#configurable_section_content_form').html();
+$('#configurable_content_form').html('');
+    $('#configurable_content_form').html(configurableProductClone);
+    }
+    });
+    $('.remove_image_container').on('click', function(e) {
+    $('#remove_images_for_product').append($(this).find('.remove_image').clone());
+    });
+   $(document).on('change', 'input[name="base_images"]:radio', function(){
+    $('input[name="base_image"]:radio').prop('checked',true);
+    $('input[name="base_image"]:radio').val($(this).val());
+});
+});
+</script>

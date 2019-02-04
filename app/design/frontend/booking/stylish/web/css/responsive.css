@@ -1,0 +1,1046 @@
+/* Large Desktop */
+@media only screen and (min-width:1600px) {
+.panels-content form{width:90%}
+.panels-body h2{font-size:6rem}
+.panels-body h3{font-size:2.2rem}
+.panels-content .panels-anywhere,.panels-content .panels-anytime{-webkit-box-flex:3;-ms-flex:3;flex:3}
+.panels-content .panels-guest{-webkit-box-flex:2;-ms-flex:2;flex:2}
+.panels-search{-webkit-box-flex:1;-ms-flex:1;flex:1}
+.panels-content .panels-search:last-child{-webkit-box-flex:0;-ms-flex:0;flex:0}
+.pac-container{min-width:27%;}
+.customer-account-index .mylisting-image,.airhotels-profile-hostprofile .mylisting-image,.customer-account-index .mylisting-content h4,.airhotels-profile-hostprofile .mylisting-content h4{width:100%}
+}
+@media only screen and (min-width:1370px) {
+.container,.cms-page-view .page-main,.customer-account-login #maincontent,.customer-account-create #maincontent,.customer-account-confirmation #maincontent,.customer-account-logoutsuccess #maincontent,.customer-account-createpassword #maincontent,.cms-about-us .page-title-wrapper,.contact-index-index .page-main,.nav-section .navv,.customer-account-forgotpassword #maincontent,.checkout-index-index .page-main,.checkout-onepage-success .page-main,.cms-no-route #maincontent,.account .block-account,.account #maincontent,.customer-account-index .page-main,.airhotels-profile-hostprofile .page-main,.airhotels-listing-form .page-main,.account .block-account,.account #maincontent{max-width:90%}
+.nav-section .navv,.catalog-product-view #aboutListing,.searchform-container .result-booking-list li a img{width:100%}
+.catalog-product-view .host-profile,.catalog-product-view .description_content{width:71%}
+.searchform-container .result-booking-list li{width:32%}
+.customer-account-create .actions-toolbar .primary button{margin-right:42%}
+.catalog-product-view .nav-section,.catalog-product-view .nav-section .navv{max-width:100%}
+.catalog-product-view .nav-section.fix-nav .navv{width:90%}
+.catalog-product-view .review-field-nickname.required input,.catalog-product-view .review-field-summary.required input,.catalog-product-view .review-field-text textarea{width:50%}
+.customer-account-index .mylistings-section li,.airhotels-profile-hostprofile .mylistings-section li{width:32%}
+}
+/* Desktop */
+@media only screen and (max-width: 1300px) {
+.container{max-width:90%}
+.panels-body h2{padding-bottom:0}
+.panels-content form{width:100%}
+.panels-content .panels-anywhere,.panels-content .panels-anytime{-webkit-box-flex:3;-ms-flex:3;flex:3}
+.panels-content .panels-guest{-webkit-box-flex:2;-ms-flex:2;flex:2}
+.panels-search{-webkit-box-flex:1;-ms-flex:1;flex:1}
+.airhotels-listing-search .advanced-search form{width:100%}
+.airhotels-listing-search .advanced-search{padding:10px;width:auto}
+.airhotels-listing-search .advanced-search .panels-anywhere{-webkit-box-flex:2;-ms-flex:2;flex:2}
+.airhotels-listing-search .advanced-search .panels-anytime{-webkit-box-flex:3;-ms-flex:3;flex:3;padding:0 0 0 10px}
+.airhotels-listing-search .advanced-search .panels-guest{-webkit-box-flex:1;-ms-flex:1;flex:1;padding:0}
+.airhotels-listing-search .right-navigation .sigin-navigation-list > li{margin-right:15px}
+.airhotels-listing-search .advanced-search input{font-size:1rem;padding:0px}
+.airhotels-listing-search .result-booking-list li a img{width:100%}
+.airhotels-listing-search .searchmainpage_1{z-index:1}
+.airhotels-listing-search #map{z-index:2}
+.airhotels-listing-search .pac-container{min-width:56%;margin-left:-21px;margin-top:11px}
+.airhotels-listing-search .daterangepicker.opensright{position:fixed;z-index:10000;width:607px;border-radius:0;margin-top:28px;margin-left:-200px}
+.airhotels-listing-search .advanced-search .daterangespan{margin-right:0}
+.right-navigation .right-navigation-list > li{margin-right:14px}
+.header .right-navigation a{font-size:.8rem}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_after{width:90px}
+.airhotels-listing-search .advanced-search .date_checkout #checkout_after{width:90px}
+.catalog-product-view .nav-section{max-width:100%}
+.catalog-product-view .review-field-nickname.required input,.catalog-product-view .review-field-summary.required input,.catalog-product-view .review-field-text textarea{width:60%}
+.customer-account-login .block-customer-login .fieldset .secondary{padding-left:0;float:right;padding-right:30px}
+.customer-account-login .block-customer-login .fieldset .control input,{width:90%}
+.customer-account-login .block-customer-login .actions-toolbar{padding:10px 0 0}
+.customer-account-create .create.info,.customer-account-create .create.account{margin-left:10px}
+.customer-account-create .actions-toolbar .primary button{margin-right:38%}
+.customer-account-createpassword .form{margin:20px}
+.account .block-account,.account #maincontent,.airhotels-listing-form .page-main{max-width:95%;position: relative;}
+.contact-index-index .page-main{max-width:90%}
+.account.airhotels-profile-hostprofile #maincontent{margin-top:0}
+.customer-account-index .wishlist-reviews-listing .list-review ul li{margin-top:0}
+body.catalog-product-view{height:100%;margin-bottom:70px}
+.banner img,.banner p{height:auto}
+.airhotels-listing-search .input-select select{font-size:1.1rem}
+.airhotels-listing-search .advanced-search{margin-top:14px;}
+.airhotels-listing-search .pac-container{margin-left:-21px;min-width: 622px;}
+.airhotels-listing-search .daterangepicker.opensright{margin-left: -267px;margin-top: 28px;width:612px;}
+.airhotels-listing-search .advanced-search input{font-size: 0.8rem;}
+.airhotels-listing-search .input-select select{font-size: 0.8rem;}
+.airhotels-listing-search .advanced-search{width:600px;}
+.airhotels-listing-search .advanced-search .panels-anywhere:first-child{min-width:225px;}
+.airhotels-listing-search .daterangepicker .calendar{max-width:315px;margin:0px;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.left{margin-top:0px;padding: 4px 0px;}
+.airhotels-listing-search .daterangepicker .calendar th, .airhotels-listing-search .daterangepicker .calendar td{min-width:24px;font-size: .8rem;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.right{right: 0;}
+.daterangepicker.ltr .calendar.right .calendar-table{padding:0;}
+.daterangepicker td.active, .daterangepicker td.active:hover{color:#fff;}
+}
+/* Laptop */
+@media only screen and (max-width: 1299px) {
+.banner .container{top:22%}
+.checkout-details.checkout-index-index .logo{margin-left:0;padding-left:0;margin-top:-6px}
+.airhotels-listing-blockcalendar .white_content{width:23%;top:18%}
+.ui-datepicker{width:45%}
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current,.ui-datepicker .ui-datepicker-buttonpane button{margin-right:0}
+.airhotels-profile-edit .profile_information .control button{float:left;margin-right:0}
+.airhotels-profile-edit .sidebar h2{font-size:1.1rem}
+.airhotels-profile-edit .profile_information form label{margin-top:4px}
+.lang-price-select .price .action{width:auto;float: left;}
+.lang-price-select{margin-right:0px;display: inline-block;float: none;margin-bottom:0px}
+.lang-price-select .lang{margin:0px;float:left;margin-right:-10px}
+.lang-price-select .price{margin-left:20px}
+.airhotels-listing-search .advanced-search:after,.airhotels-listing-search .advanced-search .daterangespan{display: none!important;}
+}
+@media only screen and (max-width: 1279px) {
+.catalog-product-view .host-profile,.catalog-product-view .description_content{width:61%}
+.catalog-product-view .space-list li{width:49%}
+.catalog-product-view .lising-details.property-space h5{width:24%}
+.catalog-product-view .left-cnt-listing-details{width:74%}
+.customer-account-create .actions-toolbar .primary button{margin-right:39%}
+.catalog-product-view .nav-section.fix-nav ul li a{padding: 16px 20px;}
+.customer-account-index .mylistings-section li,.airhotels-profile-hostprofile .mylistings-section li{width:30%}
+.customer-account-index .mylisting-content h4,.airhotels-profile-hostprofile .mylisting-content h4,.customer-account-index .mylisting-image,.airhotels-profile-hostprofile .mylisting-image{width:100%}
+.customer-account-index .guest-image-section{width:70px}
+.customer-account-index .guest-info,.airhotels-profile-hostprofile .guest-info{width:75%}
+.airhotels-listing-history #property_history_table tr:first-child th,.airhotels-listing-history #property_history_table tr td{white-space:nowrap;padding:10px 20px;text-align:left}
+.airhotels-listing-history #property_history_table{display:block;overflow:auto}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_before{width:80px}
+.airhotels-listing-search .advanced-search .date_checkout #checkout_before{width:90px}
+.airhotels-listing-search .advanced-search:after,.airhotels-listing-search .advanced-search .daterangespan{display:none !important;}
+.airhotels-listing-search .advanced-search .panels-anywhere:first-child{padding:0px;width:250px;}
+.airhotels-listing-search .advanced-search .panels-anytime{width:180px;}
+.airhotels-listing-search .advanced-search .panels-guest{width:80px;}
+.airhotels-listing-search .input-select select{width:90px;}
+.right-navigation .right-navigation-list > li{margin-right: 10px;}
+.airhotels-listing-search .pac-container{margin-left:-11px;min-width: 592px;}
+.airhotels-listing-search .daterangepicker.opensright{margin-left: -247px;margin-top: 28px;width:582px;}
+.airhotels-listing-search .advanced-search input{font-size: 0.8rem;}
+.airhotels-listing-search .input-select select{font-size: 0.8rem;}
+.airhotels-listing-search .advanced-search{width:570px;}
+.airhotels-listing-search .advanced-search .panels-anywhere:first-child{min-width:225px;}
+.airhotels-listing-search .daterangepicker .calendar{max-width:300px;margin:0px;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.left{margin-top:0px;padding: 4px 0px;}
+.airhotels-listing-search .daterangepicker .calendar th, .airhotels-listing-search .daterangepicker .calendar td{min-width:24px;font-size: .8rem;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.right{right: 0;}
+.daterangepicker.ltr .calendar.right .calendar-table{padding:0;}
+}
+@media only screen and (max-width:1200px) {
+.airhotels-listing-search .advanced-search{width:455px;}
+.airhotels-listing-search .advanced-search .panels-anywhere:first-child{min-width:175px;}
+.airhotels-listing-search .advanced-search .panels-anytime{width:100px;}
+.airhotels-listing-search .advanced-search .panels-guest{width:80px;}
+.airhotels-listing-search .pac-container{margin-left:-11px;min-width: 40%;}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_after,.airhotels-listing-search .advanced-search .date_checkout #checkout_after{width:65px;font-size: 0.7rem;}
+.airhotels-listing-search .advanced-search input{font-size: 0.8rem;}
+.airhotels-listing-search .input-select select{font-size: 0.8rem;}
+.airhotels-listing-search .daterangepicker.opensright{margin-left:-197px;width:466px;}
+.airhotels-listing-search .pac-container{margin-left:-11px;min-width: 480px;}
+.airhotels-listing-search .daterangepicker .calendar{max-width:245px;margin:0px;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.left{margin-top:0px;padding: 4px 0px;}
+.airhotels-listing-search .daterangepicker .calendar th, .airhotels-listing-search .daterangepicker .calendar td{min-width:24px;font-size: .7rem;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.right{right: 0;}
+.daterangepicker.ltr .calendar.right .calendar-table{padding:0;}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_before,.airhotels-listing-search .advanced-search .date_checkout #checkout_before{width: 65px;}
+}
+@media only screen and (max-width:1080px) {
+.airhotels-listing-search .advanced-search{width:400px;}
+.airhotels-listing-search .advanced-search .panels-anywhere:first-child{min-width:155px;}
+.airhotels-listing-search .pac-container{margin-left:-11px;min-width: 422px;}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_after,.airhotels-listing-search .advanced-search .date_checkout #checkout_after{width:65px;font-size: 0.7rem;}
+.airhotels-listing-search .advanced-search input{font-size: 0.8rem;}
+.airhotels-listing-search .input-select select{font-size: 0.8rem;}
+.airhotels-listing-search .daterangepicker.opensright{margin-left:-177px;width:412px;}
+.airhotels-listing-search .daterangepicker .calendar{max-width:215px;margin:0px;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.left{margin-top:0px;}
+.airhotels-listing-search .daterangepicker .calendar th, .airhotels-listing-search .daterangepicker .calendar td{min-width:24px;font-size: .7rem;}
+.airhotels-listing-search .daterangepicker.ltr .calendar.right{right: 0;}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_before,.airhotels-listing-search .advanced-search .date_checkout #checkout_before{width: 65px;}
+}
+/* Tab */
+@media only screen and (max-width:1024px) {
+.banner .container{top:38%}
+.container.home-page-tab{max-width:100%}
+.panels-body h2{font-size:3.5rem;margin-top:0}
+.panels-body h3{font-size:1.4rem;margin:5px 0 20px}
+.panels-content{margin:16px 0 0}
+.panels-content label{margin:0;padding:0 0 5px;display:none}
+.panels-content .panels-search{padding:0}
+.panels-content .panels-guest{padding:15px 7px 10px 10px}
+.panels-content input{font-size:1rem}
+.panels-content .search-btn{font-size:.9rem;padding:10px 15px;margin-right:10px}
+.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after{width:75px}
+.selectbox{width:160px;margin:6px 0 0}
+.selectbox__label{font-size:1rem;padding:0 20px 6px 0}
+.selectbox__label:before{top:4px;right:28px}
+.selectbox__label:after{top:3px;right:28px}
+.selectbox-options{top:34px;left:-11px}
+.pac-container{min-width:90%;margin-top:15px;margin-left:-20px}
+.daterangepicker.opensright{margin-top:35px;margin-left:-20px}
+.panels-content .date_checkin:before{margin:1px 0 0 -2px}
+.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after{width:100px}
+.daterangepicker .calendar.left{margin-top:11px}
+.footer-content .footer-main-list li a{font-size:.8rem}
+.actions.dropdown.options.switcher-options ul{top:26px;-webkit-box-sizing:border-box;box-sizing:border-box}
+.footer-content .lang-price-select{margin-top:0;margin-right:20px;width:40%}
+.footer-content .footer-main-list >li{width:130px}
+.footer-content .lang-price-select .action{padding:15px 10px}
+.footer-content .lang-price-select .drop-arrow:after{top:18px}
+.lang-price-select li a{line-height:16px;padding-left:10px;font-size:1rem}
+.tabcontent-grid .item .carousel-image{min-height:190px}
+.airhotels-listing-search .daterangepicker.ltr .calendar.right{right:0;top:0}
+.airhotels-listing-search .daterangepicker .calendar{max-width:270px;margin-top:8px}
+.airhotels-listing-search .daterangepicker.opensright{margin-left:0;width:93%}
+.airhotels-listing-search .block-category li:last-child{position:static}
+.airhotels-listing-search .advance_srch .advance_date{width:100%}
+.airhotels-listing-search .advance_srch{width:280px}
+.airhotels-listing-search #map{z-index:1}
+.airhotels-listing-search .searchmainpage_1{width:63%}
+.airhotels-listing-search.fancy-popup .fancybox-overlay{z-index:100}
+.catalog-product-view .xs-form-section{display:block;position:fixed;left:0;bottom:0;width:100%;background:#fff;z-index:10000;-webkit-box-shadow:0 1px 5px #666;box-shadow:0 1px 5px #666;padding:10px 0;border-bottom:1px solid #ddd}
+.catalog-product-view .xs-form-section button{cursor:pointer;margin-right:5%;padding:10px 30px;margin-top:10px}
+.catalog-product-view .xs-form-section button a{color:#fff;font-size:1.2rem;text-decoration:none}
+.catalog-product-view .nav-section.fix-nav{height:45px;z-index:1000}
+#back-top .sprimg{bottom:95px;display:none}
+.nav-section .navv,.catalog-product-view .host-profile,.catalog-product-view .description_content{width:100%}
+.catalog-product-view .review-field-nickname.required input,.catalog-product-view .review-field-summary.required input,.catalog-product-view .review-field-text textarea{width:80%}
+.catalog-product-view .footer-content .lang-price-select .action{padding:0 10px;height:34px}
+.checkout-index-index .opc-wrapper{width:50%}
+.checkout-index-index .opc-sidebar{width:40%}
+.checkout-details.checkout-index-index .authentication-wrapper{right:30px}
+.customer-account-login .page.messages,.customer-account-create .page.messages,.customer-account-forgotpassword .page.messages{padding-left:15px}
+.customer-account-create .actions-toolbar .primary button{margin-right:36%}
+.customer-account-forgotpassword .forget{margin:20px}
+.customer-account-index .sidebar.sidebar-additional,.airhotels-profile-hostprofile .sidebar.sidebar-additional{width:32%}
+.customer-account-index .column.main,.airhotels-profile-hostprofile .column.main{width:65.5%}
+.customer-account-index .mylistings-section li,.airhotels-profile-hostprofile .mylistings-section li{width:45%}
+.customer-account-index .mylistings-section li:nth-child(3),.airhotels-profile-hostprofile .mylistings-section li:nth-child(3),.customer-account-index .mylistings-section li:last-child,.airhotels-profile-hostprofile .mylistings-section li:last-child{margin-right:10px}
+.airhotels-listing-blockcalendar #calendarWrapper{margin:0 auto 0 50px}
+.airhotels-listing-blockcalendar .calendar-title{margin-bottom:10px}
+.airhotels-listing-blockcalendar #cal_legend{margin:30px 0 30px 45px}
+.sales-order-view .order-actions-toolbar{margin:21px 0 20px}
+.sales-order-view .price{font-size:.8rem}
+.cms-no-route #maincontent dl img{width:100%;height:auto}
+#sidebar{display:none!important}
+.catalog-product-view .fancybox-opened .fancybox-skin{min-width:100%;height:100%!important;border-radius:0;-webkit-box-shadow:none;box-shadow:none;background:none;position:fixed;left:0;top: 0;display:flex;justify-content:center;align-items:center;}
+.catalog-product-view .fancybox-inner .panels-content{width:100%;height:100%;padding:60px 20px;-webkit-box-sizing:border-box;box-sizing:border-box;background:#fff}
+.catalog-product-view .fancybox-inner .panels-content form{margin-top:0;width:100%;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;border-radius:0;border:0}
+.catalog-product-view .fancybox-overlay{background:rgba(255,255,255,0.9)}
+.catalog-product-view .fancybox-inner .panels-content .panels-anywhere,.cms-index-index .fancybox-inner .panels-content .panels-anytime,.cms-index-index .fancybox-inner .panels-content .panels-guest,.cms-index-index .fancybox-inner .panels-content .panels-search{border-bottom:1px solid #eee}
+.catalog-product-view .fancybox-inner .panels-content .panels-search{border-bottom:0}
+.catalog-product-view .fancybox-inner{box-shadow: 0px 2px 10px #ccc;}
+.catalog-product-view #book_it,.catalog-product-view #instant_times_box{background:#fff;width:100%;margin:0 auto;-webkit-box-shadow:0 1px 20px #ccc;box-shadow:0 1px 20px #ccc;overflow:auto}
+.catalog-product-view #book_it .middle{height:100%;box-shadow: none;}
+.catalog-product-view #book_it_default{box-shadow: none}
+.catalog-product-view #pricing{display:inline-block;margin:20px}
+.catalog-product-view .price-calculate h2{background:none;color:#999;font-size:1rem;padding:30px 0 10px;border-bottom:1px solid #e2e2e2;text-align:left}
+.catalog-product-view .price{color:#008389;font-size:1.6rem}
+.catalog-product-view.fancy-popup .right-form-section{-webkit-box-shadow:none;box-shadow:none;border:0;text-align:left;padding:30px 0 21px;width:100%;display:block!important}
+.catalog-product-view.fancy-popup #formhide{display:block!important}
+.catalog-product-view .select_grid{margin-right:0}
+.catalog-product-view .mob_price_calculate{display:inline-block;margin-left:20px;margin-bottom: 10px;margin-top:10px;}
+.catalog-product-view .mob_price_calculate .from{font-size:.9rem;display:block;color:#666;line-height:16px}
+.catalog-product-view .mob_price_calculate .overallprice{font-size:1.5rem;color:#008389}
+.catalog-product-view .mob_price_calculate .per-night{font-size:.8rem;color:#999;display:block;line-height:18px}
+.catalog-product-view #txtHint{width:auto;padding:0;margin:20px auto;}
+.catalog-product-view .fancybox-close{right:0;top:0;height:58px}
+.catalog-product-view .fancybox-overlay-fixed{z-index:100000}
+.catalog-product-view.contacthost .fancybox-overlay-fixed{z-index:1000}
+.catalog-product-view.contacthost .fancybox-opened .fancybox-skin{box-sizing:border-box;height: 500px;overflow: auto;}
+.catalog-product-view.contacthost .fancybox-inner #contact-hostpopup{width:auto;padding:20px;background:#fff}
+.catalog-product-view.contacthost .xs-form-section{z-index: 1000;}
+.catalog-product-view .fancybox-lock .fancybox-overlay{overflow-y:auto}
+.catalog-product-view.viewphotos .fancybox-overlay{background:rgba(0,0,0,0.9)}
+.catalog-product-view.viewphotos .fancybox-overlay-fixed,.catalog-product-view.viewphotos .fancybox-opened{z-index:100001}
+.catalog-product-view.viewphotos .fancybox-wrap{z-index:100002}
+.catalog-product-view.viewphotos .fancybox-inner{width:50%!important;height:auto!important;position:inherit;background:#fff;top:40px;display: flex;align-items:center;margin:0 auto;min-width:50%;box-shadow:none}
+.catalog-product-view.viewphotos .fancybox-opened .fancybox-skin,.catalog-product-view.viewphotos .fancybox-outer{background:rgba(0,0,0,0.9)}
+.catalog-product-view.viewphotos #fancybox-thumbs.bottom{z-index:100003;bottom:20px}
+.catalog-product-view.viewphotos .fancybox-title-outside-wrap{z-index:1000000;bottom:98px;visibility:visible;display:none}
+.catalog-product-view .nav-section .navigation-tab{display: flex;align-items:center;justify-content:space-around;}
+.catalog-product-view .at-share-btn-elements{display: flex; align-items: center;justify-content: center;}
+.airhotels-listing-search .advanced-search{width:30%}
+.airhotels-listing-search .advanced-search .panels-anywhere{width:100%;flex:auto;box-sizing:border-box;border:0}
+.airhotels-listing-search .advanced-search .panels-anytime{width:100%;flex:auto;padding:0 0 0 10px}
+.airhotels-listing-search .advanced-search .panels-guest{width:100%;flex:auto;padding:0}
+.airhotels-listing-search .advanced-search .date_checkin #checkin_before{width:80px}
+.airhotels-listing-search .advanced-search .date_checkout #checkout_before{width:90px}
+.catalog-product-view .loadingWrapper{width:auto}
+.catalog-product-view .loadingWrapper .content{margin:0 70px auto}
+.daterangepicker td.in-range,.daterangepicker td.available:hover,.daterangepicker th.available:hover{color:#fff}
+.listings .item h4,.tabcontent-grid li h4,.catalog-product-view .item h4{font-size:1rem;width:95%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;text-decoration:none;color:#222}
+.listings .item .price h4,.tabcontent-grid li .price h4,.catalog-product-view .item .price h4{font-size:1rem;color:#484848}
+.listings .item p,.tabcontent-grid li p,.catalog-product-view li p{font-size:.9rem;line-height:16px;margin-bottom:0}
+.opc-wrapper .form-login .fieldset .field .label,.checkout-index-index .payment-method .label{font-size:1.4rem}
+.home-page-tab .tab{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 0 20px}
+.home-page-tab .tab li{font-size:1.1rem;margin:0;text-transform:none;-webkit-box-flex:1;-ms-flex:1;flex:1;text-align:center;padding:15px 0}
+.home-page-tab .tab li:first-child{margin-left:20px}
+.home-page-tab .tab li:last-child{margin-right:20px}
+.tabcontent-grid h3{margin:25px 0 10px 20px;color:#484848}
+.banner p{height:auto}
+.tabcontent-grid .item .carousel-image{min-height:220px}
+.catalog-product-view .similar-listing-section .rating-box{margin-bottom:8px}
+.selectbox__option{font-size:1.2rem}
+.owl-carousel .owl-stage{right:15px}
+.owl-carousel .owl-item .owl-lazy{opacity:1}
+.owl-carousel .owl-item:first-child{margin-left:0}
+.similar_listing_scroll .owl-stage{right:0}
+.similar_listing_scroll .owl-item .owl-lazy{opacity:1}
+.similar_listing_scroll .owl-item:first-child{margin-left:0}
+.airhotels-listing-search #advance-search-form{display:none}
+.airhotels-listing-search #advance-filter{display:block}
+.airhotels-listing-search .fancybox-inner{min-width:100%;min-height:100%;position:fixed;-webkit-box-sizing:border-box;box-sizing:border-box;left:0;top:0}
+.airhotels-listing-search .fancybox-inner .advanced-search{min-width:100%;min-height:100%;padding:80px 20px;-webkit-box-sizing:border-box;box-sizing:border-box;background:#fff;margin:0;left:0;top:0}
+.airhotels-listing-search .fancybox-lock .fancybox-overlay{background:#fff}
+.airhotels-listing-search .fancybox-wrap{min-width:100%;min-height:100%;left:0;top:0;bottom:0;z-index:9999}
+.airhotels-listing-search .fancybox-opened .fancybox-skin{height:100%;border-radius:0;-webkit-box-shadow:none;box-shadow:none;background:#fff}
+.airhotels-listing-search .fancybox-inner .advanced-search form{margin-top:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;border-radius:0;border:0;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;width:100%}
+.airhotels-listing-search .fancybox-inner .advanced-search:after,.airhotels-listing-search .fancybox-inner .advanced-search .daterangespan{display:none!important}
+.airhotels-listing-search .advanced-search .submit-btn{width:100%;display:block}
+.airhotels-listing-search .submit-btn input{background:#ff5a60;padding:15px 0;border-radius:3px;color:#fff;font-size: 1.2rem;}
+.airhotels-listing-search .fancybox-inner .input-select select{width:100%}
+.airhotels-listing-search .fancybox-inner #home_page_search{-webkit-box-align:normal;-ms-flex-align:normal;align-items:normal}
+.airhotels-listing-search .fancybox-inner .panels-anywhere,.airhotels-listing-search .fancybox-inner .panels-anytime,.airhotels-listing-search .fancybox-inner .panels-guest,.airhotels-listing-search .fancybox-inner .panels-search{padding:0 0 10px;border-right:0;margin-bottom:40px;border-bottom:1px solid #eee}
+.airhotels-listing-search .fancybox-inner label{margin:0;padding:0 0 2px;display:none}
+.airhotels-listing-search .fancybox-inner #searchTextField{font-size:1.3rem;padding:0;}
+.airhotels-listing-search .fancybox-inner .input-select select{font-size: 1.3rem;}
+.airhotels-listing-search .fancybox-inner .date_checkin #checkin_before,.airhotels-listing-search .fancybox-inner .date_checkout #checkout_before,.airhotels-listing-search .fancybox-inner .date_checkin #checkin_after,.airhotels-listing-search .fancybox-inner .date_checkout #checkout_after{font-size:1.3rem;width:118px;padding:0}
+.airhotels-listing-search .fancybox-inner .date_checkout #checkout_before{text-align:right}
+.airhotels-listing-search .fancybox-inner .date_checkout #checkout_after{text-align:right}
+.airhotels-listing-search .fancybox-inner .calendar-table{padding:0}
+.airhotels-listing-search .fancybox-inner .calendar th{min-width:22px;font-size:.7rem}
+.airhotels-listing-search .fancybox-inner .calendar td{min-width:26px}
+.airhotels-listing-search .fancybox-inner .calendar.left{margin-top:7px}
+.airhotels-listing-search .pac-container{margin-left:0;min-width:96%}
+.airhotels-listing-search .daterangepicker .calendar{max-width:50%;width:100%}
+.ipad.safari .panels-content .panels-anywhere{flex:3.2}
+.ipad.safari .panels-content .panels-anytime{flex:4}
+.ipad.safari .selectbox{width:140px;margin:8px 0 0}
+.ipad.safari .panels-content .date_checkin:before{margin-top:6px}
+.ipad.safari .panels-content .date_checkin,.ipad.safari .panels-content .date_checkout{width:100px}
+.ipad.safari .pac-container{margin-top:15px;margin-left:-10px}
+.ipad.safari .daterangepicker.opensright{margin-top:45px;margin-left:-10px}
+.ipad.safari .banner .container{min-width:95%}
+.ipad.safari .home-information .information-section{padding:0 10px}
+.ipad.safari .home-information .support .customer.sprite{height:38px}
+.ipad.safari .catalog-product-view .fancybox-close{right:20px;top:20px;}
+.ipad.safari .catalog-product-view .fancybox-opened .fancybox-skin{position:relative;display:flex;align-items:center;justify-content:center;top:0;right:0}
+.ipad.safari .airhotels-listing-form #custom_attributes ul{display:flex;flex-wrap:wrap}
+.ipad.safari .airhotels-listing-form #custom_attributes .fields,.ipad.safari .airhotels-listing-form #custom_attributes .wide.fields{width:46%}
+.ipad.safari .airhotels-listing-form #custom_attributes ul li input{width:84%}
+.ipad.safari .account-heading-contents ul li{border-bottom: 0px;}
+.ipad.safari .account-heading-contents ul li span{text-align:left;padding:0px;width: 150px;line-height: normal;display:table;}
+.ipad.safari .account-heading-contents ul li:nth-child(2) span + span{padding:0px;margin:0px;text-align: left;line-height: 0px;font-size: .8rem;display: flex;justify-content: left;height: 20px;}
+.ipad.safari .panels-content .panels-anywhere, .ipad.safari .panels-content .panels-anytime { max-width:32%;} /* IE10 */
+.ipad.safari .panels-content :last-child.panels-search{display: block;}
+.ipad.safari .tabcontent-grid li h4{padding-top:3px;}
+.airhotels-listing-search .advanced-search .panels-anywhere:first-child{width:100%;}
+.catalog-product-view .nav-section.fix-nav ul li a{margin-right:0px;padding: 16px 0px;}
+.lang-price-select .lang .action{padding:4px 8px 6px;border:0px}
+.lang-price-select .price .action{padding:4px 8px 6px}
+.ic-filter{display: none;}
+#contact-host{display: none!important;}
+.click_popup_view{background: #fff;border:1px solid #ff5a60;margin:9px 16px;padding: 12px 30px;cursor: pointer;text-decoration: none;color:#ff5a60;border-radius: 3px;font-size: 1.1rem;display: inline-block;text-align:center;vertical-align: top;float: right;}
+.iphone .panels-content .panels-anywhere,.iphone .panels-content .panels-anytime,.iphone .panels-content .panels-guest,.iphone .panels-content .panels-search{padding:8px 10px;margin:0px;}
+.iphone .panels-content #searchTextField,.iphone .panels-content .date_checkin #checkin_before,.iphone .panels-content .date_checkout #checkout_before,.iphone .panels-content .date_checkin #checkin_after,.iphone .panels-content .date_checkout #checkout_after{font-size:1.1rem}
+.iphone .cms-index-index .fancybox-wrap{left:0 !important;top:0 !important;}
+.iphone .panels-content .date_checkin #checkin_after, .iphone .panels-content .date_checkout #checkout_after, .iphone .panels-content .date_checkin #checkin_before, .iphone .panels-content .date_checkout #checkout_before{width:100px;}
+.iphone .panels-content .panels-guest{padding: 8px 20px;}
+.iphone .cms-index-index .fancybox-inner .panels-content{padding: 60px 0px;}
+.iphone .cms-index-index .daterangepicker.opensright, .iphone .airhotels-listing-search.fancy-popup .daterangepicker.opensright{left: 20px !important;}
+.catalog-product-view .page.messages{ top: 230px; left: 20px;   color: #23b52a;}
+.baron__scroller {-webkit-overflow-scrolling: auto;}
+.airhotels-listing-search .advanced-search:after{display:none}
+}
+@media only screen and (max-width: 980px) {
+.panels-body h2{font-size:3.5rem;margin-top:0}
+.panels-body h3{font-size:1.4rem;margin:5px 0 20px}
+.selectbox-options{width:160px;top:32px}
+.daterangepicker.opensright{margin-top:33px}
+.daterangepicker .calendar th,.daterangepicker .calendar td{font-size:.8rem}
+.daterangepicker .calendar{max-width:250px}
+.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after,.panels-content .date_checkin #checkin_before,.panels-content .date_checkout #checkout_before{width:85px;font-size:.9rem}
+.panels-content input,.selectbox__label{font-size:.9rem}
+.panels-content .date_checkin:before{margin:1px 0 0 4px}
+.owl-carousel .owl-nav{display:none}
+.catalog-product-view .review-field-nickname.required input,.catalog-product-view .review-field-summary.required input,.catalog-product-view .review-field-text textarea{width:90%}
+.airhotels-listing-manage .listing-detail .listing-info{width:84%}
+.airhotels-listing-manage .listing-detail .listing_user_name{width:100%}
+.airhotels-listing-manage .listing-detail .listing_user_name h5,.airhotels-listing-manage .listing-detail .listing_user_name h5 a{font-size:.9rem;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:90%}
+.airhotels-listing-manage .listing-detail .actions_grid li{padding:2px;margin:0 5px 10px}
+.airhotels-listing-manage .listing-detail .slider-widget-container{top:44%}
+.airhotels-listing-manage .content-block ul li a{font-size:.8rem;}
+.airhotels-listing-manage .sidebar-additional,.account.airhotels-listing-blockcalendar .sidebar-additional,.account.airhotels-listing-history .sidebar-additional{width:25%}
+.account.airhotels-listing-manage .column,.account.airhotels-listing-blockcalendar .column,.account.airhotels-listing-history .column,.account.airhotels-listing-transactions .column{width:73%}
+.airhotels-listing-blockcalendar .white_content{width:26%}
+.airhotels-mytrip-previoustrip #property_trip_table tr td,.airhotels-mytrip-currenttrip #property_trip_table tr td,.airhotels-mytrip-upcomingtrip #property_trip_table tr td,.airhotels-listing-history #property_trip_table tr td{font-size:.7rem;white-space:nowrap}
+.airhotels-listing-transactions .column{width:100%}
+.airhotels-listing-transactions .sidebar-additional{width:25%}
+.airhotels-listing-transactions #my-orders-table tr:first-child th,.airhotels-listing-transactions #my-orders-table tr td{white-space:nowrap;padding:10px 20px;text-align:left}
+.customer-address-form .form-address-edit .field.choice label{width:100%}
+.airhotels-listing-search .mob_show_filter{display:block;height:35px;background:#fff;position:fixed;z-index:9;border-bottom:1px solid #ddd;width:63%;left:0;padding:30px 0 2px 10px;top:60px}
+.airhotels-listing-search .mob_show_filter a{background:#008389;color:#fff;text-decoration:none;border-radius:4px;padding:10px 20px}
+.airhotels-listing-search .mob_show_filter a:hover{color:#333;background:#fff;border:1px solid #ddd}
+.airhotels-listing-search #filter-content{display:none}
+.airhotels-listing-search .logo img{width:90%}
+.airhotels-listing-search #advance-filter{display:block;margin:0;padding:10px;top:12px;width:25%}
+.airhotels-listing-search .advanced-search .panels-anywhere{border:0;padding:0px}
+.airhotels-listing-search .fancybox-inner .searchmainpage_1{background:#fff;width:100%;height:100%;top:0;padding:60px 0;-webkit-box-sizing:border-box;box-sizing:border-box}
+.airhotels-listing-search .fancybox-inner .searchmainpage_1 .gradient-grey{list-style-type:none;border-radius:0;-webkit-box-shadow:none;box-shadow:none;border-bottom:1px solid #ddd;padding-bottom:30px;padding-left:15px;display:flex}
+.airhotels-listing-search .fancybox-inner #advance_date_room,.airhotels-listing-search .fancybox-inner .airhotels-category-type,.airhotels-listing-search .fancybox-inner #pricerange,.airhotels-listing-search .fancybox-inner .listing-filters,.airhotels-listing-search .fancybox-inner .listing-mapcanvas{display:inline-block;border:1px solid #ddd;border-radius:3px;color:#333;text-decoration:none;padding:10px 15px;margin-right:10px;font-size:.9rem;flex:1;text-align:center}
+.airhotels-listing-search .fancybox-inner .listing-mapcanvas{border:0}
+.airhotels-listing-search .fancybox-inner .in_out_dates,.airhotels-listing-search .fancybox-inner .block-category,.airhotels-listing-search .fancybox-inner .advance_srch{top:140px;left:0px;width:100%;-webkit-box-shadow:none;box-shadow:none;border:0;border-radius:0;height:100%;max-height:320px;overflow:auto;    text-align: left;box-sizing: border-box;}
+.airhotels-listing-search .fancybox-inner .in_out_dates ul li,.airhotels-listing-search .fancybox-inner .block-category ul li,.airhotels-listing-search .fancybox-inner .price_min_max ul li{margin:30px 0 35px;color:#666}
+.airhotels-listing-search .fancybox-inner #advance_date_room .ckbox label,.airhotels-listing-search .fancybox-inner .block-category .ckbox label,.airhotels-listing-search .fancybox-inner .price_min_max .ckbox label{font-size:.9rem;padding:6px 0px 6px 30px}
+.airhotels-listing-search .in_out_date ul li label{font-size:.9rem;padding:6px 0px 6px 30px}
+.airhotels-listing-search .fancybox-inner .price_min_max{top:160px;margin:0;left:2%;-webkit-box-shadow:none;box-shadow:none;border:0;border-radius:0;width:98%;box-sizing: border-box;}
+.airhotels-listing-search .fancybox-inner .ui-slider-horizontal{width:100%}
+.airhotels-listing-search .advance_price_slider .price-slider-left{left: -20px;}
+.airhotels-listing-search .fancybox-inner .advance_srch .advance_date{width:50%}
+.airhotels-listing-search .fancybox-inner .in_out_date ul li{margin:25px 0;font-size:1rem}
+.airhotels-listing-search .fancybox-inner .in_out_dates ul,.airhotels-listing-search .fancybox-inner .block-category ul,.airhotels-listing-search .fancybox-inner .price_min_max ul{border:0;-webkit-box-shadow:none;box-shadow:none;border-radius:0;padding: 0px 20px;}
+.airhotels-listing-search.fancy-popup .fancybox-wrap{min-width:100%;min-height:100%;left:0;top:0;bottom:0;z-index:9999}
+.airhotels-listing-search.fancy-popup .fancybox-inner{min-width:100%;min-height:100%;position:fixed;-webkit-box-sizing:border-box;box-sizing:border-box;left:0;top:0}
+.airhotels-listing-search .daterangepicker.opensright{margin-left:0;width:93%}
+.airhotels-listing-search .fancybox-inner .advanced-search .date_checkin:before{margin:0 0 0 5px}
+.airhotels-listing-search .fancybox-inner .input-select select{width:100%}
+.airhotels-listing-search .fancybox-overlay-fixed{background:#fff}
+.airhotels-listing-search .filter-apply-btn{position:fixed;bottom:0;z-index:10000;background:#fff;width:100%;padding:20px 0;-webkit-box-shadow:0 1px 8px #999;box-shadow:0 1px 8px #999;display:block;}
+.airhotels-listing-search .filter-apply-btn button{float:left;width:25%;font-size:1rem;cursor:pointer;padding:15px 18px;}
+.airhotels-listing-search .filter-apply-btn button.fancybox-close{float:left;cursor:pointer;position:static;width:25%;background-image:none;padding:9px;margin:0 20px;background:#8597a0;height:auto}
+.catalog-product-view.viewphotos .fancybox-inner{top:50px}
+.airhotels-listing-search .searchform-container{margin-top: 100px;}
+.airhotels-listing-search .mob_show_filter.noticed{display: block;top:88px;}
+.airhotels-listing-search.menu-style .panels-anywhere:first-child{padding:0px 0px 10px 0px;border-bottom: 1px solid #eee}
+.airhotels-listing-search .fancybox-inner label{display:block}
+.right-navigation .sigin-navigation-list > li{margin-right: 21px;}
+.header .right-navigation a{font-size: .7rem;}
+.sigin-navigation-list{padding-right: 0px;}
+}
+@media only screen and (max-width: 860px) {
+.daterangepicker .calendar{max-width:230px}
+.daterangepicker .calendar th,.daterangepicker .calendar td{min-width:28px}
+.airhotels-listing-search .daterangepicker .calendar{max-width:50%;float:none;width:100%}
+.airhotels-listing-search .map-container,.airhotels-listing-search #map,.searchform-container,.airhotels-listing-search .searchmainpage_1{width:100%}
+.airhotels-listing-search .map-container{display:none;top:60px}
+.ic-maplocation{display:block;background:url(../images/location.png) no-repeat;width:51px;height:51px;position:fixed;bottom:20px;right:20px}
+.ic-maplocation.map-close{background:url(../images/location-active.png) no-repeat;width:51px;height:51px;}
+.searchform-container .gradient-grey li:last-child{position:absolute;top:30px;right:40px}
+.airhotels-listing-search .block-category li:last-child,.airhotels-listing-search #searchPropertytype li:last-child,.airhotels-listing-search #searchHouseRules li:last-child,.airhotels-listing-search #searchAmenity li:last-child{position:static}
+.airhotels-listing-search #map{z-index:1}
+.airhotels-listing-search .mob_show_filter{width:100%}
+.airhotels-listing-search .fancybox-inner .listing-mapcanvas{display:none}
+.airhotels-listing-search .filter-map{width:100%;display:inline-block;position:relative}
+.airhotels-listing-search .filter-map li{float:right;text-indent:-9999px;margin-right:10px}
+.airhotels-listing-search .filter-map .listing-mapcanvas{position:absolute;right:20px;top:-17px}
+.catalog-product-view .space-list li{width:48%}
+.catalog-product-view .host-property-detail-section{width:82%}
+.checkout-details.checkout-index-index .block-authentication .actions-toolbar .secondary .action-remind{font-size:1.6rem;display: block;text-align: center;}
+.customer-account-create .actions-toolbar .primary button{margin-right:32%}
+.airhotels-profile-verification .sidebar-additional,.airhotels-profile-verification .column,.airhotels-profile-accountverification .sidebar-additional,.airhotels-profile-accountverification .column{width:100%}
+.airhotels-profile-accountverification .sidebar-additional{margin-top:20px}
+.airhotels-listing-form #custom_attributes .fields,.airhotels-listing-form #custom_attributes .wide.fields{width:50%}
+.airhotels-listing-form #custom_attributes ul li input{width:83%}
+.airhotels-listing-form .airhotels-category-type select{width:100%}
+.airhotels-listing-form .listing-module,.airhotels-listing-form .basicprice{width:49%}
+.airhotels-listing-form #custom_attributes .mage-error{font-size:.7rem}
+.airhotels-listing-form .basicprice .price_bar input{width:25%;border:1px solid #999}
+.airhotels-category-filter .basic_accommodates input{width:13%}
+.catalog-product-view.viewphotos .fancybox-inner{top:80px}
+.airhotels-listing-search .header .right-navigation a{font-size:1rem}
+.airhotels-listing-search .right-navigation .sigin-navigation-list > li{margin-right:8px}
+.ic-filter{width:22px;height:22px;position:absolute;background-size:22px 22px;background-position:inherit;left:6px;top:-2px}
+.airhotels-listing-search #advance-filter{top:76px;width:80%;position:absolute;left:20px}
+.ic-filter{display:block}
+}
+@media only screen and (max-width: 820px) {
+.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after,.panels-content .date_checkin #checkin_before,.panels-content .date_checkout #checkout_before{width:76px;font-size:.8rem}
+.airhotels-listing-blockcalendar .white_content{width:30%}
+.iphone .catalog-product-view .fancybox-opened .fancybox-skin{position:fixed;right:0;top:0}
+.iphone .catalog-product-view .nav-section ul li a{margin-right:12px}
+.iphone .airhotels-listing-form #custom_attributes .fields,.iphone .airhotels-listing-form #custom_attributes .wide.fields{width:50%}
+}
+/* Mobile */
+@media only screen and (max-width : 767px) {
+.logo img{width:80%}
+.banner p{height:auto}
+.banner .container{top:32%}
+.panels-body h2{font-size:3.1rem;margin-top:0;display:none}
+.panels-body h3{font-size:1.4rem;margin:5px 0 20px;display:none}
+.header{height:62px}
+.header .right-navigation,.header.fixed .right-navigation{height:100%;position:fixed;bottom:0}
+.header .right-navigation-list li > a{font-family:'Circular_Air-Light'}
+.header .button{-webkit-transition:.5s cubic-bezier(0.75,0.02,0.33,1);transition:.5s cubic-bezier(0.75,0.02,0.33,1);float:right}
+.header .button #burger{width:40px}
+.header .right-navigation{width:0;display:block;-webkit-transition:.2s cubic-bezier(0.75,0.02,0.33,1);transition:.2s cubic-bezier(0.75,0.02,0.33,1);background-color:#008389}
+.header .right-navigation ul{padding:0;overflow:auto;background-color:#008389;height:100%;z-index: 10000;}
+.header .right-navigation ul li{box-sizing:border-box;-webkit-transform:translateY(-40px);transform:translateY(-40px);opacity:0;text-align:left;position:relative;padding:0 0 0 20px;-webkit-transition:.2s ease;transition:.2s ease;font-size:.9rem;display:block;padding-bottom:15px}
+.header .right-navigation ul li a{padding:17px 10px 22px}
+.header .right-navigation ul li:first-child{box-sizing:border-box;padding:0;margin:0 0 30px;background:#027479}
+.header .right-navigation ul li:first-child a{margin-left:20px;}
+.header .right-navigation .mobile-logo,.header .right-navigation .mobile-links{display:block;padding:0 0 0 20px}
+.header .right-navigation .mobile-sidemenu{border-top:1px solid #18969c;width:100%;margin-top:10px}
+.header .right-navigation .mobile-sidemenu li{padding:0}
+.header .right-navigation .mobile-sidemenu li a{padding:17px 0 17px 0px;display:block}
+.header .right-navigation .mobile-sidemenu-list li:first-child{padding:10px 0 0;margin-bottom:0;background:none}
+.header .right-navigation .mobile-sidemenu-list li:first-child a{margin-left:0px}
+.cms-index-index .header .right-navigation ul li.mobile-logo a{margin-left:20px}
+.account .header .right-navigation ul li.mobile-logo a{margin-left:20px}
+.cms-index-index .header .right-navigation ul li a,.header .right-navigation ul li a{font-size:1.1rem;font-weight:500;color:#fff;margin-left:0px;display:block;padding:15px 0px}
+.actions.dropdown.options.switcher-options ul li a{color:#333;margin-left: 0px; font-size: .9rem;   display: block;font-weight: bold;padding-left: 20px;}
+.actions.dropdown.options.switcher-options ul li{padding: 0px;margin:0px;}
+.actions.dropdown.options.switcher-options ul li:first-child{margin:0px;background: none;}
+.header .right-navigation ul li:nth-child(2){margin-bottom: 0px;}
+.lang-price-select .action{padding:8px 18px;}
+.lang-price-select .drop-arrow{font-size: .9rem;}
+.header .right-navigation{margin:0;float:none;padding:0}
+.header .right-navigation-list.responsive{display:block;top:0}
+.header .right-navigation-list{float:left;padding-right:0;width:100%;height:100%;background:transparent;position:absolute}
+.header .right-navigation-list li{display:inline-block;margin-right:0;width:100%}
+.header .right-navigation-list li a{display:block;font-weight:400}
+.click{width:50px;height:50px;position:absolute;top:0;cursor:pointer;display:block;z-index:1000}
+.cms-index-index #burger.active .click{background:transparent;border-radius:0}
+.menu_open .page-wrapper{-webkit-transform:translateX(0px);transform:translateX(0px);height:100%}
+.menu_open .button{-webkit-transform:translateX(0px);transform:translateX(0px)}
+.menu_open.page-wrapper .banner .search-panels-container{z-index:99}
+.menu_open .right-navigation{width:100%;position:absolute;height:100%;bottom:0}
+.menu_open.page-wrapper .right-navigation{z-index:0;position:fixed;left:0;top:0;width:90%}
+.menu_open.page-wrapper .right-navigation:before{content:"";width:100%;height:100%;z-index:-1;position:fixed;background-color:rgba(0,0,0,0.8);left:0;top:0;right:0;bottom:0;display:inline-block}
+#burger{z-index:1;cursor:pointer;position:relative;margin-bottom:30px;margin-top:5px;display:block;height:0}
+#burger span{position:relative;display:block;width:15px;height:2px;background-image:url(../images/burger-menu.png);background-size:cover;-webkit-transition:all .4s;transition:all .4s;top:20px}
+#burger span:before,#burger span:after{position:absolute;background-image:url(../images/burger-menu.png);background-size:cover;content:'';width:22px;height:2px;-webkit-transition:all .2s ease;transition:all .2s ease}
+#burger span:before{top:-7px}
+#burger span:after{top:7px}
+#burger.active{padding:0}
+#burger.active span{background:transparent;-webkit-transform:rotate(90deg);transform:rotate(90deg);left:15px}
+#burger.active span:before{-webkit-transform:rotate(45deg);transform:rotate(45deg);top:0}
+#burger.active span:after{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);top:0}
+.cms-index-index .header{height:55px}
+.selectbox{width:110px}
+.daterangepicker .calendar{max-width:210px;padding:0;margin:0}
+.daterangepicker .calendar th,.daterangepicker .calendar td{min-width:40px}
+.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after,.panels-content .date_checkin #checkin_before,.panels-content .date_checkout #checkout_before{font-size:.8rem;width:76px}
+.panels-content input,.selectbox__label{font-size:1rem}
+.panels-content .date_checkin:before{margin:4px 0 0 8px}
+.panels-content .panels-anytime{-webkit-box-flex:4;-ms-flex:4;flex:4}
+.panels-content .search-btn{font-size:.7rem;padding:10px}
+.footer-content{background-size:auto;background-position:0 bottom}
+.footer-content .lang-price-select .lang{margin:0}
+.footer-content .footer-main-list{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+.footer-content .footer-main-list >li{margin:30px 0 0;width:100%}
+.footer-content .footer-main-list ul li{white-space:nowrap;line-height:28px}
+.footer-content .footer-main-list li a{font-size:1rem}
+.actions.dropdown.options.switcher-options ul{width:160px;z-index:1;-webkit-box-sizing:border-box;box-sizing:border-box;position: relative;top:27px;position:relative}
+.lang-price-select .lang .actions.switcher-options ul{top:0px}
+.tabcontent-grid .item .carousel-imag,.catalog-product-view .carousel-image{min-height:160px}
+.lang-price-select li a{font-size:1rem;color:#484848}
+.terms-social-media{padding-top:20px;display:inline-block;width:100%}
+.terms-social-media .terms{float:left;padding-top:2px}
+.terms li{margin-right:12px}
+.terms-social-media ul li a{font-size:.9rem}
+.terms-social-media .social-media-section{float:right}
+.home-information .information-section{padding:0 10px}
+.home-information ul li p,.home-information ul li h3{font-size:1rem;margin:12px 0}
+.guarantee{padding-bottom:10px}
+.customer,.verify{padding-bottom:15px}
+.copyright{font-size:.85rem}
+.owl-prev{left:-15px}
+.owl-next{right:-15px}
+.airhotels-listing-search #burger{margin-bottom:0;margin-top:10px}
+.airhotels-listing-search .header .button #burger.active{margin-top:0}
+.airhotels-listing-search .header{padding-bottom:10px;border:0;border-bottom:1px solid #ddd;z-index:100}
+.airhotels-listing-search .logo{margin:15px 0 3px;padding-left:8px;width:120px}
+.airhotels-listing-search .advanced-search{left:0;top:12px}
+.airhotels-listing-search .searchmainpage_1{padding:40px 0 10px 10px}
+.airhotels-listing-search.fancy-popup .pac-container{border-top:2px solid #008389;min-width: 86%;}
+.airhotels-listing-search .logo img{width:100%}
+.airhotels-listing-search .header .right-navigation a,.catalog-product-view .header .right-navigation a,.customer-account-login .header .right-navigation a,.airhotels-listing-form .header .right-navigation a,.contact-index-index .header .right-navigation a,.cms-no-route .header .right-navigation a{color:#fff}
+.airhotels-listing-search .search-result-pagination{padding-bottom:20px}
+.airhotels-listing-search .mob_show_filter{top:97px;height:42px;margin-top: -45px;}
+.airhotels-listing-search #advance-filter{left:7%}
+#burger .inner-menu{position:relative;display:block;width:15px;height:2px;background-image:url(../images/burger-innermenu.png);background-size:cover;-webkit-transition:all .4s;transition:all .4s;top:20px}
+#burger .inner-menu:before,#burger .inner-menu:after{position:absolute;background-image:url(../images/burger-innermenu.png);background-size:cover;content:'';width:22px;height:2px;-webkit-transition:all .2s ease;transition:all .2s ease}
+#burger .inner-menu:before{top:-7px}
+#burger .inner-menu:after{top:7px}
+#burger.active{padding:0}
+#burger.active .click{background:transparent;border-radius:0;width:100%;height:1280px;z-index:1000}
+#burger.active .inner-menu{background:transparent;-webkit-transform:rotate(90deg);transform:rotate(90deg);left:13px;z-index:100;top:24px}
+#burger.active .inner-menu:before{-webkit-transform:rotate(45deg);transform:rotate(45deg);top:0;background-image:url(../images/burger-menu.png)}
+#burger.active .inner-menu:after{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);top:0;background-image:url(../images/burger-menu.png)}
+.cms-index-index .header .button #burger.active{margin-top:0;width:38px}
+.header .button #burger.active{margin-top:-5px;width:38px}
+.catalog-product-view .lising-details.property-space h5{padding-top:4px;width:22%}
+.catalog-product-view .left-cnt-listing-details{width:72%}
+.catalog-product-view .similar-listing-section .rating-box{float:none}
+.catalog-product-view #customer_view_map_for_space{height:320px}
+.catalog-product-view .menu_open.page-wrapper .header{position:fixed}
+.catalog-product-view .page-wrapper .header{position:relative;height:56px}
+.catalog-product-view .menu_open.page-wrapper #maincontent{padding-top:58px}
+.catalog-product-view .facilities-section ul li p{line-height:16px}
+.catalog-product-view .fancybox-wrap.fancybox-opened{width:auto;height:auto;top:0;bottom:0;right:0;left:0;position:fixed}
+.catalog-product-view .product-heading{font-size:2.2rem;margin:0 0 10px}
+.checkout-index-index .opc-sidebar{width:auto}
+.checkout-index-index .opc-estimated-wrapper{margin:0;padding:18px 25px}
+.checkout-index-index .opc-estimated-wrapper .estimated-block .estimated-label{font-size:1.5rem;font-weight:400;color:#999}
+.checkout-index-index .opc-estimated-wrapper .estimated-block{font-weight:400;font-size:2.5rem}
+.checkout-index-index .checkout-payment-method .payment-methods{margin:0}
+.checkout-index-index .checkout-payment-method .payment-method-title{padding:0}
+.checkout-index-index .block-authentication .block-title{font-size:2.6rem}
+.checkout-index-index .actions-toolbar>.primary .action:last-child{margin-bottom:20px;margin-right:0}
+.checkout-index-index .checkout-payment-method .field-select-billing,.checkout-index-index .checkout-payment-method .billing-address-form{max-width:100%}
+.checkout-details.checkout-index-index .authentication-wrapper{margin-top:-68px;margin-right:60px}
+.checkout-details.checkout-index-index .menu_open.page-wrapper .authentication-wrapper{margin-top:-65px;margin-right:60px}
+.checkout-details.checkout-index-index #burger{margin-top:-10px}
+.checkout-details.checkout-index-index .header .button #burger{width:25px}
+.checkout-index-index .opc-wrapper .form-login{background:transparent;padding:0;margin:0}
+.checkout-index-index .opc-wrapper .step-title{font-size:2.6rem;padding-bottom:10px}
+.checkout-index-index .menu_open.page-wrapper .header{position:fixed;width:100%;-webkit-box-sizing:border-box;box-sizing:border-box;z-index:2;border-bottom:1px solid #ddd;height:60px}
+.checkout-index-index .page-wrapper .right-navigation,.catalog-product-view .page-wrapper .right-navigation,.account .page-wrapper .right-navigation{left:0;top:0}
+.checkout-index-index .menu_open.page-wrapper .right-navigation,.catalog-product-view .menu_open.page-wrapper .right-navigation,.account .menu_open.page-wrapper .right-navigation{z-index:0;position:fixed;left:0;top:0}
+.checkout-details.checkout-index-index .header{border-bottom:0;height:32px}
+.checkout-details.checkout-index-index .header .right-navigation{padding:0}
+.checkout-details.checkout-index-index .header .right-navigation-list{display:block;padding-top:0;margin:0;height:100%}
+.checkout-details.checkout-index-index .header .right-navigation-list li > a{font-size:1.6rem}
+.checkout-index-index .page-wrapper .header .right-navigation a,.checkout-onepage-success .header .right-navigation a,.customer-account-create .header .right-navigation a,.customer-account-forgotpassword .header .right-navigation a,.customer-account-createpassword .header .right-navigation a,.account .header .right-navigation a,.checkout-index-index .page-wrapper .header .right-navigation a:hover,.checkout-onepage-success .header .right-navigation a:hover,.customer-account-create .header .right-navigation a:hover,.customer-account-forgotpassword .header .right-navigation a:hover,.customer-account-createpassword .header .right-navigation a:hover,.account .header .right-navigation a:hover,.airhotels-listing-search .header .right-navigation a:hover,.catalog-product-view .header .right-navigation a:hover,.customer-account-login .header .right-navigation a:hover,.airhotels-listing-form .header .right-navigation a:hover,.contact-index-index .header .right-navigation a:hover,.cms-no-route .header .right-navigation a:hover{color:#fff;}
+.checkout-index-index .menu_open.page-wrapper #maincontent{padding-top:57px}
+.checkout-index-index .header .button #burger.active{margin-top:-10px;width:15px}
+.checkout-details.checkout-index-index .logo,.checkout-details.checkout-index-index .field .control._with-tooltip,.checkout-details.checkout-index-index .minicart-wrapper,.checkout-onepage-success .menu_open.page-wrapper .print{position:static}
+.checkout-details.checkout-index-index .messages{margin-top:10px}
+.checkout-details.checkout-index-index .right-navigation .sigin-navigation-list > li{display:block;margin-bottom:0;padding-bottom: 0px;}
+.checkout-index-index .opc-wrapper,.checkout-onepage-success .page-main,.customer-account-forgotpassword .control input{width:100%}
+.checkout-onepage-success .page-wrapper .header{height:60px;position:relative}
+.checkout-onepage-success .print:before{background-position:-391px -148px;width:35px;height:36px;position:relative;top:-20px;left:0;display:block;margin:0 auto}
+.checkout-onepage-success .checkout-success p{font-size:.8rem}
+.checkout-details.checkout-index-index .checkout-payment-method .actions-toolbar .primary{float:none;width:100%}
+.checkout-details.checkout-index-index .checkout-payment-method .actions-toolbar .primary .action.primary{padding:10px 15px;font-size:1.5rem}
+.checkout-payment-method .checkout-billing-address .primary .action-update{width:45%;float:left;padding:12px 15px}
+.checkout-payment-method .checkout-billing-address .primary .action-cancel{width:45%;float:right;padding:9px 15px}
+.customer-account-login .menu_open.page-wrapper .header,.customer-account-create .menu_open.page-wrapper .header,.customer-account-forgotpassword .menu_open.page-wrapper .header,.customer-account-createpassword .menu_open.page-wrapper .header,.account .menu_open.page-wrapper .header{height:57px;position:fixed}
+.customer-account-login .menu_open.page-wrapper #maincontent,.customer-account-create .menu_open.page-wrapper #maincontent,.customer-account-createpassword .menu_open.page-wrapper #maincontent,.customer-account-forgotpassword .menu_open.page-wrapper #maincontent,.account .menu_open.page-wrapper #maincontent{padding-top:59px}
+.customer-account-login .login-container .block.block-customer-login,.customer-account-login .login-container .block.block-new-customer{width:100%}
+.customer-account-login .login-container .block.block-customer-login{border-bottom:1px solid #eee;margin-bottom:20px}
+.customer-account-login .login-container .block.block-new-customer{margin-left:40px;display:inline-block;float:none}
+.customer-account-login .block-customer-login .fieldset .control input{width:98%}
+.customer-account-login .block-customer-login .fieldset .secondary{float:right;padding-right:0}
+.customer-account-login .menu_open.page-wrapper #back-top .sprimg{z-index:-1}
+.customer-account-create .create.info,.customer-account-create .create.account{width:95%;margin-left:10px;margin-top:10px}
+.customer-account-createpassword .password .control input{width:78%}
+.customer-account-create .actions-toolbar .primary button{margin-right:2%;font-size:.9rem}
+.customer-account-forgotpassword .forget,.customer-account-createpassword .form{margin:20px}
+.customer-account-createpassword .footer-content .switcher-options{z-index:-1}
+.account .page-wrapper .header{position:relative}
+.customer-account-index .column.main,.airhotels-profile-hostprofile .column.main,.customer-account-index .sidebar.sidebar-additional,.airhotels-profile-hostprofile .sidebar.sidebar-additional{float:none;width:100%;padding-bottom:0}
+.account .block-account ul li.current,.account .block-account ul li a{font-size:.6rem;padding:12px 12px 8px}
+.account .block-account ul li{margin-right:0}
+.customer-account-index .column .account-heading,.airhotels-profile-hostprofile .column .account-heading{font-size:1.6rem;padding:0}
+.customer-account-index .my-account .page-title .member_since,.airhotels-profile-hostprofile .my-account .page-title .member_since{font-size:.8rem;color:#666}
+.customer-account-index .review-verify ul li,.airhotels-profile-hostprofile .review-verify ul li{margin:0}
+.customer-account-index .review-verify ul li:nth-child(2n),.airhotels-profile-hostprofile .review-verify ul li:nth-child(2n){margin-left:40px}
+.customer-account-index .guest-info,.airhotels-profile-hostprofile .guest-info{width:95%;padding-top:15px}
+.customer-account-index .mylisting-image,.airhotels-profile-hostprofile .mylisting-image{min-height:240px}
+.account .content-block .verify{background:transparent;padding-bottom:0}
+.customer-account-index .mylistings-section li,.airhotels-profile-hostprofile .mylistings-section li{width:47%}
+.customer-account-index .wishlist-reviews-listing .list-review,.airhotels-profile-hostprofile .wishlist-reviews-listing .list-review{width:100%}
+.account .block-account ul li.current,.account .block-account ul li a{font-size:.8rem;padding:12px 0px 8px;text-align: center;}
+.account-heading-contents .verifyed-icon{top:10px}
+.customer-account-index .guest-image-section,.airhotels-profile-hostprofile .guest-image-section{width:70px}
+.customer-account-index .reviews-from-guest li,.airhotels-profile-hostprofile .reviews-from-guest li{display:block}
+.customer-account-index .guest-info,.airhotels-profile-hostprofile .guest-info{width:75%}
+.account .topnavigation{position:relative}
+.account .menu_open.page-wrapper .topnavigation{top:49px}
+.account.airhotels-listing-manage .column,.account.airhotels-listing-manage .sidebar-additional,.account.airhotels-listing-blockcalendar .column,.account.airhotels-listing-blockcalendar .sidebar-additional,.airhotels-mytrip-previoustrip .sidebar-additional,.airhotels-mytrip-previoustrip .column,.airhotels-mytrip-currenttrip .sidebar-additional,.airhotels-mytrip-currenttrip .column,.airhotels-mytrip-upcomingtrip .sidebar-additional,.airhotels-mytrip-upcomingtrip .column,.airhotels-listing-history .sidebar-additional,.airhotels-listing-history .column,.sales-order-view .column,.sales-order-view .sidebar-additional,.sales-order-invoice .column,.sales-order-invoice .sidebar-additional,.sales-order-creditmemo .column,.sales-order-creditmemo .sidebar-additional,.airhotels-profile-edit .column,.airhotels-profile-edit .sidebar-additional,.customer-address-form .column,.customer-address-form .sidebar-additional,.customer-address-index .column,.customer-address-index .sidebar-additional,.newsletter-manage-index .column,.newsletter-manage-index .sidebar-additional,.airhotels-message-inbox .column,.airhotels-message-inbox .sidebar-additional,.airhotels-message-sent .column,.airhotels-message-sent .sidebar-additional{width:100%}
+.airhotels-mytrip-previoustrip .sidebar-additional,.airhotels-mytrip-currenttrip .sidebar-additional,.airhotels-mytrip-upcomingtrip .sidebar-additional,.sales-order-view .sidebar-additional,.sales-order-invoice .sidebar-additional,.sales-order-creditmemo .sidebar-additional,.airhotels-listing-transactions .sidebar-additional,.airhotels-listing-history .sidebar-additional,.airhotels-profile-edit .sidebar-additional,.airhotels-profile-verification .sidebar-additional,.customer-address-index .sidebar-additional,.customer-address-form .sidebar-additional,.newsletter-manage-index .sidebar-additional{margin-top:20px}
+.airhotels-listing-manage .listing-detail .listing-info{width:85%}
+.airhotels-listing-manage .property-error{text-align:left;margin-left:8px}
+.airhotels-listing-manage .listing-detail .actions_grid{padding-top:0}
+.airhotels-listing-manage .listing-detail .slider-widget-container{top:35%}
+.airhotels-listing-blockcalendar .white_content{width:33%}
+.airhotels-mytrip-previoustrip #property_trip_table,.airhotels-mytrip-currenttrip #property_trip_table,.airhotels-mytrip-upcomingtrip #property_trip_table,.airhotels-listing-history #property_history_table,.sales-order-creditmemo .table-order-items{display:block;overflow:auto}
+.airhotels-mytrip-previoustrip #property_trip_table tr:first-child th,.airhotels-mytrip-previoustrip #property_trip_table tr td,.airhotels-mytrip-currenttrip #property_trip_table tr:first-child th,.airhotels-mytrip-currenttrip #property_trip_table tr td,.airhotels-mytrip-upcomingtrip #property_trip_table tr:first-child th,.airhotels-mytrip-upcomingtrip #property_trip_table tr td,.airhotels-listing-history #property_history_table tr:first-child th,.airhotels-listing-history #property_history_table tr td,.sales-order-creditmemo .table-order-items tr:first-child th,.sales-order-creditmemo .table-order-items tr td{white-space:nowrap;padding:10px 20px;text-align:left}
+.airhotels-mytrip-previoustrip .toolbar-amount,.airhotels-mytrip-currenttrip .toolbar-amount,.airhotels-mytrip-upcomingtrip .toolbar-amount{display:none}
+.sales-order-view .action.print,.sales-order-invoice .action.print,.sales-order-print .action.print,.sales-order-printinvoice .action.print,.sales-order-printcreditmemo .action.print,.sales-order-creditmemo .action.print,.sales-order-view .actions-toolbar .actions-invoice{display:inline-block;text-align:center;margin-bottom:10px}
+.account.sales-order-print .column.main,.account.sales-order-printinvoice .column.main,.account.sales-order-printcreditmemo .column.main{width:100%}
+.account.sales-order-print .columns,.account.sales-order-printinvoice .columns,.account.sales-order-printcreditmemo .columns{padding:30px 0}
+.sales-order-print .page-title-wrapper h1,.sales-order-printinvoice .page-title-wrapper h1,.sales-order-printcreditmemo .page-title-wrapper h1{margin:0}
+.sales-order-print .logo img,.sales-order-printinvoice .logo img,.sales-order-printcreditmemo .logo img{width:90%}
+.sales-order-print .logo,.sales-order-printinvoice .logo,.sales-order-printcreditmemo .logo{padding-left:0;margin:0 0 10px}
+.sales-order-print .order-date,.sales-order-printinvoice .order-date,.sales-order-printcreditmemo .order-date{font-size:.7rem}
+.airhotels-listing-transactions #my-orders-table{display:block;overflow:auto}
+.airhotels-listing-form .menu_open.page-wrapper .header{height:57px;position:fixed}
+.airhotels-listing-form .header{position:relative}
+.airhotels-listing-form .menu_open.page-wrapper #maincontent{padding-top:59px}
+.contact-index-index .fieldset .field input{width:90%}
+.contact-index-index .fieldset .field .control textarea{width:92%}
+.contact-index-index .menu_open.page-wrapper #maincontent{padding-top:59px}
+.contact-index-index .menu_open.page-wrapper .header{height:57px;position:fixed}
+.contact-index-index .page-main .field.note.no-label{font-size:.8rem;line-height:18px}
+.cms-no-route .menu_open.page-wrapper #maincontent{padding-top:59px}
+.cms-no-route .menu_open.page-wrapper .header{height:57px;position:fixed}
+.cms-no-route .sidebar-additional{padding:0 30px 20px;-webkit-box-sizing:border-box;box-sizing:border-box;color:#ff6e73;text-align:center;font-size:.7rem;line-height:20px;width:100%}
+.airhotels-listing-search .daterangepicker .calendar{max-width:49%;float:left}
+.footer-content .lang-price-select .price .action{width:auto}
+.content-block ul li a{padding:10px 20px}
+.airhotels-profile-hostprofile .content-block{margin:20px 0 40px}
+.account.airhotels-profile-hostprofile .page-wrapper .header{margin-bottom:30px}
+.account.airhotels-profile-hostprofile .menu_open.page-wrapper #maincontent{padding-top:89px}
+.airhotels-listing-search .header .right-navigation a{font-size:1.1rem;position:relative}
+.checkout-index-index .field-tooltip{display:none}
+.tabcontent-grid .item .carousel-image,.catalog-product-view .carousel-image{min-height:140px}
+.panels-content{width:100%}
+#mob_search_popup_form input{padding:12px 14px}
+#home_page_search_popup_form{display:none}
+#mob_search_popup_form{display:block;-webkit-box-shadow:none;box-shadow:none;margin-top:20px}
+#mob_search_popup_form input{background:#fff;border-radius:3px;width:100%;padding:14px 0 14px 35px;-webkit-box-sizing:border-box;box-sizing:border-box;margin:0 auto;-webkit-box-shadow:0 4px 10px #444;box-shadow:0 4px 10px #444}
+.panels-content .panels-anywhere,.panels-content .panels-anytime,.panels-content .panels-guest,.panels-content .panels-search{padding:8px 10px;border-bottom:0;border-right:0;margin-bottom:20px}
+.cms-index-index .fancybox-wrap{min-width:100%;min-height:100%;left:0;top:0;bottom:0}
+.cms-index-index .fancybox-opened .fancybox-skin{min-height:100%;border-radius:0;-webkit-box-shadow:none;box-shadow:none;background:#fff}
+.cms-index-index .fancybox-inner{min-width:100%;min-height:100%;position:fixed;-webkit-box-sizing:border-box;box-sizing:border-box;left:0;top:0}
+.cms-index-index .fancybox-inner .panels-content{width:100%;height:100%;padding:60px 20px;-webkit-box-sizing:border-box;box-sizing:border-box;background:#fff}
+.cms-index-index .fancybox-inner .panels-content form{margin-top:0;width:100%;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;border-radius:0;border:0}
+.cms-index-index .fancybox-overlay{background:#fff}
+.cms-index-index .fancybox-inner .panels-content .panels-anywhere,.cms-index-index .fancybox-inner .panels-content .panels-anytime,.cms-index-index .fancybox-inner .panels-content .panels-guest,.cms-index-index .fancybox-inner .panels-content .panels-search{border-bottom:1px solid #eee}
+.cms-index-index .fancybox-inner .panels-content .panels-search{border-bottom:0}
+.cms-index-index .pac-container{min-width:93%;z-index:8031;margin-left:-8px;margin-top:9px}
+.cms-index-index .daterangepicker.opensright{z-index:8031;min-width:92%;margin-top:29px;margin-left:-11px}
+.cms-index-index .daterangepicker .calendar{max-width:50%}
+.panels-content form{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;width:100%}
+.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after,.panels-content .date_checkin #checkin_before,.panels-content .date_checkout #checkout_before{width:118px}
+.panels-content #searchTextField,.panels-content .date_checkin #checkin_before,.panels-content .date_checkout #checkout_before,.panels-content .date_checkin #checkin_after,.panels-content .date_checkout #checkout_after{font-size:1.3rem}
+.panels-content .search-btn{margin:0 auto;padding:15px 0;font-size:1.2rem;width:100%}
+.airhotels-listing-search .advanced-search .submit-btn input{margin:0 auto;padding:15px 0;font-size:1.2rem;width:100%}
+.selectbox__label{margin:0;padding:0 20px 0 0;font-size:1.3rem}
+.selectbox{pointer-events:inherit;width:100%}
+.selectbox-options{top:25px;left:0;width:100%}
+.home-page-tab .tab li{font-size:1.1rem;margin:0;text-transform:none;-webkit-box-flex:1;-ms-flex:1;flex:1;text-align:center;padding:15px 0}
+.panels-content .date_checkin:before{margin:4px 0 0 8px}
+.selectbox__label:before,.selectbox__label:after{right:10px}
+.checkout-index-index .minicart-wrapper .action.showcart:before{display:none}
+.checkout-index-index .minicart-wrapper .action.showcart .counter.qty{font-size:1.3rem;padding:4px 10px;background:#ff5a60;font-family:'CircularStd-Medium'}
+.checkout-details.checkout-index-index .logo img{width:80%}
+.airhotels-listing-search .filter-apply-btn button{width:100%;float:none}
+.block-customer-login .fieldset .primary button,.block-new-customer .actions-toolbar .primary a,.block-customer-login .fieldset .secondary a{font-size:.9rem}
+.customer-account-create .field .control input{padding:10px 0;width:100%}
+.airhotels-listing-manage .my-account #list,.airhotels-profile-edit .profile_information .control button{font-size:1rem;width:100%;padding:14px}
+.account .menu_open.page-wrapper .header{height:48px}
+.airhotels-listing-form .fieldset input,.airhotels-listing-form .summary textarea,.airhotels-listing-form .airhotels-category-type select,.airhotels-listing-form #custom_attributes select{width:88%}
+.airhotels-listing-form .fieldset .basic_accommodates input{width:25%}
+.panels-content .panels-anywhere:before{content:"";background:url(../images/ic-search.svg);width:16px;height:16px;position:absolute;background-size:16px 16px;background-position:inherit;left:20px;top:22px}
+.cms-index-index .fancybox-inner .panels-content .panels-anywhere:before{display:none}
+.footer-content .container{display:block}
+.footer-content .lang-price-select{width:100%}
+.catalog-product-view .rating-box{margin-top:4px;margin-right:5px}
+.catalog-product-view .review-heading-section .rating-box{margin:9px 10px 0}
+.panels-content .date_checkout #checkout_before,.panels-content .date_checkout #checkout_after{text-align:right}
+.ic-addlisting,.ic-login,.ic-register,.ic-user,.ic-term,.ic-privacy,.ic-help,.ic-host{width:18px;height:18px;float:left;margin-right:20px}
+.ic-message{width:21px;height:21px;float:left;margin-right:20px;fill:#fff;}
+.ic-filter{width:22px;height:22px;}
+.advanced-mapsearch{padding:0}
+.airhotels-listing-search #advance-filter{left:10px}
+.footer{display:none}
+.menu-style{overflow:hidden;}
+.column .account-heading{width:230px;font-size: 1.5rem;}
+.customer-account-index .column .account-heading{width:100%;}
+.account .column{order: 2}
+.account .columns{display: flex; flex-wrap: wrap;padding: 20px;position: relative;}
+.sidebar-button {  color: white;  text-align: center;  padding: 0;  display: block;  cursor: pointer; position: absolute; right: 10px; top: 10px;}
+.customer-account-index .sidebar-button{top: -16px;}
+.customer-account-index .sidebar{padding-top: 30px;}
+.account .sidebar-button h2{ text-indent: -9999px;    background-image: url(../images/sidebarmenu.png);  background-repeat: no-repeat;    background-color: transparent;        width: 24px;    height: 18px;    padding: 0px;    margin:0px;    float: right;    margin: 16px 5px;    z-index: 1;   position: relative;}
+.account .sidebar-menu {  display: none;  padding: 0;    margin-top: 43px;    border: 0px;}
+.account .sidebar-menu ul{  list-style: none;  border: 0px;  background:#1f9398;  border-radius: 4px 0px 4px 4px;}
+.account .sidebar-menu ul:after{ content: "";    position: absolute;    top: 5px;    right: 0;    z-index: 0;    width: 40px;    height: 38px;    background-color: rgb(31, 147, 152);    z-index: 0;        border-radius: 4px 4px 0px 0px;}
+.account .sidebar-menu li {  text-align: center;  background: transparent;  }
+.account .sidebar-menu li a{text-align: left;border:0px;color:#9cc6c7;font-size: .75rem;padding: 10px 20px;}
+.account .sidebar-menu li a.selected{background: #297a7d;color:#e9f8f9;border-radius: 4px 0px 0px 0px;}
+.account .sidebar-menu a {  text-decoration: none;  display: block;  padding: 10px 0;}
+.account .sidebar-menu a:hover {  color: black;}
+.airhotels-listing-history .sidebar-additional{margin-top:0px;}
+.airhotels-listing-manage .my-account #newlist{position: relative;top:-10px;}
+.catalog-product-view .lang-price-select .action {padding: 8px 18px 8px;}
+.airhotels-listing-search .searchmainpage_1.noticed{display: none;}
+.airhotels-listing-search .mob_show_filter.noticed{display: block;top:123px;}
+.right-navigation .right-navigation-list > .ah-currency, .right-navigation .sigin-navigation-list > .ah-currency{position: relative;left:0;top:0;margin-bottom:20px}
+.catalog-product-view .nav-section.fix-nav .navigation-tab{margin: 0px;}
+.catalog-product-view .nav-section.fix-nav ul li a{padding: 16px 10px;font-size: 1.2rem;}
+.menu-style .menu_open.page-wrapper {position: fixed;}
+.lang-price-select .price{border:0px;float:left;margin-left:0px;margin-bottom:50px}
+.airhotels-listing-search #map{margin-top:30px;}
+.airhotels-listing-form .form_next_button_section button,.airhotels-listing-form #btn_save_product{width: 100%;padding: 15px 0px;font-size: 1rem;}
+.lang-price-select .lang{float:none;margin-bottom:20px}
+.lang-price-select .lang .action{padding:9px 19px 7px 20px}
+.lang-price-select .price .action {padding:7px 20px 6px 20px;position: absolute;}
+.airhotels-listing-form .summary textarea{width:100%;border-radius:3px;border:1px solid #999;}
+.ic-addlisting,.ic-login,.ic-register{display:block}
+.ic-filter{top:2px;left:0px}
+.checkout-index-index.checkout-details .lang-price-select .lang .action{border:1px solid #ccc;cursor:pointer;background:#fff;padding:10px 18px;box-shadow:0 1px 5px #ccc;border:0px}
+.checkout-index-index.checkout-details .lang-price-select .price .action{border:1px solid #ddd;cursor:pointer;background:#fff;padding: 8px 18px !important;box-shadow:0 1px 5px #ccc;border:0px}
+.checkout-index-index .lang .actions.switcher-options ul{top:-4px;}
+.catalog-product-view.contacthost .fancybox-wrap.fancybox-opened{z-index:1000000;}
+.catalog-product-view.contacthost .fancybox-opened .fancybox-skin{box-sizing:border-box;height: 500px;overflow: auto;}
+.contacthost .fancybox-inner #contact-hostpopup{width:auto;padding:20px;background:#fff}
+.contacthost .ah-checkin,.contacthost .ah-checkout,.contacthost .ah-guests,.contacthost .ah-phone{width:100%;}
+.contacthost .ah-checkout{margin-bottom: 20px;}
+.sigin-navigation-list .ah-count {    background: #FF595F;    border-radius: 100px;    width: 18px;    height: 18px;    position: absolute;    top: 6px;    color: #fff;    font-size: .7rem;    line-height: 18px;    text-align: center;    border: 0px;    text-indent: inherit;    left:30px;}
+.account .navigation{display: flex;}
+.account .block-account ul li{flex:1;}
+.account .block-account ul li a{text-align: center;}
+.profile_inbox_table .ah-inbox-checkin{margin-bottom: 5px;}
+.ah-backbtn{top:30px;}
+.ah-inbox-panel{border:0px;}
+.ah-chat-message{padding-top: 20px;}
+.baron{min-width:inherit;margin: 10px 0px;}
+.baron__scroller{padding:10px;}
+.ah-chat-message .ah-message{width:100%;}
+.header .right-navigation .top-dropdown-menu{display: none;}
+.checkout-index-index .header .right-navigation .top-dropdown-menu{display: none;}
+.header .right-navigation .mobile-visible{display: inline-block;margin-left: 0px;color:#fff;font-size: 1.1rem;margin-bottom: 15px;line-height: 26px;}
+.checkout-index-index .header .right-navigation .mobile-visible{display: inline-block;margin-left: 0px;color:#fff;font-size: 1.5rem;line-height: 26px;}
+.checkout-details.checkout-index-index .right-navigation .sigin-navigation-list > li:nth-child(3){padding-bottom:0px;}
+.message-beforelogin span{display: inline-block}
+.checkout-index-index .ic-message{margin-right: 18px;}
+.cms-index-index .ic-message{margin-right: 20px;}
+.right-navigation .right-navigation-list > .message-beforelogin{top:0;}
+.top-dropdown-menu > ul + ul{display: none;}
+.profile_information{margin-top: -20px;}
+.airhotels-profile-edit .profile_information .control, .customer-address-form .form-address-edit .control{color:#bbb;}
+.catalog-product-view .review-list{width: 100%;padding-left: 10px;}
+.catalog-product-view .gust-img-info{width: 70%;}
+#mailSpace #reply_message_form .submitbtn{right: 20px;}
+.catalog-product-view .banner{height: 115px;}
+.catalog-product-view .banner img{transform: translate(0px, 0px);}
+#progress-wrp{width: 60%;}
+}
+@media only screen and (max-width: 640px) {
+.logo{padding-left:15px}
+.panels-body h2{font-size:2.2rem;margin-top:0}
+.panels-body h3{font-size:1rem;margin:5px 0 15px}
+.panels-content{margin:0 auto;padding:0;-webkit-box-shadow:none;box-shadow:none;border-radius:10px}
+.panels-content label{margin:0;padding:0 0 5px;display:none}
+.justwrap{margin:0;min-height:20px;width:100%}
+.pac-container{min-width:72%;margin-top:7px;margin-left:-10px}
+.daterangepicker.opensright{margin-top:-8px;margin-left:-11px;width:70%;z-index:100}
+.daterangepicker .calendar{max-width:195px;margin:0}
+.daterangepicker .calendar-table{padding:0}
+.daterangepicker .calendar th{min-width:22px;font-size:.7rem}
+.daterangepicker .calendar td{min-width:26px}
+.daterangepicker .calendar.left{margin-top:7px}
+.airhotels-listing-search .daterangepicker .calendar.left{margin-top:15px}
+.catalog-product-view .nav-section ul li a{margin-right:22px}
+.catalog-product-view .left-cnt-listing-details{float:left;width:100%}
+.catalog-product-view .lising-details.property-space h5{width:100%;padding-bottom:20px}
+.account .block-account ul li.current,.account .block-account ul li a{font-size:.7rem;padding:12px 0px 8px;text-align:center;}
+.airhotels-listing-manage .listing-detail .listing-info{width:83%}
+.airhotels-listing-blockcalendar #calendarWrapper{margin:0 auto 0 30px}
+.airhotels-listing-blockcalendar #cal_legend{margin:30px 0 30px 25px}
+.airhotels-listing-blockcalendar #calendarWrapper .date_grid{width:73%}
+.airhotels-listing-blockcalendar .white_content{width:37%}
+.profile_document_section .country label,.profile_document_section .form-space label{width:100%;margin-bottom:10px}
+.profile_document_section .choose-file span{padding-left:0}
+.profile_document_section .upload-btn input{margin-left:0}
+.profile_document_section .upload-btn{padding-top:0}
+.profile_document_section .country select{width:100%}
+.profile_document_section .verify_id_type{margin-bottom:10px}
+.profile_document_section .choose-file{margin-top:0}
+.image_holder .image-placeholder-text span{font-size:.7rem;padding-top:10px}
+.image_holder .image-placeholder-text{padding:10px;line-height:normal;font-size:.8rem}
+.catalog-product-view #pricing{display:inline-block;margin:20px;width:87%}
+.catalog-product-view #book_it,.catalog-product-view #instant_times_box{width:100%;-webkit-box-shadow:none;box-shadow:none;height:100%}
+.catalog-product-view .fancybox-close{right:-10px;top:-10px}
+.catalog-product-view .fancybox-overlay,.catalog-product-view .fancybox-opened .fancybox-skin{background:#fff}
+.catalog-product-view .fancybox-inner{-webkit-box-align:normal;-ms-flex-align:normal;align-items:normal;min-width:100%;height: 100% !important;}
+#mob_search_popup_form input{width:100%}
+.catalog-product-view .fancybox-opened .fancybox-skin{display:inline-block}
+.catalog-product-view #book_it,.catalog-product-view #instant_times_box{width:100%;box-sizing:border-box;}
+.catalog-product-view .fancybox-inner{box-shadow:none}
+.catalog-product-view .lang-price-select .lang .action{padding:9px 8px 9px}
+.ah-productname{line-height:16px;}
+.ah-productname a{font-size: .8rem;}
+.profile_inbox_table .ah-inbox-checkin, .profile_inbox_table .ah-inbox-checkout{padding: 8px 5px;}
+.ah-checkin-out .ah-inbox-checkin{margin: 0px 3px 0px 0px}
+.catalog-product-view .fancybox-inner #contact-hostpopup{width:auto;height: 450px;overflow: auto;}
+.catalog-product-view .ah-checkin,.catalog-product-view .ah-checkout,.catalog-product-view .ah-guests,.catalog-product-view .ah-phone{width:100%;}
+.catalog-product-view .ah-guests{margin-top: 20px;}
+.catalog-product-view .banner{height:115px}
+.catalog-product-view.catalog-product-view .sort_grid,.catalog-product-view .ah-submitbtn input{width:95%;}
+}
+@media only screen and (max-width: 560px) {
+.daterangepicker.opensright{width:70%}
+.daterangepicker .calendar{max-width:inherit}
+.daterangepicker .calendar th{min-width:22px;font-size:.8rem}
+.footer-content .footer-main-list{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+.footer-content .lang-price-select{margin-top:0}
+.home-information ul{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+.home-information ul li{border-bottom:1px solid #d2d2d2;padding:15px 0}
+.home-information ul li:first-child{border-right:0}
+.home-information ul li:last-child{border:0}
+.searchform-container .gradient-grey li:last-child{right:20px}
+.airhotels-listing-search .daterangepicker.ltr .calendar.right{position:static}
+.catalog-product-view .nav-section ul li a{margin-right:12px}
+.catalog-product-view .product-heading{font-size:1.5rem}
+.catalog-product-view .content_text,.catalog-product-view .porperty-review,.catalog-product-view .property{font-size:.9rem}
+.catalog-product-view .porperty-review{padding-top:0}
+.catalog-product-view .address-ratings{padding-bottom:5px}
+.catalog-product-view #action_buttons{margin-right:0}
+.catalog-product-view #customer_view_map_for_space{height:270px}
+.catalog-product-view .left-cnt-listing-details p{font-size:.9rem}
+.customer-account-login .login-container .block.block-new-customer{margin-left:30px}
+.customer-account-index .wishlist-reviews-listing ul li,.airhotels-profile-hostprofile .wishlist-reviews-listing ul li{display:block}
+.customer-account-index .mylistings-section li,.airhotels-profile-hostprofile .mylistings-section li{width:100%}
+.account .block-account ul li.current,.account .block-account ul li a{padding:12px 0px 8px}
+.airhotels-listing-manage .listing-detail .actions_grid li span{display:none}
+.airhotels-listing-manage .listing-detail .slider-widget-container{right:0}
+.airhotels-listing-manage .listing-detail .listing_user_name h5,.airhotels-listing-manage .listing-detail .listing_user_name h5 a{white-space:normal;width:100%;margin-left:0}
+.airhotels-listing-manage .listing-detail .listing_main img{display:none}
+.airhotels-listing-manage .listing-detail .listing-info{margin:0;width:100%}
+.airhotels-listing-manage .listing-detail .actions_grid li:first-child,.airhotels-listing-manage .property-error{margin-left:0}
+.airhotels-listing-blockcalendar #calendarWrapper{margin:0 auto 0 20px}
+.airhotels-listing-blockcalendar #cal_legend .past_grid,.airhotels-listing-blockcalendar #cal_legend .available_grid,.airhotels-listing-blockcalendar #cal_legend .specialprice_grid,.airhotels-listing-blockcalendar #cal_legend .booked_grid,.airhotels-listing-blockcalendar #cal_legend .unavailable_grid{padding:4px 6px;margin:0 0 10px}
+.airhotels-listing-blockcalendar #cal_legend{margin:30px 0 30px 15px}
+.airhotels-listing-blockcalendar .white_content{width:56%}
+.airhotels-listing-blockcalendar .calend .special-price{font-size:.7rem}
+.airhotels-mytrip-previoustrip .pager .pages,.airhotels-mytrip-currenttrip .pager .pages,.airhotels-mytrip-upcomingtrip .pager .pages,.airhotels-listing-history .pager .pages{float:left}
+#propertyform form .left{width:50%}
+#propertyform form input{width:77%;background:none}
+#propertyform .property-search-action{width:100%}
+#propertyform form .listing-search-btn,#propertyform form .listing-clear-btn{width:auto}
+.airhotels-profile-edit .profile_information .control,.customer-address-form .form-address-edit .control{width:100%}
+.airhotels-profile-edit .profile_information form label,.customer-address-form .form-address-edit label{margin-bottom:10px;width:100%}
+.airhotels-profile-edit .profile_information .field .img_require{font-size:.7rem}
+.customer-address-form .form-address-edit .field{display:inline-block}
+.customer-address-form .form-address-edit .field.billing,.customer-address-form .save{margin-left:0}
+.customer-address-form .form-address-edit .field.choice input{float:left}
+.customer-address-form .form-address-edit .field.choice label{width:90%;margin-top:3px}
+.customer-address-index aside{width:75%}
+.ui-datepicker{width:80%}
+.cms-index-index .daterangepicker .calendar{max-width:49%;float:left}
+.catalog-product-view.viewphotos .fancybox-inner{top:120px}
+.airhotels-listing-search .advanced-search .submit-btn{width:100%}
+.airhotels-listing-search .advanced-search .submit-btn input{background:#ff5a60;padding:14px 0;border-radius:3px;color:#fff;margin:0 auto;padding:15px 0;font-size:1.2rem;width:100%}
+.airhotels-listing-search .filter-apply-btn button.fancybox-close{position:static;float:right;width:35%;background-image:none;padding:9px;margin:0 20px;background:#8597a0;height:auto}
+.tabcontent-grid .item .carousel-image,.catalog-product-view .carousel-image{min-height:120px}
+.account.airhotels-listing-manage .calendar{background-position:-526px -241px;width:21px;height:22px}
+.account.airhotels-listing-manage .film{background-position:-567px -244px;width:23px;height:18px}
+.account.airhotels-listing-manage .edit{background-position:-611px -242px;width:20px;height:20px}
+.account.airhotels-listing-manage .close{background-position:-650px -245px;width:17px;height:17px}
+.airhotels-listing-manage .listing-detail .actions_grid li{padding:6px;width:22px;height:22px;line-height:22px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+#mob_search_popup_form{margin-top:20px}
+.home-page-tab .tab li{font-size:1rem}
+.footer-content .lang-price-select{width:100%}
+.ah-chat-message .ah-reply-message{width:80%;}
+}
+@media only screen and (max-width: 480px) {
+.catalog-product-view .logo img{width:70%}
+.daterangepicker.opensright{width:78%}
+.cms-index-index .pac-container{min-width:92%;margin-top:8px;margin-left:-11px}
+.panels-body h2{font-size:1.8rem;margin-top:0}
+.panels-body h3{font-size:.8rem;margin:5px 0 6px;letter-spacing:.5px}
+.panels-content{-webkit-box-shadow:none;box-shadow:none}
+.panels-content .panels-anywhere,.panels-content .panels-anytime,.panels-content .panels-guest,.panels-content .panels-search{padding:6px 10px}
+.panels-content form{border:1px solid #dbdbdb;width:90%}
+.airhotels-listing-search .searchmainpage_1{top:32px;padding:35px 0 35px 5px}
+.airhotels-listing-search .pac-container{margin-left:0}
+.airhotels-listing-search .fancybox-inner #advance_date_room,.airhotels-listing-search .fancybox-inner .airhotels-category-type,.airhotels-listing-search .fancybox-inner #pricerange,.airhotels-listing-search .fancybox-inner .listing-filters,.airhotels-listing-search .fancybox-inner .listing-mapcanvas{margin-right:5px;padding:10px 4px}
+.airhotels-listing-search .fancybox-inner #advance_date_room label,.airhotels-listing-search .fancybox-inner .airhotels-category-type label,.airhotels-listing-search .fancybox-inner #pricerange label,.airhotels-listing-search .fancybox-inner .listing-filters .show_filter{font-size:.75rem}
+.airhotels-listing-search .fancybox-inner .searchmainpage_1{padding:60px 0}
+.airhotels-listing-search #advance-filter{left:10px;top:74px}
+.searchform-container .gradient-grey{display:inline-block}
+.searchform-container .gradient-grey li{display:inline-block;width:40%}
+.searchform-container .gradient-grey li:last-child{right:-90px;top:40px}
+.searchform-container .result-booking-list li{width:98%;margin:20px 0 10px}
+.calendar-table .table-condensed tbody tr td{line-height:38px;height:38px}
+.catalog-product-view .nav-section ul li a{font-size:.9rem;margin-right:0px}
+.catalog-product-view .address-ratings{float:none;padding-bottom:15px}
+.catalog-product-view #action_buttons{margin-left:-8px}
+.catalog-product-view .host-property-detail-section{width:65%;padding-bottom:40px}
+.catalog-product-view .space-list li{width:80%}
+.catalog-product-view .nav-section.fix-nav ul li a{font-size:.9rem;padding:16px 10px}
+.account .block-account ul li.current,.account .block-account ul li a{padding:12px 0px 8px;text-transform: none;}
+.airhotels-listing-manage .listing-detail .listing-info{margin-left:5px}
+.airhotels-listing-manage .listing-detail .listing_user_name h5{margin-left:0;margin-bottom:10px}
+.airhotels-listing-manage .listing-detail .slider-widget-container{top:40%}
+.airhotels-listing-manage .my-account #newlist{position:relative;margin-bottom:20px}
+.airhotels-listing-manage .column .account-heading{margin-bottom:0}
+.airhotels-listing-manage .pager .pages{float:left}
+.airhotels-listing-blockcalendar #cal_legend .past_grid,.airhotels-listing-blockcalendar #cal_legend .available_grid,.airhotels-listing-blockcalendar #cal_legend .specialprice_grid,.airhotels-listing-blockcalendar #cal_legend .booked_grid,.airhotels-listing-blockcalendar #cal_legend .unavailable_grid{font-size:.6rem}
+.airhotels-listing-blockcalendar #calendarWrapper{margin:0 auto 0 0}
+.airhotels-listing-blockcalendar .calend tbody tr td{padding:15px 0}
+.airhotels-listing-blockcalendar #cal_legend{margin:30px 0}
+.airhotels-listing-blockcalendar #cal_legend li{padding:3px}
+.airhotels-listing-blockcalendar #calendarWrapper .calend{width:100%}
+.airhotels-listing-blockcalendar #calendarWrapper .date_grid{width:74%;line-height:24px}
+.sales-order-print tbody tr td,.sales-order-printinvoice tbody tr td,.sales-order-printcreditmemo tbody tr td{padding:5px 5px 5px 10px}
+.sales-order-print tfoot tr td,.sales-order-printinvoice tfoot tr td,.sales-order-printcreditmemo tfoot tr td{padding:5px 5px 5px 10px}
+.sales-order-invoice .processing_fee th,.sales-order-print .table-order-items tr.processing_fee th,.sales-order-printinvoice .table-order-items tr.processing_fee th,.sales-order-printcreditmemo .table-order-items tr.processing_fee th{padding:5px 5px 5px 10px}
+.sales-order-view #my-orders-table,.sales-order-invoice .table-order-items,.sales-order-print .table-order-items,.sales-order-printinvoice .table-order-items,.sales-order-printcreditmemo .table-order-items{display:table}
+.sales-order-view #my-orders-table tr:first-child th,.sales-order-view #my-orders-table tr td,.sales-order-invoice .table-order-items tr:first-child th,.sales-order-invoice .table-order-items tr td,.sales-order-print .table-order-items tr:first-child th,.sales-order-print .table-order-items tr td,.sales-order-printinvoice .table-order-items tr:first-child th,.sales-order-printinvoice .table-order-items tr td{padding:10px 5px 10px 10px;white-space:normal;font-size:.8rem}
+.sales-order-view .nav,.sales-order-invoice .nav,.sales-order-creditmemo .nav{font-size:.8rem;padding:0 14px}
+.sales-order-printcreditmemo .price{font-size:.8rem}
+.sales-order-printcreditmemo .table-order-items tr:first-child th,.sales-order-printcreditmemo .table-order-items tr td{padding:10px 5px;font-size:.7rem}
+#propertyform form input{width:70%}
+.airhotels-profile-verification .verification-block .verify-description{width:100%}
+.airhotels-profile-verification .verification-block .verify-btn{padding-top:0}
+.airhotels-listing-form .listing-module,.airhotels-listing-form .basicprice,.airhotels-listing-form #custom_attributes .fields,.airhotels-listing-form #custom_attributes .wide.fields{width:100%}
+.airhotels-listing-form #custom_attributes ul li input{width:100%;box-sizing:border-box}
+.cms-index-index .daterangepicker.opensright,.airhotels-listing-search.fancy-popup .daterangepicker.opensright{width:88%;height:300px;overflow:auto}
+.cms-index-index .daterangepicker .calendar,.airhotels-listing-search.fancy-popup .daterangepicker .calendar{max-width:100%;float:none}
+.catalog-product-view.viewphotos .fancybox-inner{top:160px}
+.tabcontent-grid .item .carousel-image,.catalog-product-view .carousel-image{min-height:110px}
+.airhotels-listing-search #advance-filter{width:75%}
+.catalog-product-view .rating-box{margin-top:1px}
+.airhotels-listing-form .fieldset input,.airhotels-listing-form .summary textarea,.airhotels-listing-form .airhotels-category-type select,.airhotels-listing-form #custom_attributes select{width:100%}
+.iphone .airhotels-listing-form #custom_attributes .fields,.iphone .airhotels-listing-form #custom_attributes .wide.fields{width:100%}
+.airhotels-listing-search.fancy-popup .fancybox-inner .advanced-search #searchTextField{width:100%;}
+.profile_inbox_table .inboxTable{display: block; white-space: nowrap; overflow: auto; background: #fff;}
+.ah-userimage-panel{margin-right:10px;height: 50px;}
+.click_popup_view{background: #fff;border:1px solid #ff5a60;margin:8px 16px;padding: 13px 30px;cursor: pointer;text-decoration: none;color:#ff5a60;border-radius: 3px;font-size: 1.1rem;display: block;text-align:center;float: none;}
+.catalog-product-view .xs-form-section button{width:94%;margin-left: 3%;margin-right: 5%;float: none;}
+.catalog-product-view .mob_price_calculate .from,.catalog-product-view .mob_price_calculate .per-night{display: inline-block;}
+.catalog-product-view .mob_price_calculate .overallprice{font-size: 1.8rem;}
+}
+@media only screen and (max-width: 360px) {
+.panels-content form{margin-top:34px;border-radius:2px;-webkit-box-shadow:0 5px 30px 0 rgba(0,0,0,0.15);box-shadow:0 5px 30px 0 rgba(0,0,0,0.15)}
+.panels-content .panels-anywhere,.panels-content .panels-anytime,.panels-content .panels-guest,.panels-content .panels-search{padding:8px 10px}
+.panels-body h2{font-size:1.6rem;margin-top:5px}
+.panels-body h3{font-size:.8rem;letter-spacing:.5px;margin:10px 0 20px}
+.home-page-tab .tab{margin:0 0 20px}
+.copyright{font-size:.75rem}
+.searchform-container .gradient-grey li:last-child{right:-65px;top:40px}
+.airhotels-listing-search .header .button #burger{width:35px}
+.airhotels-listing-search .header .button #burger.active{width:35px}
+.airhotels-listing-search .fancybox-inner .advance_srch .advance_date{width:100%}
+.airhotels-listing-search #advance-filter{width:72%}
+.catalog-product-view .nav-section ul li a{font-size:.7rem}
+.catalog-product-view #action_buttons{margin-bottom:10px}
+.customer-account-login .block-customer-login .fieldset .control input{width:90%}
+.customer-account-login .block-customer-login .fieldset .secondary{padding-left:0;padding-right:10px}
+.account .block-account ul li.current,.account .block-account ul li a{font-size:.7rem;padding:12px 0px 8px;text-align:center;text-transform: none}
+.airhotels-listing-blockcalendar #calendarWrapper{margin:0 auto 0 0}
+.airhotels-listing-blockcalendar .weekDays th{padding:10px 5px}
+.airhotels-listing-blockcalendar .calend tbody tr td{padding:15px 0}
+.airhotels-listing-blockcalendar #cal_legend .past_grid,.airhotels-listing-blockcalendar #cal_legend .available_grid,.airhotels-listing-blockcalendar #cal_legend .specialprice_grid,.airhotels-listing-blockcalendar #cal_legend .booked_grid,.airhotels-listing-blockcalendar #cal_legend .unavailable_grid{padding:4px 3px}
+.airhotels-listing-blockcalendar .white_content{width:65%}
+.airhotels-listing-transactions .column .account-heading{font-size:1.7rem}
+.customer-address-index .add{margin-right:0}
+.airhotels-listing-form .images_list img{width:250px;height:auto}
+.contact-index-index .fieldset .field .control textarea{width:95%}
+.tabcontent-grid .item .carousel-image,.catalog-product-view .carousel-image{min-height:90px}
+#mob_search_popup_form{margin-top:10px}
+.cms-index-index .pac-container{min-width:88%}
+.catalog-product-view .nav-section.fix-nav ul li a{font-size:.8rem}
+.cms-index-index .daterangepicker.opensright{min-width:88%}
+.ah-checkin-out .ah-inbox-checkin span, .ah-checkin-out .ah-inbox-checkout span{display: block}
+.profile_inbox_table .ah-inbox-checkin, .profile_inbox_table .ah-inbox-checkout{width:auto;}
+.desktop-checkin-checkout{display: none}
+.mobile-checkin-checkout{display: block}
+.ah-userimage{width:50px;height:50px;}
+.ah-userimage img{max-width:80px;}
+.ah-online{bottom:-4px;}
+.ah-chat-message{margin:0px;}
+.ah-product-detail{margin-bottom: 0px;}
+.catalog-product-view .xs-form-section button{width:90%;margin-left:5%;}
+}
+@media only screen and (max-width: 320px) {
+.panels-content form{margin-top:24px}
+.panels-body h2{font-size:1.6rem}
+.panels-body h3{font-size:.7rem;margin:3px 0 0}
+.catalog-product-view .nav-section.fix-nav ul li a{font-size:.75rem}
+}

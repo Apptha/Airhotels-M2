@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+         <remove src="css/styles-m.css"/>
+         <remove src="css/styles-l.css"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
+        <css src="css/daterangepicker.css"/>
+        <css src="css/stylish.css" />
+        <script src="js/header.js" />
+        <script src="js/selectbox.min.js"/>
+        <script src="js/css_browser_selector.js"/>
+        <css src="css/account.css" />
+        <css src="css/responsive.css" order="8" />
+    </head>
+</page>

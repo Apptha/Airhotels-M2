@@ -1,0 +1,78 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('Booking Information') ?></strong>
+    </div>
+    <div class="block-content clearfix">
+    <?php if (!$_order->getIsVirtual()): ?>
+        <div class="box box-order-shipping-address">
+            <strong class="box-title"><span><?php /* @escapeNotVerified */ echo __('Shipping Address') ?></span></strong>
+            <div class="box-content">
+                <address><?php /* @escapeNotVerified */ echo $block->getFormattedAddress($_order->getShippingAddress()); ?></address>
+            </div>
+        </div>
+
+        <div class="box box-order-shipping-method">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Shipping Method') ?></span>
+            </strong>
+            <div class="box-content">
+            <?php if ($_order->getShippingDescription()): ?>
+                <?php echo $block->escapeHtml($_order->getShippingDescription()) ?>
+            <?php else: ?>
+                <?php /* @escapeNotVerified */ echo __('No shipping information available'); ?>
+            <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+        <div class="box box-order-billing-address">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Billing Address') ?></span>
+            </strong>
+            <div class="box-content">
+                <address><?php /* @escapeNotVerified */ echo $block->getFormattedAddress($_order->getBillingAddress()); ?></address>
+            </div>
+        </div>
+        <div class="box box-order-billing-method">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Payment Method') ?></span>
+            </strong>
+            <div class="box-content">
+                <?php echo $block->getPaymentInfoHtml() ?>
+            </div>
+        </div>
+    </div>
+</div>

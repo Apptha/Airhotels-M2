@@ -1,0 +1,58 @@
+<?php
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+?>
+<div class="order-details-items invoice">
+    <?php echo $block->getChildHtml('invoice_items') ?>
+</div>
+   <?php
+$orderId = $this->getRequest()->getParam('order_id');
+$getOrderInfo = $this->helper('\Apptha\Airhotels\Helper\Order')->getOrderInformation($orderId,'')->getData();
+$customerData = $this->helper('\Apptha\Airhotels\Helper\Data')->getCustomerData();
+$customerDataId = $customerData->getCustomerId();
+$hostId = $getOrderInfo[0]['host_id'] ;
+$customerId = $getOrderInfo[0]['customer_id'] ;
+?>
+    <div class="actions-toolbar">
+        <div class="secondary">
+        <?php if($customerDataId === $customerId){?>
+            <a href="<?php /* @escapeNotVerified */
+            $listingUrl = $this->helper( 'Apptha\Airhotels\Helper\General' );
+            echo $listingUrl->getMytripUrl() ?>" class="action back">
+                <span><?php echo __('Back To My Trips')?></span>
+            </a>
+            <?php } else {?>
+            <a href="<?php /* @escapeNotVerified */
+            $listingUrl = $this->helper( 'Apptha\Airhotels\Helper\Data' );
+            echo $listingUrl->getListingUrl() ?>" class="action back">
+                <span><?php echo __('Back To Booking History')?></span>
+            </a>
+            <?php }?>
+        </div>
+    </div>

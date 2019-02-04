@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $block->getOrder() ?>
+<div class="actions-toolbar-main clearfix">
+<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
+<div class="order-title">
+    <?php /* @escapeNotVerified */ echo __('Refund #') ?><?php /* @escapeNotVerified */ echo $_creditmemo->getIncrementId(); ?>
+    <a href="<?php /* @escapeNotVerified */ echo $block->getPrintCreditmemoUrl($_creditmemo) ?>order_id/<?php echo $_order->getId()?>/"
+       onclick="this.target='_blank'"
+       class="action print">
+        <span><?php /* @escapeNotVerified */ echo __('Print Refund') ?></span>
+    </a>
+</div>
+</div>
+<div class="table-wrapper order-items-creditmemo">
+    <table class="data table table-order-items creditmemo" id="my-refund-table-<?php /* @escapeNotVerified */ echo $_creditmemo->getId(); ?>">
+        <thead>
+            <tr>
+                <th class="col name" colspan="3"><?php /* @escapeNotVerified */ echo __('Booking Details') ?></th>
+                <th class="col price"><?php /* @escapeNotVerified */ echo __('Price') ?></th>
+                <th class="col subtotal"><?php /* @escapeNotVerified */ echo __('Subtotal') ?></th>
+                <th class="col discount"><?php /* @escapeNotVerified */ echo __('Discount Amount') ?></th>
+                <th class="col total"><?php /* @escapeNotVerified */ echo __('Row Total') ?></th>
+            </tr>
+        </thead>
+        <?php $_items = $_creditmemo->getAllItems(); ?>
+        <?php $_count = count($_items) ?>
+        <?php foreach ($_items as $_item): ?>
+        <?php if ($_item->getOrderItem()->getParentItem()) {
+    continue;
+} ?>
+        <tbody>
+            <?php echo $block->getItemHtml($_item) ?>
+        </tbody>
+        <?php endforeach; ?>
+        <tfoot>
+            <?php echo $block->getTotalsHtml($_creditmemo);?>
+        </tfoot>
+    </table>
+</div>
+<?php echo $block->getCommentsHtml($_creditmemo)?>
+<?php endforeach; ?>

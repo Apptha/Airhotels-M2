@@ -1,0 +1,164 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+$currentCustomerData = $this->getHostDetails ();
+$hostProfileData = $this->getHostProfileData ();
+$customerMonth = date ( "F", strtotime ( $currentCustomerData->getCreatedAt () ) );
+$customerYear = date ( 'Y', strtotime ( $currentCustomerData->getCreatedAt () ) );
+$hostVerified = $this->getHostsVerified ();
+$listingCollection = $block->getMyListings ();
+$currentStore = $this->helper('Apptha\Airhotels\Helper\Data')->getStore();
+$placeholderImage =  $this->helper('Apptha\Airhotels\Helper\General')->getPlaceholderImage();
+$_reviewsCount = 0;
+if(count($listingCollection) > 0 ){
+    foreach ( $listingCollection as $listingCollections ) {
+        $_ratingSummary = $block->getRatingSummarys ( $listingCollections );
+        $_reviewsCount = $_reviewsCount + $listingCollections->getRatingSummary ()->getReviewsCount ();
+    }
+} else {
+    $_ratingSummary = 0;
+    $_reviewsCount = 0;
+    $listingCollection = array();
+}
+?>
+<div class="my-account">
+     <div class="page-title" style="margin: 0;">
+          <h2 class="account-heading"><?php echo __("Hey,I'm "); ?>
+        <span><?php echo $currentCustomerData->getName(); ?> !</span>
+          </h2>
+          <span class="member_since">
+    <?php echo __($hostProfileData->getCity().', '.$hostProfileData->getCountry().'.')?><?php echo __('Joined in '); ?> <?php echo $customerMonth ?> <?php echo $customerYear;?></span>
+     </div>
+     <div class="body_grid clearfix">
+          <div class="customer-profile-information">
+<?php if(!empty($hostProfileData->getDescription())){ ?>
+              <p><?php echo $hostProfileData->getDescription(); ?></p>
+              <?php }else{?>
+                  <p><?php
+
+echo __ ( 'Hello, Im Natasha. Originally I am from Moscow, but for last 7 years I live in Budapest with my husband and 2 children.
+I am photographer and guide a small family photo studio here. I love ancient stuff, in my flat you can enjoy the design
+of turn-of-the-century Budapest through old decoration elements you can find here. Welcome .' );
+    ?></p>
+
+              <?php } ?>
+              <div class="review-verify">
+                    <ul>
+                         <li><span class="reviews-count"><?php  echo $_reviewsCount; ?></span><span><?php echo __('Reviews');?></span></li>
+                         <?php if($hostVerified->getHostTags()==0):?>
+                           <li><span class="verify-icon pending"><?php echo __('Pending');?></span></li>
+                         <?php elseif($hostVerified->getHostTags()==1):?>
+                           <li><span class="verify-icon verified"><?php echo __('Verified');?></span></li>
+                         <?php else:?>
+                           <li><span class="verify-icon rejected"><?php echo __('Rejected');?></span></li>
+                         <?php endif;?>
+                    </ul>
+               </div>
+          </div>
+          <?php  if(count($listingCollection)>0){?>
+          <div class="wishlist-reviews-listing">
+               <ul>
+                    <li>
+                             <h3><?php echo __(' My Listings');?> <span>(<?php echo count($listingCollection);?>)</span></h3>
+                          <ul class="mylistings-section">
+            <?php foreach ( $listingCollection as $listingCollections ) {
+                $productsUrl = $currentStore->getBaseUrl ().$listingCollections->getUrlKey().'.html';
+                $getMediaUrl = $currentStore->getBaseUrl ( \Magento\Framework\UrlInterface::URL_TYPE_MEDIA ) . 'catalog/product' . $listingCollections->getImage ();
+                $getPrivacyType = $listingCollections->getAttributeText ( 'privacy' );
+                $getPropertyType = $listingCollections->getAttributeText ( 'booking_type' );
+                $getBedType = $listingCollections->getAttributeText ( 'bedtype' );
+                $value = $listingCollections->getPrice ();
+                $listingprice = $this->helper('Apptha\Airhotels\Helper\General')->priceConverter($value);
+                $_ratingSummarys = $block->getRatingSummary ( $listingCollections );
+                $_ratingSummarys = $_ratingSummarys?$_ratingSummarys:0;
+                ?>
+                              <li><a href="<?php echo $productsUrl;?>">
+                                        <div class="mylisting-image">
+                                             <div class="mylisting-image-img" style="background-image: url('<?php echo $listingCollections->getImage()?$getMediaUrl:$placeholderImage;?>')"></div>
+                                        </div>
+                                        <div class="mylisting-content">
+                                             <h4><?php echo $listingCollections->getName();?></h4>
+                                             <p><?php echo $getPrivacyType;?>/<?php echo $getPropertyType;?>. <?php echo $getBedType;?></p>
+                                             <div class="rating-box">
+                                                  <div class="rating" style="width:<?php echo $_ratingSummarys;?>%;"></div>
+                                             </div>
+                                             <div class="price">
+                                                  <h4><?php echo $listingprice ;?></h4>
+                                             </div>
+                                        </div>
+                              </a></li>
+<?php
+            } ?>
+            </ul>
+         </li>
+                    <li class="list-review">
+                              <h3> <?php echo __('Listing Reviews');?><span>(<?php echo $_reviewsCount;?>)</span></h3>
+         <?php
+        foreach ( $listingCollection as $listingCollection ) {
+            $sku = $listingCollection->getSku ();
+        $reviewCollection = $block->getReviewDetails($sku);
+        if (count ( $reviewCollection ) > 0) {
+            foreach ( $reviewCollection as $reviewCollection ) {
+              $profileImage = $block->getProfileImage($listingCollection);
+               $getCustomerProfileImage=($profileImage)?$this->getCustomerProfileImage().$profileImage->getProfileimage(): $block->getViewFileUrl('Apptha_Airhotels::images/no_user.jpg');
+
+
+                ?>
+                <div class="reviews-from-guest">
+                                <ul>
+                                     <li class="clearfix">
+                                          <div class="guest-image-section">
+                                               <div class="guest-image">
+                                                 <img src="<?php echo $getCustomerProfileImage?>" alt="profile">
+                                               </div>
+                                               <h5><?php echo $reviewCollection['nickname'];?></h5>
+                                          </div>
+                                          <div class="guest-info">
+                                               <p><?php echo $reviewCollection['title'];?></p>
+                                               <p><?php echo $reviewCollection['detail'];?></p>
+                                               <span class="guest-pace"><?php echo __('Posted On,')?> <?php echo date('d-m-Y',strtotime($reviewCollection['created_at']));?>.</span>
+                                          </div>
+                                     </li>
+                                </ul>
+                           </div>
+                  <?php
+                }
+            }
+        }
+        ?>
+         <?php if($_reviewsCount==0){?>
+            <div class="no_reviews"><?php echo __('Yet no reviews available')?></div>
+         <?php }?>
+        </li>
+          <?php echo $block->getPagerHtml ();?>
+   </ul>
+          </div>
+         <?php } ?>
+     </div>
+</div>

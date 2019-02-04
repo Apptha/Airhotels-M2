@@ -1,0 +1,202 @@
+<?php 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */?>
+<?php
+$customerIds = "";
+$messageId = $this->getRequest ()->getParam ('id');
+$blockObj =  $this->getInboxDetails ();
+$replyObj =  $this->getReplyMessageDetails ();
+$customerId = $this->getCustomerId();
+$requestValue     = $this->getRequest();
+/*
+* Date Format conversion as per admin settings.
+*/
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->messagingDateFormat();
+?>
+<div class="profile_inbox_table" onload="myFunction()">
+<div class="ah-inbox-detail">
+    <a href="<?php echo $this->getUrl('airhotels/message/inbox') ?>" class="ah-backbtn"><?php echo __('Back');?></a> 
+    <table class="inboxTable" id="outboxList">
+          <?php  foreach($blockObj as $blockObj ) {
+                    $product =  $this->getProduct($blockObj->getProductId());
+                    $senderId = $blockObj->getSenderId();
+                    $productName = $product->getName();
+                    $messageId = $blockObj->getId();
+                    $profileImage = $this->getProfileImage($senderId);
+                    $mediaUrl = $this->getHostImageUrl();
+                    $messageCreationDate = 
+             date('Y-m-d', strtotime($blockObj->getCreatedAt()));
+             $msgCheckInDate = date('Y-m-d', strtotime($blockObj->getCheckin()));
+             $msgCheckOutDate =  date('Y-m-d', strtotime($blockObj->getCheckout()));
+
+                    if($customerId == $blockObj->getSenderId()){
+                        $customerIds = $blockObj->getReceiverId();
+                    }
+                    if($customerId == $blockObj->getReceiverId()){
+                        $customerIds = $blockObj->getSenderId();
+                    }                 
+                    $customer =  $this->getCustomer($customerIds);
+                    $customerName = $customer->getFirstname() .' '.$customer->getLastname();   
+            $productImage = $this->helper ( 'Apptha\Airhotels\Helper\Data' )->getProductMediaUrl(). 'catalog/product/' .  $product->getImage ();
+            $customerStatus = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getCustomerIds($customerIds);
+                    
+          ?>
+        <div class="ah-inbox-panel">
+                <div class="ah-userimage-panel">
+                    <div class="ah-userimage">
+                        <img alt="<?php echo $productName; ?>" src="<?php echo $productImage; ?>"/>                       
+                    </div>                    
+                </div>
+            <div class="ah-product-detail">
+                 <p class="ah-username"><?php echo $customerName; ?> <span class="<?php echo $customerStatus; ?> "></span></p>
+                 <p class="ah-productname"><a href="#"><?php echo $productName; ?></a></p>
+                 <div class="ah-checkin-out desktop-checkin-checkout">
+                     <p class="ah-inbox-checkin"><span><?php echo __('Check-In');?></span> <?php  echo date($convertedDateFormat, strtotime($msgCheckInDate)); ?></p>
+                     <p class="ah-inbox-checkout"><span><?php echo __('Check-Out');?></span><?php  echo date($convertedDateFormat, strtotime($msgCheckOutDate)); ?></p>
+                </div>
+            </div>
+            
+            <div class="ah-product-date">
+                <span><?php echo date($convertedDateFormat, strtotime($messageCreationDate)); ?></span>
+            </div>
+        </div>
+        <div class="ah-checkin-out mobile-checkin-checkout">
+                     <p class="ah-inbox-checkin"><span><?php echo __('Check-In');?></span><?php echo date($convertedDateFormat, strtotime($msgCheckInDate)); ?></p>
+                     <p class="ah-inbox-checkout"><span><?php echo __('Check-Out');?></span><?php echo date($convertedDateFormat, strtotime($msgCheckInDate)); ?></p>
+            </div>
+    
+      
+      <!-- content -->
+      <div class="baron ">
+        <div class="baron__scroller">
+        <div class="ah-chat-message">
+         <p class="ah-message">
+            <span class="sender_message_host"><?php echo $blockObj->getMessage(); ?></span>
+         </p>
+         
+         <?php $style = ($blockObj->getPhoneNo() != 0 ) ? 'black' : 'none'; ?>
+         <div style="display:<?php echo $style; ?>;" >
+         <p class="table_head_label">TelePhone Number : <?php echo $blockObj->getPhoneNo() ?></p>
+        </div>
+         <?php } ?>
+         <?php if(!empty($replyObj) && count($replyObj) != 0 ) {  ?>
+            <div class="select_grid1">
+                    <label for="guests"><?php echo __('Reply:') ?> </label>
+            </div>
+            <?php
+                foreach($replyObj as $replyObj){
+                $message = $replyObj->getMessage();
+                $time = $replyObj->getReplyAt();
+                if($this->getCustomerId() == $replyObj->getSenderId() ) {
+                    $messagerDetails = 'customer ah-message';
+                } else{
+                   $messagerDetails = 'host'; 
+                }
+                $profileImage = $this->getProfileImage($replyObj->getSenderId());
+                $customer = $this->getCustomer($replyObj->getSenderId()); 
+                if(!empty($profileImage)){
+                $messageProfileImage = $mediaUrl.'/'.$profileImage;
+                } else {
+                $messageProfileImage = $block->getViewFileUrl('Apptha_Airhotels::images/no_user.jpg');
+                }        
+            ?>  
+                <div class="ah-reply-userimg <?php echo $messagerDetails ?>">
+                    <div class="ah-userimage">
+                        <img alt="<?php echo $customer->getFirstname(); ?>" src="<?php echo $messageProfileImage; ?>"/>
+                    </div>
+                    <div class="ah-reply-message">
+                        <div class = "sender_message_<?php echo $messagerDetails ?>"> 
+                            <p class="table_head_label"><?php echo $message; ?></p>
+                            <p class="table_head_label"><?php echo $time; ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php } 
+            } ?>
+           </div>
+          </div>
+           <div class="baron__track">
+                <div class="baron__bar"></div>
+            </div>
+        </div>
+    </table>
+</div>
+</div>
+<form id="reply_message_form" name="reply_message_form" action="<?php echo $this->getUrl('booking/message/replymessage') ?>" method="post" autocomplete="off"  onsubmit="return inboxValidateForm();">
+    <div class="select_grid1">
+        <div class="sort_grid"> <textarea class="scroll" rows="4" cols="50"  data-validate="{required:true}" name="reply_desc" id="reply_desc" placeholder="Type a Message here" ></textarea>
+        </div>
+    </div>
+        <input type="hidden" name="message_id" value="<?php echo $messageId;?>"/>
+        <input type="hidden" name="receiver_id" value="<?php echo $customerIds;?>"/>
+        <input class="submitbtn" type="submit" value="<?php echo __('Send');?>" >
+</form>
+<script>
+require([
+    "jquery",
+    "jquery/ui","mcustomscroll"
+    ], function($){
+            window.dima = baron({
+                root: '.baron',
+                scroller: '.baron__scroller',
+                bar: '.baron__bar'
+            });
+            var dataForm = $('#reply_message_form');
+            dataForm.mage('validation', {});
+    });
+</script>
+<script type="text/javascript">
+        function inboxValidateForm() {
+            var contacthosterrorFlag = false;
+            var mailSubject     = jQuery.trim(jQuery("#reply_desc").val());
+            var mailSubject = mailSubject.replace(/\s/g, '');
+            if(mailSubject != ''){
+                var rehttp             = /(ftp|http|https):\/\//i;
+                var rewww           = /www\.\w+/i;
+                var redomainext     = /\w+\.(dot|com|net|org|biz|ws|name)/i;
+                var rephonenumber   = /([0-9]{3,9}[\- ]?){3,9}/;                
+                var blocklistwords = new RegExp('\\b' + ['dot', 'email', 'phone', 'mail','facebook','twitter','@','zero','one','two','three','four','five','six',
+                    'seven','eight','nine','ten','hundred'].join('\\b|\\b') + '\\b');
+                var reemail         = /\w+(\.\w+){0,1}(@)[\w|\-]+(\.|\W{1,3}dot\W{1,3})\w+/;
+                var reemaildomain   = /( aol|gmail|hotmail|msn|yahoo)(\.com){0,1}/i;
+                var iswebsite       = (rehttp.test(mailSubject) || rewww.test(mailSubject) || redomainext.test(mailSubject) || blocklistwords.test(mailSubject));
+                var isphone         = rephonenumber.test(mailSubject);
+                var isemail         = (reemail.test(mailSubject) || reemaildomain.test(mailSubject));
+                if (iswebsite || isphone || isemail) {
+                alert("<?php echo __('Warning: It looks like you may be trying to send contact information.'); ?>");
+                return false;
+                }
+            }
+            if (contacthosterrorFlag) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+</script>

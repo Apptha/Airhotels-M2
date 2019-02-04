@@ -1,0 +1,173 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+?>
+<?php
+/**
+ * To get the country selection options
+ * @var array $countryList
+ */
+$countryList=$this->getCountryList();
+/**
+ * To ge the current customer details from session
+ * @var object $customerData
+ */
+$customerData=$this->getCustomerDetails();
+/**
+ * Get the cusotmer profile data using customer id
+ * @var object $customerProfileData
+ */
+$customerProfileData=$this->getCustomerProfileData();
+/**
+ * To get the customer profile image url
+ * @var string $getProfileImageUrl
+ */
+$getProfileImageUrl=$this->getCustomerProfileImage();
+/**
+ * To get the gender selection options
+ * @var array $getGenderOptionList
+ */
+$getGenderOptionList=$this->getGenderList();
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+?>
+<div class="profile_information">
+    <form action="<?php echo $this->getUrl('airhotels/profile/saveupdate'); ?>" method="post" id="form-validate" role="form" enctype="multipart/form-data">
+        <fieldset>
+            <h2>My Profile</h2>
+            <div class="field field-name-firstname">
+            <label class="label" for="firstname"><span><?php echo __('First Name') ?></span></label>
+            <div class="control">
+                <?php echo $customerData->getFirstname(); ?>
+            </div>
+            </div>
+            <div class="field field-name-lastname">
+                <label class="label" for="lastname"><span><?php echo __('Last Name') ?></span></label>
+                <div class="control">
+                    <?php echo $customerData->getLastname(); ?>
+                </div>
+            </div>
+            <div class="field field-name-gender required">
+                <label class="label" for="gender"><span><?php echo __('Gender') ?></span></label>
+                <div class="control">
+                <select name="gender" id="gender">
+                <option value="0"><?php echo __('Select Gender') ?></option>
+                    <?php foreach($getGenderOptionList as $genderOptionList){?>
+                        <option <?php if(strtolower($customerProfileData->getGender())==strtolower($genderOptionList['value'])){ echo "selected"; } ?> value="<?php echo $genderOptionList['value']; ?>"><?php echo $genderOptionList['label']; ?></option>
+                    <?php } ?>
+                   </select>
+                </div>
+            </div>
+            <div class="field field-name-dob required">
+                <label class="label" for="dob"><span><?php echo __('Birth Date') ?></span></label>
+                <div class="control">
+                    <input readonly type="text" id="dob" name="dob" value="<?php echo ($customerProfileData->getDob())?date($this->helper('Apptha\Airhotels\Helper\Dateformat')->getConvertedDate($listingDateFormat), strtotime($customerProfileData->getDob())):''; ?>" title="<?php echo __('Birth Date') ?>" placeholder="<?php echo __('Birth Date') ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+                </div>
+            </div>
+            <div class="field field-name-phonenumber required">
+                <label class="label" for="phonenumber"><span><?php echo __('Phone Number') ?></span><em>*</em></label>
+                <div class="control">
+                    <input type="text" id="phonenumber" name="phonenumber" value="<?php echo $customerProfileData->getPhone(); ?>" title="<?php echo __('Phone Number') ?>" placeholder="<?php echo __('Phone Number') ?>" class="input-text required-entry validate-digits" data-validate="{required:true,'validate-custom-phone':true}" aria-required="true">
+                </div>
+            </div>
+            <div class="field field-name-description required">
+                <label class="label" for="description"><span><?php echo __('Describe yourself') ?></span><em>*</em></label>
+                <div class="control">
+                    <textarea id="description" name="description" title="<?php echo __('Describe yourself') ?>" placeholder="<?php echo __('Describe yourself') ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true"><?php echo $customerProfileData->getDescription(); ?></textarea>
+                </div>
+            </div>
+            <div class="field field-name-city required">
+                <label class="label" for="city"><span><?php echo __('City') ?></span><em>*</em></label>
+                <div class="control">
+                    <input type="text" id="city" name="city" value="<?php echo $customerProfileData->getCity(); ?>" title="<?php echo __('City') ?>" placeholder="<?php echo __('City') ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+                </div>
+            </div>
+            <div class="field field-name-country required">
+                <label class="label" for="country"><span><?php echo __('Country') ?></span></label>
+                <div class="control">
+                <select name="countryname" id="countryname">
+                <option value="0"><?php echo __('Select Country') ?></option>
+                <?php foreach($countryList as $_countrylist){ ?>
+                   <option <?php if(strtolower($customerProfileData->getCountry())==strtolower($_countrylist['value'])){ echo "selected"; } ?> value="<?php echo $_countrylist['value']; ?>"><?php echo $_countrylist['label']; ?></option>
+               <?php } ?>
+               </select>
+                </div>
+            </div>
+            <div class="field field-name-profileimage">
+                <label class="label" for="profileimage"><span><?php echo __('Add profile image') ?></span></label>
+                <div class="control">
+                    <input id="profileimage" accept="image/*" type="file" name="profileimage" value="" title="<?php echo __('Add profile image') ?>" placeholder="<?php echo __('Add profile image') ?>" class="input-text" />
+                    <div><span class="img_require"><?php echo __('Minimum Upload Image Size: 250px*250px')?></span> </div>
+               <?php if($customerProfileData->getProfileimage()!=''){ ?>
+                <img class="img_require_source" src="<?php echo $getProfileImageUrl.$customerProfileData->getProfileimage(); ?>" />
+                <?php } ?>
+                </div>
+            </div>
+             <div class="field field-name-bankdetails required">
+                <label class="label" for="bankdetails"><span><?php echo __('Bank Details') ?></span><em>*</em></label>
+                <div class="control">
+                    <textarea id="bankdetails" name="bankdetails" title="<?php echo __('Bank Details') ?>" placeholder="<?php echo __('Bank Details') ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true"><?php echo $customerProfileData->getBankdetails(); ?></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">&nbsp;</label>
+                <div class="control">
+                    <button type="submit" name="profilesave"><?php echo __('Update Profile') ?></button>
+                </div>
+            </div>
+       </fieldset>
+    </form>
+</div>
+<script>
+     require(["jquery","mage/calendar",'mage/mage'], function($){
+       $.datepicker.setDefaults({ dateFormat: '<?php echo $this->helper('Apptha\Airhotels\Helper\Dateformat')->datepickerFormat($listingDateFormat);?>' });
+         $("#dob").datepicker({
+        changeMonth: true,
+             changeYear: true,
+             showButtonPanel: true,
+             yearRange: "-100:+0",
+             maxDate: new Date,
+         });
+         var dataForm = $('#form-validate');
+         dataForm.mage('validation', {});
+       });
+</script>
+<script type="text/javascript">
+    require([
+    'jquery', // jquery Library
+    'jquery/ui', // Jquery UI Library
+    'jquery/validate', // Jquery Validation Library
+    'mage/translate' // Magento text translate (Validation message translte as per language)
+    ], function($){
+        $.validator.addMethod(
+        'validate-custom-phone', function (value) {
+          return value.length > 9 && value.match(/([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/g) && value.match(/^[-+]?[0-9]+$/);
+        }, $.mage.__('Please enter a valid phone number'));
+
+    });
+</script>

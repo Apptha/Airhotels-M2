@@ -1,0 +1,65 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+?>
+<?php 
+/**
+ * Get current customer data
+ * @var object $hostData
+ */
+$hostData = $this->getCustomerData ();
+if ($hostData->isLoggedIn ()) {
+     $hostID = $hostData->getCustomer ()->getId ();
+     $requestValue = $this->getRequest ();
+     $controllerVal = $requestValue->getActionName ();
+     ?>
+<div class="content-block sidebar-button">
+     <h2 class="account-heading" id="sidebar-button"><?php echo __('Profile Information'); ?></h2>
+     <div class="account-heading-contents sidebar-menu" id = "sidebar-menu">
+          <ul>
+               <li><a href="<?php echo $this->getEditProfileUrl(); ?>"
+                    <?php if($controllerVal == 'edit' ){?> class="selected" <?php }?>><?php echo __('Edit Profile'); ?></a></li>
+               <li><a href="<?php echo $this->getVerificationUrl(); ?>"
+                    <?php if($controllerVal == 'verification' || $controllerVal == 'accountverification'){?>
+                    class="selected" <?php }?>><?php echo __('Trust and Verification'); ?></a>
+               </li>
+          </ul>
+     </div>
+</div>
+<?php } ?>
+
+<script type="text/javascript">
+   require(["jquery","jquery/ui",], function($){
+$(document).ready(function(){
+    $("#sidebar-button").click(function(){
+        $("#sidebar-menu").toggle();
+    });
+});
+});
+</script>

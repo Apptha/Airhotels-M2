@@ -1,0 +1,80 @@
+<!--@subject New Booking - #{{var order_id}}   @-->
+
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var customer.email":"Customer Email",
+"htmlescape var=$customer.password":"Customer Password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0px">
+            <!-- [ header starts here] -->
+            <table bgcolor="FFFFFF" cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #e0e0e0;padding:0px 10px 10px;">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" border="0" style="margin: 20px 0px;" /></a></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size:20px;color: #333;line-height: 16px;font-weight: bold; padding:20px 0px 22px 0px;">
+                                {{trans 'Hi'}} {{var ownername}},
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 10px 0;color: #666;">
+                                {{trans 'Kindly check out the details on the latest listing experience booked.'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 10px 0;color: #666;">
+                                <strong>{{trans 'Guest Name:'}}</strong> {{var customer_firstname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size: 13px;line-height: 16px;padding: 0 0 10px 0;color: #666;">
+                                <strong>{{trans 'Email id:'}}</strong> {{var customer_email}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="address-details">
+                                    <h3 style="background:#eee;padding: 7px 20px;font-size:14px;color:#333;font-weight:bold;line-height: 28px;">{{trans "Billing Info"}}</h3>
+                                    <p style="padding-left: 20px;color:#666;font-size: 12px;">{{var formattedBillingAddress|raw}}</p>
+                        </td>
+                        <td class="method-info" style="vertical-align: top;">
+                                    <h3 style="background:#eee;padding: 7px 0px;font-size:14px;color:#333;font-weight:bold;line-height: 28px;">{{trans "Payment Method"}}</h3>
+                                    {{var payment_html|raw}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size: 13px;line-height: 16px;" colspan="2">
+                               <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #eaeaea;color:#333;">
+                                    <thead>
+                                        <tr>
+                                            <th style="background: #eee;padding: 10px 20px;">{{trans 'Experience Name'}}</th>
+                                            <th align="center" style="background: #eee;padding: 10px 20px;">{{trans 'Total Amount'}}</th><th align="center" bgcolor="#EAEAEA" style="background: #eee;padding: 10px 20px;">{{trans 'Commission Fee'}}</th><th align="center" style="background: #eee;padding: 10px 20px;">{{trans 'Listing Owner Amount'}}<span style="display: block;font-size: 11px;">{{trans '(Incl.Tax)'}}</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody bgcolor="#F6F6F6">
+                                        <tr>
+                                            <td align="left" valign="top" style="font-size:11px;padding:10px 20px;border-bottom:1px dotted #cccccc;background: #fff;">{{var product_name}}</td>
+                                            <td align="center" valign="top" style="font-size:11px;padding:10px 20px;border-bottom:1px dotted #cccccc;background: #fff;">{{var total}}</td><td align="center" valign="top" style="font-size:11px;padding:10px 20px;border-bottom:1px dotted #cccccc;background: #fff;">{{var admin_fee}}</td>
+                                            <td align="center" valign="top" style="font-size:11px;padding:10px 20px;border-bottom:1px dotted #cccccc;background: #fff;">{{var owner_amount}}</td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td bgcolor="#EAEAEA" align="center" colspan="2" style="background:#EAEAEA; text-align:center;"><center><p style="margin:0;text-align: center;font-size: 14px;padding: 0px;line-height: 40px;">{{trans 'Thank you again.'}} <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                   </tr>
+            </table>
+        </td>
+    </tr>
+</table>

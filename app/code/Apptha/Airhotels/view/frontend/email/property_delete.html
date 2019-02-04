@@ -1,0 +1,75 @@
+<!--
+/**
+* Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     1.0
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/
+-->
+<!--@subject Listing Experience Deleted Notification @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<!--@subject {{trans "Welcome to %store_name" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0px">
+            <!-- [ header starts here] -->
+            <table bgcolor="FFFFFF" cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #e0e0e0;padding:0px 10px 10px;">
+                    <tr>
+                        <td valign="top">
+                            {{template config_path="design/email/header_template"}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size:17px;color: #333;line-height: 16px;font-weight: bold; padding:20px 0px 10px 0px;">
+                                {{trans 'Hi'}} {{var ownername}},
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-size: 13px;line-height: 16px;padding: 10px 0 10px 0;color: #666;font-family: Arial,sans-serif;vertical-align: top;font-weight:normal;">
+                                {{trans 'Listing Experience'}} "{{var pname}}" {{trans 'have been deleted '}}
+                        </td>
+                    </tr>
+                   <tr>
+                        <td valign="top" align="center">
+                                {{template config_path="design/email/footer_template"}}
+                        </td>
+                   </tr>
+            </table>
+        </td>
+    </tr>
+</table>

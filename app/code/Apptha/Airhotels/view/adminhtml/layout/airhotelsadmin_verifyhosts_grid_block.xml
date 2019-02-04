@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ * 
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="apptha_airhotels_verifyhosts.grid.container">
+            <block class="Magento\Backend\Block\Widget\Grid" name="apptha_airhotels_verifyhosts.grid"
+                as="grid">
+                <arguments>
+                    <argument name="id" xsi:type="string">hostGrid</argument>
+                    <argument name="dataSource" xsi:type="object">Apptha\Airhotels\Model\ResourceModel\Verifyhost\Collection</argument>
+                    <argument name="default_sort" xsi:type="string">id</argument>
+                    <argument name="default_dir" xsi:type="string">desc</argument>
+                    <argument name="save_parameters_in_session" xsi:type="boolean">true</argument>
+                    <argument name="use_ajax" xsi:type="boolean">true</argument>
+                    <argument name="grid_url" xsi:type="url" path="*/*/grid">
+                        <param name="_current">1</param>
+                    </argument>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\Massaction"
+                    name="apptha_airhotels_verifyhosts.grid.massaction" as="grid.massaction">
+                    <arguments>
+                        <argument name="massaction_id_field" xsi:type="string">id</argument>
+                        <argument name="form_field_name" xsi:type="string">selected</argument>
+                        <argument name="options" xsi:type="array">
+                            <item name="accept" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Verify</item>
+                                <item name="url" xsi:type="string">*/*/massaccept</item>
+                            </item>
+                            <item name="reject" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Reject</item>
+                                <item name="url" xsi:type="string">*/*/massreject</item>
+                                <item name="confirm" xsi:type="string" translate="true">Are you
+                                    sure you want to reject?</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet"
+                    name="apptha_airhotels_verifyhosts.grid.columnSet" as="grid.columnSet">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="Host ID">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Host ID</argument>
+                            <argument name="index" xsi:type="string">host_id</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="Name">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Name</argument>
+                            <argument name="index" xsi:type="string">host_name</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="Email">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Email</argument>
+                            <argument name="index" xsi:type="string">host_email</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="Country">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Country</argument>
+                            <argument name="index" xsi:type="string">country_code</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="options" xsi:type="options"
+                                model="Magento\Directory\Model\Config\Source\Country" />
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="Approved">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Approved</argument>
+                            <argument name="index" xsi:type="string">host_tags</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="options" xsi:type="options"
+                                model="Apptha\Airhotels\Model\System\Config\Source\Approvedstatus" />
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="prooftype">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Proof Type</argument>
+                            <argument name="index" xsi:type="string">id_type</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="options" xsi:type="options"
+                                model="Apptha\Airhotels\Model\System\Config\Source\Prooftype" />
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="document">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Document</argument>
+                            <argument name="index" xsi:type="string">file_path</argument>
+                            <argument name="renderer" xsi:type="string">Apptha\Airhotels\Block\Adminhtml\Renderersource\Documentpath</argument>
+                            <argument name="filter" xsi:type="string"></argument>
+                            <argument name="sortable" xsi:type="string"></argument>
+                        </arguments>
+                    </block>
+                 </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

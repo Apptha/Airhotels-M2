@@ -1,0 +1,399 @@
+<?php
+/**
+ * Apptha
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.apptha.com/LICENSE.txt
+*
+* ==============================================================
+*                 MAGENTO EDITION USAGE NOTICE
+* ==============================================================
+* This package designed for Magento COMMUNITY edition
+* Apptha does not guarantee correct work of this extension
+* on any other Magento edition except Magento COMMUNITY edition.
+* Apptha does not provide extension support in case of
+* incorrect edition usage.
+* ==============================================================
+*
+* @category    Apptha
+* @package     Apptha_Airhotels
+* @version     0.2.9
+* @author      Apptha Team <developers@contus.in>
+* @copyright   Copyright (c) 2014 Apptha. (http://www.apptha.com)
+* @license     http://www.apptha.com/LICENSE.txt
+*
+*/ ?>
+
+<?php
+
+ $productId = $this->getRequest()->getParam('id');
+/**
+ * Get the value of 'id'
+ */
+$propertyId = $this->getRequest()->getParam('id');
+/**
+ * Get the booked dates from the airhotels collection
+ */
+$bookedDate = $this->getBookedDatesArray($productId);
+/**
+* getting the dateformat based on the Dateformat settings in admin panel.
+*/
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->datepickerFormat($listingDateFormat);
+
+?>
+<h2 class="calendar-title"><?php echo $this->getProductData($propertyId)->getName();?></h2>
+<div class="my-account">
+    <div class="page-title">
+        <h1 ><?php echo __('Calendar') ?></h1>
+        <a href="<?php echo $block->getUrl().'booking/listing/manage';?>">
+        <?php echo __('Back to My Listings')?>
+        </a>
+    </div>
+
+    <!--Block the calendar Light Box start-->
+    <div id="fade" class="black_overlay">
+    <div id="light" class="white_content">
+        <div id="priceValidation"></div>
+        <div class="search_calander_popupbox">
+            <a href = "javascript:void(0)" onclick = "closePoP()" class="close_link"><span>Close</span></a>
+            <div class="search_date" >
+                <div class="checkinDate1"><?php echo __('From'); ?></div>
+                <input readonly type="text" placeholder="<?php echo $listingDateFormat; ?>" autocomplete="off" id="inDate"  name="from" style="color: black;"/>
+            </div>
+            <div class="search_date">
+                <div class="checkinDate1"><?php echo __('To'); ?></div>
+                <div><input readonly type="text" placeholder="<?php echo $listingDateFormat; ?>" autocomplete="off"  id="inTo"  name="to" style="color: black;"/></div>
+            </div>
+            <div class="search_date">
+                <label for="availability" class="required lable_inner"><?php echo __('Availability') ?></label>
+                <div>
+                    <select id="bookavail" name="bookavail"  class="select input-text input-text_pro" style="color: black; margin: 0;"  onchange="hide_price(this.value);">
+                        <option value="1"><?php echo __('Special Price') ?></option>
+                        <option value="2"><?php echo __('Booked') ?></option>
+                        <option value="3"><?php echo __('Not Available') ?></option>
+                        <option value="4"><?php echo __('Available') ?></option>
+                    </select>
+                </div>
+            </div>
+            <div class="search_date" id="hide_per_night" >
+
+                <label for="pernight" class="required lable_inner"><?php echo __('Price (per day)') ?></label>
+                <div>
+                    <input type="text" name="pernight" autocomplete="off" id="pernight" style="color: black;"/> <span class="f-left" style="padding: 0px;"><?php echo $this->helper('Apptha\Airhotels\Helper\Order')->getCurrencySymbol() ?></span>
+                </div>
+            </div>
+            <input type="hidden" name="pid" id="pid" value="<?php echo $this->getRequest()->getParam('id'); ?>" />
+
+            <div class="special_price_calander">
+                <div class="f-left">
+                    <input type="submit" id="calendar_block_submit_button" class="button-glossy blue btn_grid" onclick="return postData();" value="<?php echo __("Submit") ?>"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--Block the calendar Light Box end-->
+    <?php
+    /**
+     * Get the product id
+     */
+
+    if (!isset($_GET["date"])) {
+        if (!isset($_GET["x"])) {
+            $x = date("n");
+        } else {
+            $x = $_GET["x"];
+        }
+        if ($x == ""){
+            $x = date("n");
+        }
+        /**
+ * Get the Value of  '$year'
+         */
+        $year = date("Y");
+        /**
+         * Get the Value of  '$date'
+         */
+        $date = strtotime("$year/$x/1");
+        /**
+         * Get the Value of  '$day'
+         */
+        $day = date("D", $date);
+        /**
+ * Get the Value of  '$m'
+         */
+        $m = date("F", $date);
+    }
+    ?>
+
+    <!-- After blocking redirect url -->
+    <input type="hidden" name="selectedBaseUrl" id="selectedBaseUrl" value="<?php echo $block->getUrl(); ?>" />
+
+
+    <div id="calendarWrapper" style="float:left">
+
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+                var url = "<?php echo $block->getUrl() . 'booking/listing/calendarview/?date=' . $x . '__' . $year . '&ajax=&productid='.$productId; ?>";
+                var flag = 0;
+                var timeflag = 0;
+                var preDate = '';
+                window.onload = function() {
+                    ajaxLoadCalendar(url);
+                }
+                jQuery(document).on('click', "td.normal", function() {
+                    var valeDate = jQuery(this).attr('id');
+                    var temp;
+                    jQuery("#priceValidation").html('');
+                    jQuery(this).addClass("sel");
+                    if (flag == 0) {
+                        preDate = '';
+                        jQuery(this).addClass("startsel");
+                        temp = valeDate.split("_");
+                        if (timeflag == 0) {
+                            jQuery("#inDate").val(jQuery.datepicker.formatDate('<?php echo $convertedDateFormat;?>', new Date(temp[1])));
+                        } else {
+                            jQuery("#inDate").val(temp[0]);
+                        }
+                        preDate = temp[1];
+                        flag = 1;
+
+                    } else {
+                        jQuery(".normal").removeClass("endsel");
+                        jQuery(this).addClass("endsel");
+                        temp = valeDate.split("_");
+                        jQuery('#inTo').val(jQuery.datepicker.formatDate('<?php echo $convertedDateFormat;?>', new Date(temp[1])));
+                        jQuery("#light").show();
+                        jQuery("#fade").show();
+                        flag = 0;
+                    }
+                });
+            function getRailwayTimeFormat(propertyServiceFromPeriod, propertyServiceFrom) {
+                    if (propertyServiceFromPeriod == 'PM') {
+                        if (propertyServiceFrom != 12) {
+                            propertyServiceFromRail = parseInt(propertyServiceFrom) + 12;
+                        } else {
+                            propertyServiceFromRail = propertyServiceFrom;
+                        }
+                    } else {
+                        if (propertyServiceFrom != 12) {
+                            propertyServiceFromRail = propertyServiceFrom;
+                        } else {
+                            propertyServiceFromRail = 0;
+                        }
+                    }
+                    return propertyServiceFromRail;
+             }
+
+                function ajaxLoadCalendar(url) {
+                    jQuery.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function(data) {
+                            jQuery("#calendarWrapper").html(data);
+                            jQuery("#light").hide();
+                        }
+                    });
+                }
+
+                jQuery(function() {
+                    jQuery(document).on("mouseover", '.normal', function() {
+                        if (jQuery(this).attr("class") != "startsel") {
+                            if (jQuery(".startsel").length > 0) {
+                                var classes = jQuery(this).attr("class").split(" ");
+                                var startclass = jQuery(".startsel").attr("class").split(" ");
+                                jQuery(".normal").not(".startsel").removeClass("sel");
+                                for (var i = parseInt(startclass[2]); i <= parseInt(classes[2]); i++) {
+                                    jQuery("." + i).addClass("sel");
+                                }
+                                jQuery(this).addClass("sel");
+                            }
+                        }
+                        if (jQuery(".startsel").length > 0 && jQuery(".endsel").length > 0) {
+                            var startselectDate = jQuery(".startsel").attr("class").split(" ");
+                            var endselectDate = jQuery(".endsel").attr("class").split(" ");
+                            for (var i = parseInt(startselectDate[2]); i <= parseInt(endselectDate[2]); i++) {
+                                jQuery("." + i).addClass("sel");
+                            }
+                        }
+
+                    });
+
+                    jQuery(document).on("mouseout", ".blockcal", function() {
+                        if (jQuery(".startsel").length > 0 && jQuery(".endsel").length > 0) {
+                            var startselectDate = jQuery(".startsel").attr("class").split(" ");
+                            var endselectDate = jQuery(".endsel").attr("class").split(" ");
+
+                            for (var i = 1; i <= 31; i++) {
+                                jQuery("." + i).removeClass("sel");
+                            }
+                            for (var i = parseInt(startselectDate[2]); i <= parseInt(endselectDate[2]); i++) {
+                                jQuery("." + i).addClass("sel");
+                            }
+                        }
+                    });
+                });
+                function closePoP() {
+                    jQuery("#light").hide();
+                    jQuery("#timelight").hide();
+                    jQuery("#fade").hide();
+                    jQuery("#monthid").val(" ");
+                    jQuery("#yearid").val(" ");
+                    jQuery(".normal").removeClass("startsel");
+                    jQuery(".normal").removeClass("endsel");
+                    jQuery(".normal").removeClass("sel");
+                    timeflag = 0;
+                    flag = 0;
+                    jQuery("#inDate").removeAttr("disabled");
+                    jQuery("#inTo").removeAttr("disabled");
+                }
+                function postData() {
+                jQuery('#calendar_block_submit_button').attr('disabled','disabled');
+                    var checkin = jQuery.datepicker.formatDate('mm/dd/yy', new Date(jQuery("#inDate").val()));
+                    var checkout = jQuery.datepicker.formatDate('mm/dd/yy', new Date(jQuery("#inTo").val()));
+                    var booked = new Array();
+                    <?php foreach($bookedDate as $key => $val){ ?>
+                            booked.push(new Date('<?php echo $val; ?>'));
+                        <?php } ?>
+                        for( i = 0; i < booked.length; i++){
+                            if((new Date(checkin)) < (booked[i]) && (new Date(checkout)) > (booked[i])){
+                                    alert("<?php echo __('Please select the Dates which are not booked.')?>");
+                                jQuery('#calendar_block_submit_button').removeAttr('disabled');
+                                return false;
+                            }
+                        }
+                    if(checkin.indexOf('-') !== -1){
+                            var fromTime= checkin.substr(0, checkin.indexOf('-'));
+                            var fromMeridian = checkin.substr(checkin.indexOf("-") + 1);
+                            var toTime= checkout.substr(0, checkout.indexOf('-'));
+                            var toMeridian = checkout.substr(checkout.indexOf("-") + 1);
+
+                            var fromTimeValue = getRailwayTimeFormat(fromMeridian,fromTime);
+                            var toTimeValue = getRailwayTimeFormat(toMeridian,toTime);
+                            if(parseInt(fromTimeValue) > parseInt(toTimeValue)){
+                                alert("<?php echo __('Please select a different To Date.');?>");
+                                jQuery('#calendar_block_submit_button').removeAttr('disabled');
+                                return false;
+                       }
+                    }
+                    if(new Date(checkin) > new Date(checkout)){
+                            alert("<?php echo __('Please select a different To Date.')?>");
+                            jQuery('#calendar_block_submit_button').removeAttr('disabled');
+                            return false;
+                    }
+                    var bookavail = jQuery("#bookavail").val();
+                    var productId = jQuery("#pid").val();
+                    var price = jQuery("#pernight").val();;
+                    var validatePrice = function(price) {
+                      return /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(price);
+                    }
+                    var validatePriceResponse = validatePrice(price);
+                    if(bookavail == 3 || bookavail == 4 ){validatePriceResponse = true;}
+                    if(validatePriceResponse){
+                        var date = jQuery("#currentMonth").val() + "__" + jQuery("#currentYear").val();
+                        var req = jQuery.noConflict();
+                        var posturl = "<?php echo $block->getUrl().'booking/listing/blockdate' ?>";
+                        req.ajax({
+                            type: 'POST',
+                            url: posturl,
+                            data: {check_in: checkin, check_out: checkout, book_avail: bookavail, productid: productId, price_per: price, date: date},
+                            success: function(data) {
+                                jQuery("#light").hide();
+                                jQuery("#fade").hide();
+                                jQuery("#timelight").hide();
+                                jQuery("#monthid").val(" ");
+                                jQuery("#yearid").val(" ");
+                                var selectedDateValue = '';
+                                var selectedMonthValue = '';
+                        selectedDateValue = jQuery.datepicker.formatDate('mm/dd/yy', new Date(jQuery("#inDate").val()));
+                        var selectedDateArray = selectedDateValue.split("/");
+                        var selectedBaseUrl =   jQuery("#selectedBaseUrl").val();
+                        var selectedProductId =   jQuery("#pid").val();
+                        postUrl = selectedBaseUrl + 'booking/listing/calendarview/?date=' + parseInt(selectedDateArray[0]) +'__'+selectedDateArray[2]+'&ajax=&productid=' + selectedProductId;
+                        ajaxLoadCalendar(postUrl);
+                        timeflag = 0;
+                        flag = 0;
+                        jQuery('#calendar_block_submit_button').removeAttr('disabled');
+                        }
+                        });
+                        return true;
+                    } else if (/^[a-zA-Z0-9]+$/.test(price)){
+                                                jQuery("#priceValidation").html('<?php echo __('Please enter valid price')?>');
+                                                jQuery('#calendar_block_submit_button').removeAttr('disabled');
+                                                return false;
+                    }
+                    else{
+                                                jQuery("#priceValidation").html('<?php echo __('Please Enter price field')?>');
+                                                jQuery('#calendar_block_submit_button').removeAttr('disabled');
+                                                return false;
+                    }
+                }
+                function hide_price(hide_pri)
+                {
+                    var hide_pri;
+                    if (hide_pri == 3 || hide_pri == 4)
+                    {
+                        document.getElementById('hide_per_night').style.display = 'none';
+                    }
+                    else
+                    {
+                        document.getElementById('hide_per_night').style.display = 'block';
+                    }
+                }
+                jQuery(document).keyup(function(e){
+                 if (e.keyCode === 27) {
+                         closePoP();
+                   }
+              });
+</script>
+<div id="cal_legend">
+        <ul>
+            <li><span class="past_grid"><?php echo __('Past') ?></span></li>
+            <li><span class="available_grid"><?php echo __('Available') ?></span></li>
+            <li><span class="specialprice_grid"><?php echo __('Special Price') ?></span></li>
+            <li><span class="booked_grid"><?php echo __('Booked') ?></span></li>
+            <li><span class="unavailable_grid"><?php echo __('Not Available') ?></span></li>
+        </ul>
+</div>
+    <script type="text/javascript">
+    // Remove double click text select
+    document.ondblclick = function(evt) {
+        if (window.getSelection)
+            window.getSelection().removeAllRanges();
+        else if (document.selection)
+            document.selection.empty();
+    }
+    </script>
+ <script type="text/javascript">
+    require([
+"jquery",
+"jquery/ui",
+"mage/calendar"
+], function(jQuery){
+    jQuery(function() {
+         jQuery.datepicker.setDefaults({ dateFormat: '<?php echo $convertedDateFormat;?>' });
+            var dates = jQuery( "#inDate, #inTo" ).datepicker({
+                changeMonth: false,
+                minDate: '0',
+                numberOfMonths: 1,
+                monthNames:["<?php echo __('January') ?>","<?php echo __('February') ?>","<?php echo __('March') ?>","<?php echo __('April') ?>","<?php echo __('May') ?>","<?php echo __('June') ?>","<?php echo __('July') ?>","<?php echo __('August') ?>","<?php echo __('September') ?>","<?php echo __('October') ?>","<?php echo __('November') ?>","<?php echo __('December') ?>"],
+                onSelect: function( selectedDate ) {
+                    var option = this.id == "inDate" ? "minDate" : "maxDate";
+                        if(this.id == "inDate"){
+                                var depart = jQuery.datepicker.parseDate(jQuery.datepicker._defaults.dateFormat, selectedDate);
+                                        depart.setDate(depart.getDate() + 1);
+                                        jQuery("#inTo" ).datepicker(  "option", "minDate", depart );
+                            }
+                    }
+            });
+    });
+ });
+</script>

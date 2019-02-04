@@ -1,0 +1,101 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_Airhotels
+ * @version     1.0.0
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ */
+?>
+<?php
+$orderCollection = $this->order();
+$orderCount = $orderCollection->count();
+$enableCancelRequest = $this->helper('Apptha\Airhotels\Helper\Data')->getCancelRequest();
+$listingDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getListingDateformat();
+$convertedDateFormat = $this->helper('Apptha\Airhotels\Helper\Dateformat')->getConvertedDate($listingDateFormat);
+?>
+<div class="my-account" style="padding: 0">
+     <h2 class="account-heading"><?php echo __('Upcoming Trips');?></h2>
+</div>
+<table cellspacing="0" cellpadding="0" id="property_trip_table" border="0">
+     <?php if ($orderCount > 0) { ?>
+     <thead>
+          <tr>
+               <th width="6%"><?php echo __('S.No.'); ?></th>
+               <th width="31%"><?php echo __('Experience Name'); ?></th>
+               <th width="15%"><?php echo __('Start On'); ?></th>
+               <th width="15%"><?php echo __('End On'); ?></th>
+               <th width="20%"><?php echo __('Receipt'); ?></th>
+               <?php if ($enableCancelRequest == 1) {?>
+               <th width="20%"><?php echo __('Action'); ?></th>
+               <?php } ?>
+          </tr>
+          </thead>
+<tbody>
+<?php $i= 1;?>
+<?php foreach ($orderCollection as $order) : ?>
+<tr>
+               <td><?php echo $i ?></td>
+               <td><?php echo $order->getListingName()?></td>
+               <td><?php echo date($convertedDateFormat, strtotime($order->getFromdate()));?></td>
+               <td><?php echo date($convertedDateFormat, strtotime($order->getTodate()));?></td>
+               <?php $params = ['order_id' => $order->getOrderItemId(), 'customer' => '1',];?>
+               <td><a class="view-booking" href="<?php echo $block->getUrl('sales/order/view/',$params); ?>"><?php echo __('View Booking'); ?></a></td>
+               <?php
+        $cancelRequestStatus = $this->helper('Apptha\Airhotels\Helper\Order')->getCancelRequestStatus($order->getOrderItemId());
+        if ($enableCancelRequest == 1) {
+            ?>
+        <td>
+        <?php
+if (! $cancelRequestStatus) {
+    $params = ['id'=>$order->getOrderItemId()];
+                ?><a
+                    class="cancel-booking" onclick="return confirm('<?php echo __('Are you sure want to cancel booking').'?'; ?>')"
+                    href="<?php echo $block->getUrl('airhotels/mytrip/cancelrequest/',$params); ?>"><?php echo __('Cancel booking'); ?></a>
+                 <?php }elseif($cancelRequestStatus==4 || $cancelRequestStatus==2){?>
+                 <span class="cancel-request-accept"><?php echo __('Cancel Request Rejected'); ?></span>
+                 <?php  }elseif( $cancelRequestStatus==3 ){?>
+                 <span class="cancel-request-accept"><?php echo __('Cancel Request Accepted'); ?></span>
+                 <?php  }else{?>
+                 <span class="cancel-request"><?php echo __('Cancel Request Sent'); ?></span>
+          <?php
+            }
+         }?>
+       </td>
+          </tr>
+<?php
+$i++;
+endforeach;?>
+ <?php
+} else {
+    ?>
+     <div class="norecords">
+               <p class="no_transaction_records"><?php  echo __('You have no upcoming trips'); ?></p>
+          </div>
+<?php
+}
+?>
+</tbody>
+</table>
+<?php echo $block->getPagerHtml();?>
